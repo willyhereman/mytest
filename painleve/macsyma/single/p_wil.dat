@@ -1,0 +1,18 @@
+
+debug1 : true ;
+debug2 : true ;
+
+/* Comment:
+To use the simplification suggested by Kruskal the file needs to 
+contain the following two lines: 
+*/
+
+do_simplification: true;
+prefer_variable:x;
+
+/* beta:1; */
+
+/* The equation given by Willy: */
+
+eq:ftx[1,0](t,x)+f*(ftx[0,1](t,x))^2+f^2*ftx[0,2](t,x)+ftx[0,6](t,x); 
+

@@ -1,0 +1,48 @@
+
+/* ************************************************************************* */
+/*                           Batch file P_BOUS.DAT                           */
+/* ************************************************************************* */
+
+debug1 : true;
+debug2 : true;
+
+/* To use the simplification suggested by Kruskal the file needs to contain 
+the following two lines : */ 
+
+do_simplification: true ;
+prefer_variable: x;
+
+/* To use user-supplied alpha (called beta) the file needs to contain
+   the following line */
+
+/* beta : -2; */  
+
+/* To shortcut the verification of the compatibility conditions set
+   do_resonances: false */
+
+/* do_resonances :false ; */
+
+/* To give uzero from outside the flag giving_uzero must be set to true 
+   on the next line, you must give the correct uzero and its dependencies */
+
+/*
+giving_uzero : true; 
+depends(g,x) ;
+supplied_uzero : -12*diff(g,x)^2;
+*/
+
+/* Sometimes solutions to u[0] can be very messy, for those cases if you still
+   want to solve for u[0] explicitly set the flag solving_uzero to true
+   on the next line */
+
+/*
+solving_uzero : false ;
+*/
+
+/* The only data that must be given is the equation of course */
+/* The BOUSSINESQ equation :  */
+
+eq: ftx[2,0](t,x)+2*f*ftx[0,2](t,x)+2*ftx[0,1](t,x)^2+(1/3)*ftx[0,4](t,x); 
+
+/* *************************** END of P_BOUS.DAT ************************** */
+

@@ -1,0 +1,231 @@
+
+(D13)     CSM$USERS:[WHEREMAN.PROGRAMS.NPAINLEVE.SINGLE]P_SIMODE.OUT;1
+
+
+(C14) batch("np_exec.max")$
+
+
+(C15) /* ************************************************************************* */
+/*                           Batch file NP_EXEC.MAX                          */
+/* ************************************************************************* */
+
+exec_painleve (eq, alpha, do_resonances, max_resonance, do_simplification)$
+
+  SUBSTITUTE  X ----> G + X0
+
+----------------------------------------------------------------
+
+                                        3
+PAINLEVE ANALYSIS OF EQUATION,  F    - F   = 0
+                                 G G
+
+----------------------------------------------------------------
+
+                  ALPHA
+  SUBSTITUTE  U  G       FOR f IN ORIGINAL EQUATION.
+               0
+
+  MINIMUM POWERS OF g ARE  [3 ALPHA, ALPHA - 2]
+
+                       3 ALPHA         3
+    * COEFFICIENT OF  G         IS  - U
+                                       0
+
+                       ALPHA - 2
+    * COEFFICIENT OF  G           IS  U  (ALPHA - 1) ALPHA
+                                       0
+
+    NOTE : THIS TERM VANISHES FOR   [ALPHA = 0, ALPHA = 1] ,
+
+    VERIFY IF ANY OF THESE VALUES FOR ALPHA LEADS TO DOMINANT
+
+    BEHAVIOR,
+
+    IF IT DOES THEN RUN THE PROGRAM AGAIN WITH THIS VALUE
+
+    AS USER SUPPLIED ALPHA, CALLED BETA.
+
+----------------------------------------------------------------
+
+  FOR EXPONENTS ( 3 ALPHA ) AND ( ALPHA - 2 ) OF g,
+
+    WITH alpha =  - 1 , POWER OF g is  - 3  ----> SOLVE FOR  U
+                                                              0
+
+                    2      1
+       TERM  - U  (U  - 2) --  IS DOMINANT
+                0   0       3
+                           G
+
+       IN EQUATION.
+
+----------------------------------------------------------------
+
+1 )  WITH  U  = - SQRT(2)  ----> FIND RESONANCES
+            0
+
+                    ALPHA         R + ALPHA
+    SUBSTITUTE  U  G       +  U  G           FOR f IN EQUATION
+                 0             R
+
+                                    R - 3
+       TERM ( (R - 4) (R + 1) ) U  G       IS DOMINANT
+                                 R
+
+       IN EQUATION.
+
+       THE ONLY NON-NEGATIVE INTEGRAL ROOT IS  [R = 4]
+
+ 
+
+    WITH MAXIMUM RESONANCE =  4  ----> CHECK RESONANCES.
+
+                              4
+                             ====
+                             \         K - 1
+    SUBSTITUTE POWER SERIES   >    U  G       FOR f IN EQUATION.
+                             /      K
+                             ====
+                             K = 0
+
+    WITH U  = - SQRT(2)
+          0
+
+                         1
+        * COEFFICIENT OF -- IS  - 6 U
+                          2          1
+                         G
+
+        U  = 0
+         1
+
+                         1
+        * COEFFICIENT OF - IS  - 6 U
+                         G          2
+
+        U  = 0
+         2
+
+        * COEFFICIENT OF 1 IS  - 4 U
+                                    3
+
+        U  = 0
+         3
+
+        * COEFFICIENT OF G IS  0
+
+        U  IS ARBITRARY !
+         4
+
+       COMPATIBILITY CONDITION IS SATISFIED !
+
+----------------------------------------------------------------
+
+2 )  WITH  U  = SQRT(2)  ----> FIND RESONANCES
+            0
+
+                    ALPHA         R + ALPHA
+    SUBSTITUTE  U  G       +  U  G           FOR f IN EQUATION
+                 0             R
+
+                                    R - 3
+       TERM ( (R - 4) (R + 1) ) U  G       IS DOMINANT
+                                 R
+
+       IN EQUATION.
+
+       THE ONLY NON-NEGATIVE INTEGRAL ROOT IS  [R = 4]
+
+ 
+
+    WITH MAXIMUM RESONANCE =  4  ----> CHECK RESONANCES.
+
+                              4
+                             ====
+                             \         K - 1
+    SUBSTITUTE POWER SERIES   >    U  G       FOR f IN EQUATION.
+                             /      K
+                             ====
+                             K = 0
+
+    WITH U  = SQRT(2)
+          0
+
+                         1
+        * COEFFICIENT OF -- IS  - 6 U
+                          2          1
+                         G
+
+        U  = 0
+         1
+
+                         1
+        * COEFFICIENT OF - IS  - 6 U
+                         G          2
+
+        U  = 0
+         2
+
+        * COEFFICIENT OF 1 IS  - 4 U
+                                    3
+
+        U  = 0
+         3
+
+        * COEFFICIENT OF G IS  0
+
+        U  IS ARBITRARY !
+         4
+
+       COMPATIBILITY CONDITION IS SATISFIED !
+
+----------------------------------------------------------------
+
+
+(C16) output()$
+
+----------------------------------------------------------------
+
+AT THE END OF THE COMPUTATIONS THE FOLLOWING ARE AVAILABLE:
+
+* U VALUE(S)
+
+  (type uval[j,k,l] where 1 <= j <=  1 and 0 <= k <=  [4]
+
+  and 1 <= l <=  [2] )
+
+  j stands for j_th alpha,k stands for u[k],l stands for
+
+  l_th solution set for u[0] 
+
+* ALPHA VALUE(S)
+
+  (type alpha[j] where 1 <= j <=  1 )
+
+  j stands for j_th alpha
+
+* COMPATIBILITY CONDITION(S)
+
+  (type compcond[j,k] where 1 <= j <=  1 and 1 <= k <=  [2] )
+
+  j stands for j_th alpha,k stands for k_th solution set for u[0]
+
+* RESONANCE(S)
+
+  (type res[j,k] where 1 <= j <=  1 and 1 <= k <=  [2] )
+
+  j stands for j_th alpha,k stands for k_th solution set for u[0]
+
+----------------------------------------------------------------
+
+TO SEE THIS MENU AGAIN JUST TYPE < output() >
+
+----------------------------------------------------------------
+
+
+
+(C17) /* ************************** END of NP_EXEC.MAX ************************** */
+
+
+
+(C18) closefile();

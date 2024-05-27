@@ -1,0 +1,31 @@
+
+/* sp_ono.dat */
+
+/* system due to Konno and Oono */
+
+/*
+To use the simplification suggested by Kruskal the file needs to 
+contain the following two lines: 
+*/ 
+
+do_simplification: false;
+prefer_variable: x;
+
+debug1: true; 
+debug2: true; 
+debugfullinfo: false;
+
+/* The equation(s) */
+
+eq[1]: ftx[1,1,0](t,x)+2*cc*f[2]*ftx[2,0,1](t,x);
+eq[2]: ftx[2,1,1](t,x)-2*f[1]*f[2];
+
+noeqs: 2$
+nofun: 2$
+
+/* where cc is arbitrary real constant */
+/* betalist: [[alpha[1]=-2,alpha[2]=-1]]; */
+
+betalist: [];
+
+/* sp_ono.dat */

@@ -1,0 +1,9 @@
+
+/* sp_elist.max */
+
+eqlist: []$ 
+
+for i:1 thru noeqs do 
+	eqlist: endcons(eq[i],eqlist)$ 
+
+/* sp_elist.max */

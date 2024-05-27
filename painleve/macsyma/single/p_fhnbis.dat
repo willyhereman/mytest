@@ -1,0 +1,21 @@
+
+/* ************************************************************************* */
+/*                        Batch file P_FHNBIS.DAT                            */
+/* ************************************************************************* */
+
+/* Comment:
+To use the simplification suggested by Kruskal the file needs to 
+contain the following two lines: 
+
+do_simplification: true;
+prefer_variable:x;
+*/
+
+/* The FITZHUGH-NAGUMO equation with extra term  b f f_x:  */
+
+eq : ftx[1,0](t,x)-ftx[0,2](t,x)+f*(1-f)*(a-f)+b*f*ftx[0,1](t,x); 
+
+/* where a and b are arbitrary real constants */
+
+/* ************************ END of P_FHNBIS.DAT ************************** */
+

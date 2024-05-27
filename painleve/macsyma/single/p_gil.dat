@@ -1,0 +1,21 @@
+
+/* ************************************************************************* */
+/*                           Batch file p_gil.dat                            */
+/* ************************************************************************* */
+
+/* Comment: 
+To use the simplification suggested by Kruskal the file needs to 
+contain the following two lines: 
+
+do_simplification: true;
+prefer_variable:x;
+*/
+
+/* The Gilson equation :  */
+
+eq: ftx[1,0](t,x)-ftx[0,3](t,x)-c*ftx[0,2](t,x)-6*f^2*ftx[0,1](t,x);
+
+/* where c is an arbitrary real constant */
+
+/* **************************** END of p_gil.dat ************************** */
+

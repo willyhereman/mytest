@@ -1,0 +1,296 @@
+
+(D13)      CSM$USERS:[WHEREMAN.PROGRAMS.NPAINLEVE.SINGLE]P_FHN.OUT;4
+
+
+(C14) batch("np_exec.max");
+
+
+(C15) /* ************************************************************************* */
+/*                           Batch file NP_EXEC.MAX                          */
+/* ************************************************************************* */
+
+exec_painleve (eq, alpha, do_resonances, max_resonance, do_simplification)$
+
+  SUBSTITUTE  X ----> G + X0
+
+----------------------------------------------------------------
+
+                                                                 3
+PAINLEVE ANALYSIS OF EQUATION,  SQRT(2) F    + C F  - 2 SQRT(2) F
+                                         G G      G
+
+                                                            2
+                                               + (2 A + 2) F  - SQRT(2) A F  = 0
+
+----------------------------------------------------------------
+
+                  ALPHA
+  SUBSTITUTE  U  G       FOR f IN ORIGINAL EQUATION.
+               0
+
+  MINIMUM POWERS OF g ARE  [3 ALPHA, 2 ALPHA, ALPHA - 2]
+
+                       3 ALPHA                   3
+    * COEFFICIENT OF  G         IS  - 2 SQRT(2) U
+                                                 0
+
+                       2 ALPHA         2
+    * COEFFICIENT OF  G         IS  2 U  (A + 1)
+                                       0
+
+                       ALPHA - 2
+    * COEFFICIENT OF  G           IS  SQRT(2) U  (ALPHA - 1) ALPHA
+                                               0
+
+    NOTE : THIS TERM VANISHES FOR   [ALPHA = 0, ALPHA = 1] ,
+
+    VERIFY IF ANY OF THESE VALUES FOR ALPHA LEADS TO DOMINANT
+
+    BEHAVIOR,
+
+    IF IT DOES THEN RUN THE PROGRAM AGAIN WITH THIS VALUE
+
+    AS USER SUPPLIED ALPHA, CALLED BETA.
+
+----------------------------------------------------------------
+
+  FOR EXPONENTS ( 3 ALPHA ) AND ( 2 ALPHA ) OF g,
+
+    POWER OF g IS NOT MINIMAL 
+						-- SKIP THIS VALUE OF ALPHA.
+
+----------------------------------------------------------------
+
+  FOR EXPONENTS ( 3 ALPHA ) AND ( ALPHA - 2 ) OF g,
+
+    WITH alpha =  - 1 , POWER OF g is  - 3  ----> SOLVE FOR  U
+                                                              0
+
+                                              1
+       TERM  - 2 SQRT(2) (U  - 1) U  (U  + 1) --  IS DOMINANT
+                           0       0   0       3
+                                              G
+
+       IN EQUATION.
+
+----------------------------------------------------------------
+
+1 ) WITH  U  = 1  ---> FIND RESONANCES
+           0
+
+                    ALPHA         R + ALPHA
+    SUBSTITUTE  U  G       +  U  G           FOR f IN EQUATION
+                 0             R
+
+                                            R - 3
+       TERM ( SQRT(2) (R - 4) (R + 1) ) U  G       IS DOMINANT
+                                         R
+
+       IN EQUATION.
+
+       THE ONLY NON-NEGATIVE INTEGRAL ROOT IS  [R = 4]
+
+ 
+
+    WITH MAXIMUM RESONANCE =  4  ----> CHECK RESONANCES.
+
+                              4
+                             ====
+                             \         K - 1
+    SUBSTITUTE POWER SERIES   >    U  G       FOR f IN EQUATION.
+                             /      K
+                             ====
+                             K = 0
+
+    WITH U  = 1
+          0
+
+                         1
+        * COEFFICIENT OF -- IS  - (C - 2 A + 6 SQRT(2) U  - 2)
+                          2                             1
+                         G
+
+               C - 2 A - 2
+        U  = - -----------
+         1      6 SQRT(2)
+
+                                           2      2
+                                 SQRT(2) (C  - 4 A  + 4 A + 72 U  - 4)
+                         1                                      2
+        * COEFFICIENT OF - IS  - -------------------------------------
+                         G                        12
+
+                2      2
+               C  - 4 A  + 4 A - 4
+        U  = - -------------------
+         2             72
+
+        * COEFFICIENT OF 1 IS  
+
+               3      2                      3      2
+              C  - 3 A  C + 3 A C - 3 C - 2 A  + 3 A  + 3 A + 108 SQRT(2) U  - 2
+                                                                           3
+            - ------------------------------------------------------------------
+                                              27
+
+               (C - 2 A + 1) (C + A - 2) (C + A + 1)
+        U  = - -------------------------------------
+         3                  108 SQRT(2)
+
+                                 C (C - 2 A + 1) (C + A - 2) (C + A + 1)
+        * COEFFICIENT OF G IS  - ---------------------------------------
+                                               27 SQRT(2)
+
+        U   IS ARBITRARY ?
+         4
+
+                                    C (C - 2 A + 1) (C + A - 2) (C + A + 1)
+        COMPATIBILITY CONDITION:  - --------------------------------------- 
+                                                  27 SQRT(2)
+
+                                                                            = 0,
+
+   *** CONDITION IS NOT SATISFIED. ***
+
+   *** CHECK FOR FREE PARAMETERS OR PRESENCE OF U  . ***
+                                                 0
+
+----------------------------------------------------------------
+
+2 ) WITH  U  = - 1  ---> FIND RESONANCES
+           0
+
+                    ALPHA         R + ALPHA
+    SUBSTITUTE  U  G       +  U  G           FOR f IN EQUATION
+                 0             R
+
+                                            R - 3
+       TERM ( SQRT(2) (R - 4) (R + 1) ) U  G       IS DOMINANT
+                                         R
+
+       IN EQUATION.
+
+       THE ONLY NON-NEGATIVE INTEGRAL ROOT IS  [R = 4]
+
+ 
+
+    WITH MAXIMUM RESONANCE =  4  ----> CHECK RESONANCES.
+
+                              4
+                             ====
+                             \         K - 1
+    SUBSTITUTE POWER SERIES   >    U  G       FOR f IN EQUATION.
+                             /      K
+                             ====
+                             K = 0
+
+    WITH U  = - 1
+          0
+
+                         1
+        * COEFFICIENT OF -- IS  C + 2 A - 6 SQRT(2) U  + 2
+                          2                          1
+                         G
+
+             C + 2 A + 2
+        U  = -----------
+         1    6 SQRT(2)
+
+                                         2      2
+                               SQRT(2) (C  - 4 A  + 4 A - 72 U  - 4)
+                         1                                    2
+        * COEFFICIENT OF - IS  -------------------------------------
+                         G                      12
+
+              2      2
+             C  - 4 A  + 4 A - 4
+        U  = -------------------
+         2           72
+
+        * COEFFICIENT OF 1 IS  
+
+               3      2                      3      2
+              C  - 3 A  C + 3 A C - 3 C + 2 A  - 3 A  - 3 A - 108 SQRT(2) U  + 2
+                                                                           3
+              ------------------------------------------------------------------
+                                              27
+
+             (C - A - 1) (C - A + 2) (C + 2 A - 1)
+        U  = -------------------------------------
+         3                108 SQRT(2)
+
+                               C (C - A - 1) (C - A + 2) (C + 2 A - 1)
+        * COEFFICIENT OF G IS  ---------------------------------------
+                                             27 SQRT(2)
+
+        U   IS ARBITRARY ?
+         4
+
+                                  C (C - A - 1) (C - A + 2) (C + 2 A - 1)
+        COMPATIBILITY CONDITION:  ---------------------------------------  = 0,
+                                                27 SQRT(2)
+
+   *** CONDITION IS NOT SATISFIED. ***
+
+   *** CHECK FOR FREE PARAMETERS OR PRESENCE OF U  . ***
+                                                 0
+
+----------------------------------------------------------------
+
+  FOR EXPONENTS ( 2 ALPHA ) AND ( ALPHA - 2 ) OF g,
+
+    POWER OF g IS NOT MINIMAL 
+						-- SKIP THIS VALUE OF ALPHA.
+
+----------------------------------------------------------------
+
+
+(C16) output()$
+
+----------------------------------------------------------------
+
+AT THE END OF THE COMPUTATIONS THE FOLLOWING ARE AVAILABLE:
+
+* U VALUE(S)
+
+  (type uval[j,k,l] where 1 <= j <=  1 and 0 <= k <=  [4]
+
+  and 1 <= l <=  [2] )
+
+  j stands for j_th alpha,k stands for u[k],l stands for
+
+  l_th solution set for u[0] 
+
+* ALPHA VALUE(S)
+
+  (type alpha[j] where 1 <= j <=  1 )
+
+  j stands for j_th alpha
+
+* COMPATIBILITY CONDITION(S)
+
+  (type compcond[j,k] where 1 <= j <=  1 and 1 <= k <=  [2] )
+
+  j stands for j_th alpha,k stands for k_th solution set for u[0]
+
+* RESONANCE(S)
+
+  (type res[j,k] where 1 <= j <=  1 and 1 <= k <=  [2] )
+
+  j stands for j_th alpha,k stands for k_th solution set for u[0]
+
+----------------------------------------------------------------
+
+TO SEE THIS MENU AGAIN JUST TYPE < output() >
+
+----------------------------------------------------------------
+
+
+
+(C17) /* ************************** END of NP_EXEC.MAX ************************** */
+
+
+(D17)                                 DONE
+
+
+(C18) closefile();

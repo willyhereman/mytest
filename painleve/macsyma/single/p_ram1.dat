@@ -1,0 +1,23 @@
+
+/* ************************************************************************* */
+/*                           Batch file p_ram1.dat                           */
+/* ************************************************************************* */
+
+/* Comment: DO ALPHA = 0 CASE */
+
+/* 
+To use the simplification suggested by Kruskal the file needs to 
+contain the following two lines: 
+
+do_simplification: true;
+prefer_variable:x;
+*/
+
+/* The Ramani (1.2) equation :  */
+
+eq : (x-c)^2*fx[1](x)+a*f;
+
+/* where a and c are arbitrary real constants */
+
+/* **************************** END of P_RAM1.DAT ************************* */
+

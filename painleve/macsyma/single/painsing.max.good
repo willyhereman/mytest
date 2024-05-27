@@ -1,0 +1,1082 @@
+/* August 27, 1996: */
+/* Blended in the changes made in the programs of August 9th and 11th. */
+/* These were changes made prior to the design of the analyser. */
+/* Took function nonnegroots out of program, replaced by analyser. */
+/* Initialized list of parameters to []. Added print messages about that. */
+/* August 18, 1996: */
+/* Took the function nonnegroots out of program and replaced it by analyser. */
+/* Change in data files needed: list of parameters must be given explicitly. */
+/* Added the analyser and the new tools. Changed the flwo chart at bottom. */
+/* August 8, 1996: */
+/* Add: checking the number of strictly positive resonances. */
+/* Started work on the tool analyser.max. */
+/* July 18, 1996: */
+/* Added evaluation with respect to differentiation.  */
+
+      /**************************************************************/
+      /*                                                            */
+      /*           *** M A C S Y M A  P R O G R A M ***             */
+      /*                                                            */
+      /*   THE PAINLEVE TEST FOR SINGLE ORDINARY AND PARTIAL        */
+      /*                DIFFERENTIAL EQUATIONS                      */
+      /*                                                            */
+      /*  program name: NP_SING.MAX                                 */
+      /*  purpose: carry out the Painleve integrability test for    */
+      /*           a single ordinary or partial differential eq.    */
+      /*           (with or without the Kruskal simplification)     */
+      /*  for systems use NP_SYS.MAX which also handles single eqs. */
+      /*  computers: tested on VAX-8650 and IBM Risc 6000           */
+      /*             on IBM Compatible PC                           */
+      /*  language: MACSYMA release 417.125                         */
+      /*            compatible with Macsyma 2.0 for PC              */
+      /*                                                            */
+      /*  authors:  W. Hereman, Unal Goktas and Chris Elmer         */
+      /*                                                            */
+      /*           Department of Mathematical and Computer Sciences */
+      /*           Colorado School of Mines,                        */
+      /*           Golden, CO 80401-1887, USA                       */
+      /*                                                            */
+      /*           Version  3.0.  Updated: August 27, 1996          */
+      /*                                                            */
+      /**************************************************************/
+
+/* *********************************************************************** */
+/*                                                                         */
+/*     Batch file NP_SING.MAX with the main program for the Painleve test  */
+/*                                                                         */
+/*              Initial version of the program was written by              */
+/*                    Willy HEREMAN and Eric VAN DEN BULCK                 */
+/*                                                                         */
+/*               Originally developed at: Mathematics Department           */
+/*               University of Wisconsin, Madison, WI 53706 USA            */
+/*                                                                         */
+/*                   Includes the Kruskal simplification                   */
+/*                                                                         */
+/* *********************************************************************** */
+
+/*
+Copyright by Willy Hereman, Eric Van den Bulck, and Unal Goktas: 
+
+No part of the program NP_SING.MAX for the PAINLEVE TEST of single ODEs 
+and PDEs may be reproduced or sold without written consent of the authors.
+
+MACSYMA copyright and trademark: Macsyma, Inc., Arlington, Ma, USA.
+
+We are glad to offer you the possibility to carry out the tedious
+calculations for the Painleve test for single ODEs and PDEs by computer.
+
+You will be using this version of MACSYMA if your computer has the 
+possibility to implement Common Lisp Macsyma 412 or higher, 
+including Macsyma 417.125 and 2.0 for PC.
+*/
+
+/* *********************************************************************** */
+/*									   */
+/*	procedures -	nonposint					   */
+/*			solveforhipower					   */
+/*			constant					   */
+/*			pow						   */
+/*			inthipow					   */
+/*                      myfreeof                                           */
+/*                      stripper                                           */
+/*			get_exponent					   */
+/*			find_coef					   */
+/*			coefuk0						   */
+/*			check_conditions				   */
+/*			check_resonances				   */
+/*			domcoefr					   */
+/*			analyser					   */
+/*			find_resonances					   */
+/*			solveforuzero					   */
+/*			find_uzero					   */
+/*			solve_alpha					   */
+/*			painleve					   */
+/*			exec_painleve					   */
+/*									   */
+/* *********************************************************************** */
+
+define_variable (do_simplification, false, boolean)$
+define_variable (do_resonances, true, boolean)$
+define_variable (giving_uzero, false, boolean)$
+define_variable (solving_uzero, false, boolean)$
+define_variable (debug1, false, boolean)$
+define_variable (debug2, false, boolean)$
+declare (max_resonance, integer)$
+
+/* *********************************************************************** */
+/* nonposint(x) -	returns true if x is a nonpositive integer.	   */
+/*			returns false otherwise.			   */
+/* ----------------------------------------------------------------------- */
+nonposint (expres) := if integerp(expres) then is(expres<=0) else false$
+
+/* *********************************************************************** */
+/* solveforhipow(expr,var) -	solves expr for the highest power of var.  */
+/* ----------------------------------------------------------------------- */
+solveforhipow (expr,var) := block( [m],
+   m : hipow(expand(expr),var),
+   return(part(solve(expr,var^m),1))
+)$ /* end of solveforhipow */
+
+/* *********************************************************************** */
+/* constant(expr,var,q) - returns the constant term in expression (in      */
+/*			     terms of var).				   */ 
+/* ----------------------------------------------------------------------- */
+constant (expr,var,q) := block ([h,co],
+  co : ratcoef(expand(expr),var,0),
+  if q # 1 then (
+     co : ratsubst (h,var^(1/q),co),
+     co : ratcoef(co,h,0)
+  ),
+  return (co)
+)$ /* end of constant */
+
+/* *********************************************************************** */
+/* get_exponent(expr,var) - returns exponent of var in first term of expr. */
+/* ----------------------------------------------------------------------- */
+get_exponent(expr,var):= block (
+  if freeof(var,expr) then return('[]),
+  if atom(expr) then return(1),
+  if inpart(expr,0)="^" and inpart(expr,1)=var then
+    return(inpart(expr,2)) 
+  else
+    return('[])
+)$ /* end of get_exponent */
+
+/* *********************************************************************** */
+/* pow(expr,var)- returns a list of the powers of var occuring in expr.	   */
+/* ----------------------------------------------------------------------- */
+pow(expr,var):= block (
+  [power_list:'[],ff:expand(expr),tmp1,tmp2,infun,inflag:true],
+  declare(power_list,special),
+  if not atom(ff) and part(ff,0) = "+" then infun:args(ff) else infun:[ff],
+  for ii% in infun do (
+    tmp1:ii%,
+    if not atom(tmp1) and part(tmp1,0) = "-" then tmp1:substpart("+",tmp1,0),
+    if atom(tmp1) or inpart(tmp1,0)#"*"  then tmp1:[tmp1],
+    tmp2 :maplist(lambda([u],get_exponent(u,var)),tmp1),
+    tmp2 :delete('[],tmp2),
+    if tmp2 = '[] then (
+/*      if not member(0,power_list) then */  power_list:endcons(0,power_list)
+    )
+    else (
+/*      if not member(first(tmp2),power_list) then */
+       power_list:endcons(first(tmp2),power_list)
+    )
+  ),
+  power_list
+)$ /* end of pow */
+
+/* *********************************************************************** */
+/* inthipow(exp,var) - returns highest integer power of var in exp.	   */
+/* ----------------------------------------------------------------------- */
+inthipow(exp,var) := block ([list,len,high],
+    list : sublist(pow(exp,var),integerp),
+    len  : length(list),
+    if len = 0 then return(0)
+    else (
+         high : apply('max,list),
+         return(high)))$
+/* end of inthipow */
+
+/* Block: Tool to strip off numerical factors */
+stripper(expr):=Block([tempexpr,ne,de,le,pp], tempexpr:factor(expr),
+le:length(tempexpr),
+if le#0 and part(tempexpr,0)="-" then(
+tempexpr:-tempexpr, le:length(tempexpr)),
+if le#0 and part(tempexpr,0)="/" then(
+tempexpr:factor(tempexpr), ne:num(tempexpr), de:denom(tempexpr),
+if (scalarp(de) and is(de>0)) then de:1 else de:stripper(de),
+if (scalarp(ne) and is(ne>0)) then ne:1 else ne:stripper(ne),
+tempexpr:factor(ne/de), le:length(tempexpr)),
+if le#0 and part(tempexpr,0)="*" then(
+   for i:1 thru le-1 do(
+   pp:part(tempexpr,i),
+   if (scalarp(pp) and is(pp>0)) then
+   tempexpr:tempexpr/pp)),
+   return(tempexpr))$
+/* End of the Block stripper(expr) to strip off numerical factors */
+
+/* funtion myfreeof allows to test of dependence of expr on any member 
+   of a given list and one one variable */
+myfreeof(listpar,onevar,expr) := block([controlflag,lenlistpar],
+if listpar#[] then (lenlistpar:length(listpar),
+    controlflag:true,
+    for kk:1 thru lenlistpar while controlflag do (
+    controlflag: freeof(part(listpar,kk),expr) ),
+ if controlflag and freeof(onevar,expr) then true else false )
+else (if freeof(onevar,expr) then true else false) )$
+/* end function myfreeof */
+
+/* END of TOOLS */
+
+/* *********************************************************************** */
+/* find_coef(eq1,list,len,i) - finds the coefficients of g for the powers  */ 
+/*				listed in list.				   */
+/*				called by : painleve.			   */
+/*				calls     : user_note1.			   */
+/* ----------------------------------------------------------------------- */
+find_coeff (eq1, list, len, alpha) := block ([eq2, exp],
+  exp : expand(eq1),
+  for  i:1 thru len do (
+    eq2 : expand(ratcoef(exp,g,part(list,i))),
+    eq2 : ratcoef(eq2,g,0),
+    eq2 : ratsubst(0,g^alpha,eq2),
+    eq2 : factor(ev(eq2,diff)),
+    print("    * COEFFICIENT OF ",g^part(list,i), " IS ", eq2),
+    user_note1(eq2,alpha)
+  ) /* end of do loop */
+)$ /* end of find_coeff */
+
+/* ********************************************************************* */
+/* substduzero(ii,jj,kk,ll,uk,uzero) -                                   */
+/* --------------------------------------------------------------------- */
+substduzero(ii,jj,kk,ll,uk,uzero) := block([duzero],
+	for i:1 thru ii do (
+		duzero : diff(uzero,x,i),
+		duzero : solve(duzero,diff(u[0],x,i)),
+		duzero : rhs(part(duzero,1)),
+		for j:1 thru ii do (
+			uk : ratsubst(duzero ^j,diff(u[0],x,i) ^ j,uk)
+		)
+	),
+	for j:1 thru jj do (
+		duzero : diff(uzero,y,j),
+		duzero : solve(duzero,diff(u[0],y,j)),
+		duzero : rhs(part(duzero,1)),
+		for i:1 thru jj do (
+			uk : ratsubst(duzero ^i,diff(u[0],y,j) ^i,uk)
+		)
+	),
+	for k1:1 thru kk do (
+		duzero : diff(uzero,z,k1),
+		duzero : solve(duzero,diff(u[0],z,k1)),
+		duzero : rhs(part(duzero,1)),
+		for j:1 thru kk do (
+			uk : ratsubst(duzero ^j,diff(u[0],z,k1) ^j,uk)
+		)
+	),
+	for l:1 thru ll do (
+		duzero : diff(uzero,t,l),
+		duzero : solve(duzero,diff(u[0],t,l)),
+		duzero : rhs(part(duzero,1)),
+		for i:1 thru ll do (
+			uk : ratsubst(duzero ^i,diff(u[0],t,l) ^i,uk)
+		)
+	),
+	return(uk)
+)$ /* end of substduzero */
+
+/* *********************************************************************** */
+/* coefuks0() - 							   */
+/* ----------------------------------------------------------------------- */
+coefuks0() := block([],
+   if not freeof(u[k],co) then
+      print("*** RESONANCE VIOLATED BY APPEARANCE OF",u[k],
+                   "FROM NON-LEADING TERMS. ***")
+   else block( [top,j,cox0,cl,temper],
+      print("       ", u[k]^s, " IS ARBITRARY ?"),
+      co : ev(co,diff),
+      co : factor(co),
+      co : ratsimp(ev(co,diff)),
+      if co # 0 then co : radcan(co),
+      print("        COMPATIBILITY CONDITION: ", co, " = 0,"),
+      if co = 0 then 
+          print("       CONDITION IS SATISFIED !")
+      else (
+          cocond:append(cocond,[co]),
+          print("   *** CONDITION IS NOT SATISFIED. ***"),
+          print("   *** CHECK FOR FREE PARAMETERS OR PRESENCE OF", 
+                      u[0],". ***"),
+          overallflag:false
+      ),
+      top : num(co),
+      if not freeof(x0,top) then (
+       	  temper : inthipow(top,x0),
+          for j:0 thru temper do (
+          	top : expand(top),
+               	cox0 : coeff(top,x0,0),
+               	top : (top-cox0)/x0,
+               	cl : factor(ev(cox0,diff)),
+                if cl # 0 then cl : radcan(cl),
+               	if cl # 0 then 
+               		print("      * COEFFICIENT OF"
+					    ,x0^j,"IN NUMERATOR IS",cl)
+	  ),
+          top : expand(top),
+          if top # 0 then top : radcan(top),
+          if top # 0 then print("REMAINING TERMS:",expand(top))
+      )
+   ),
+ return(cocond)
+)$ /* end of function coefuks0 */
+
+/* *********************************************************************** */
+/* check_conditions()							   */
+/* ----------------------------------------------------------------------- */
+check_conditions() := block([eq3,ii,jj,kk,ll],
+   eq3 : ratsubst(exp(ii*x+jj*y+kk*z+ll*t),f,eq),
+   eq3 : ev(eq3,diff),
+   eq3 : ratsubst(0,x,eq3),
+   eq3 : ratsubst(0,y,eq3),
+   eq3 : ratsubst(0,z,eq3),
+   eq3 : ratsubst(0,t,eq3),
+   ii : hipow(eq3,ii),
+   jj : hipow(eq3,jj),
+   kk : hipow(eq3,kk),
+   ll : hipow(eq3,ll),
+   for i : 1 thru s*rmax do block ([k,tt],
+     if dalfa # 1 then for j : 1 thru dalfa-1 do (
+         co : ratcoef(expand(eq1),g,j/dalfa),
+         co : factor(ev(co,diff)), 
+         if co # 0 then co : radcan(co),
+         if co # 0 then (
+            tt : g^(i-1+(j/dalfa)+minpowg),
+            print("        * COEFFICIENT OF",tt, "IS",co),
+            print("        NECESSARY CONDITION IS NOT SATISFIED,"),
+            print("        CHECK FOR FREE PARAMETERS OR PRESENCE OF u[0]."),
+            overallflag:false,
+            if not freeof(g,co) then (
+               print("*** FATAL ERROR : COEFFICIENT STILL CONTAINS g. ***"),
+               overallflag:false,
+               print("THE EQUATION FAILS THE TEST."),
+               return
+            ), /* end if */
+            eq1 : radcan(eq1 - co*g^(j/dalfa))
+         )
+    ),
+    eq1 : ratsimp(eq1/g),
+    co : constant (eq1,g,dalfa),
+    eq1 : eq1 - co,
+    co : ratsimp(xthru(co)),
+    if not integerp(co) then co : factor(ev(co,diff)),
+    if not freeof(u,rhs(uzero)) 
+       then ( co : substduzero(ii,jj,kk,ll,expand(co),uzero),
+              co : factor(ev(co,diff)) ),
+    if not freeof(u,rhs(uzero))
+       then ( co : substduzero(ii,jj,kk,ll,co,uzero),
+              co : factor(ev(co,diff)),
+              co : radcan(co) ),
+    print("        * COEFFICIENT OF",g^(i+minpowg),"IS ",factor(co)),   
+    k : i/s,
+    cocond:[],
+    if co # 0 then co : radcan(co),
+    if co # 0 and integerp(k) then (
+       if ratcoef(co,u[k],s) = 0 then coefuks0()
+       else block ([temp],
+         uk: solve(co,u[k]^s),
+         uk : part(uk,1),
+         temp : factor(ev(rhs(uk),diff)),
+         uk : ratsubst(temp,rhs(uk),uk),
+	 if not freeof(u,rhs(uzero)) 
+            then uk : substduzero(ii,jj,kk,ll,uk,uzero),
+	 if not freeof(u,rhs(uzero)) 
+            then uk : substduzero(ii,jj,kk,ll,uk,uzero),
+         print("       ",uk),
+         instantu:append(instantu,[rhs(uk)]),
+         eq1 : ratsubst(rhs(uk),lhs(uk),eq1),
+         if uzero # [] then eq1 : ratsubst(rhs(expand(uzero)),lhs(uzero),eq1),
+         eq1 : ev(eq1,diff)
+       ) 
+    ) /* end else if */
+    else if co = 0 and integerp(k) then (
+       print ("       ", u[k]^s, "IS ARBITRARY !"),
+       print ("       COMPATIBILITY CONDITION IS SATISFIED !")
+    )
+  )  
+)$ /* end of function check_conditions */
+
+/* *********************************************************************** */
+/* check_resonances(eq,valalfa,minpowg,uzero,rmax,s)			   */
+/* ----------------------------------------------------------------------- */
+check_resonances(eq,valalfa,minpowg,uzero,rmax,s) := block (
+  [series,eq1,eq2,dalfa,co,uk],
+  print ("    WITH MAXIMUM RESONANCE = ", rmax, " ----> CHECK RESONANCES."),
+  print ("    SUBSTITUTE POWER SERIES ", 'sum(u[k]*g^(valalfa+k),k,0,rmax),
+         " FOR f IN EQUATION."),
+  series : sum(u[k]*g^(valalfa+k),k,0,rmax),
+  eq1 : ratsubst(series,f,eq),
+  eq1 : ev(eq1,diff),
+  eq1 : expand(eq1 / (g^minpowg)),
+  eq1 : ratsimp(ratsubst(0,g^(s*rmax+1),eq1)),
+  co : denom(eq1),
+  if integerp(co) and co # 1 then eq1 : num(eq1),
+  if uzero # [] then eq1 : ratsubst(rhs(expand(uzero)),lhs(uzero),eq1),
+  dalfa : denom(abs(valalfa)),
+  co : constant (eq1,g,dalfa),
+  if co # 0 then co : radcan(co),
+  if co # 0 then (
+     print("*** FATAL ERROR : NON-ZERO LEADING COEFFICIENT REMAINS ",
+           "AFTER SUBSTITUTING ", uzero, ". ***"),
+     return ()
+  ),
+  if dalfa # 1 then eq1 : radcan(eq1),
+  if uzero # [] then print("    WITH", uzero) 
+                else print("    WITH", u[0], "ARBITRARY ?"),
+  check_conditions()
+)$ /* end of function check_resonances */
+
+/* *********************************************************************** */
+/* domcoefr(powU0)							   */
+/* ----------------------------------------------------------------------- */
+domcoefr(powU0) := block([],
+  coefr : 0,
+  for i : 1 thru temp2 while coefr = 0 do (
+    eq2 : ratcoef(eq1,u[r],i),
+    eq2 : ratcoef(eq2,g,i*r),
+    coefr : constant (eq2,g,dalfa),
+    if uzero # [] then (
+       coefr : expand(coefr),
+       while hipow(coefr,u[0]) >= powU0 do   
+          coefr : expand(ratsubst(rhs(expand(uzero)), lhs(uzero), coefr))
+    ),
+    s : i
+  ),
+  coefr : factor(num(ratsimp(radcan(coefr/u[r]^s)))),
+  print ("       TERM (",coefr,")",u[r]^s,g^(s*r+minpowg)," IS DOMINANT"),
+  print ("       IN EQUATION."),
+  coefr:xthru(coefr/factor(gcd(coefr,diff(coefr,r),r))),
+  if not atom(coefr) and part(coefr,0) = "-" then coefr : - coefr,
+  if not atom(coefr) and part(coefr,0) = "/" then coefr : num(coefr)
+)$ /* end of domcoefr */
+
+/* NEW FUNCTION */
+/* Analyser for polynomial which gives the resonance values */
+/* Written by W. Hereman, updated: August 18, 1996 */
+analyser(eq,valalfa,minpowg,uzero,expr,s,r,paramlist) := block(
+[nexpr,hipowr,tval,tvaln,ll,rtsnonneg,lrtsnonneg,otherroots,result,testval,
+lenexpr,leftover,trneg:1,trzero:1,trone:1,trpos:1,trzeropow:1,tronepow:1,
+trfrac:1,trqua:1,trhicub:1,carryover:1],
+/* ### 
+print("This expr is at the start of the analyser, before going into stripper:"),
+print(expr),
+### */
+nexpr:stripper(factor(expr)),
+hipowr:inthipow(nexpr,r),
+/* check if r=-1 is a root */
+   tval : stripper(ev(subst(r=-1,nexpr))),
+   if (not tval = 0) then ( /* begin 1 */
+   print("TO HAVE THE ROOT R = -1, THE CONDITION: "),
+   print(tval,"= 0"),
+   print("MUST BE SATISFIED. ABORTING THE TEST."),
+   print("THE EQUATION FAILS THE TEST."),
+   overallflag:false,closefile(),abort() ), /* end 1 */
+/* check structure of expressing that comes in */
+   if (not atom(nexpr) and part(nexpr,0) = "+") or (atom(nexpr)) then (
+    if myfreeof(paramlist,uo,nexpr) then ( /* begin 2 */
+    if hipowr = 1 then (
+      tval : ev(subst(r=-1,nexpr)),
+      tvaln : ev(subst(r=0,nexpr)),
+      if coeff(nexpr,r) = 1 then ( /* begin 3 */
+          if tvaln>1 then trpos : nexpr, 
+          if tvaln=1 then trone : nexpr, 
+          if tvaln=0 then trzero : nexpr, 
+          if tvaln<0 then trneg : nexpr
+      ) /* end 3 */ ) /* end 2 */
+      else carryover: carryover*nexpr
+  ) )
+  else if (not atom(nexpr)) and (part(nexpr,0) = "*" or part(nexpr,0) = "^") 
+    then ( /* begin 0 */
+      if part(nexpr,0)="^" then lenexpr:length(nexpr)-1 else 
+         lenexpr:length(nexpr),
+      for ii : 1 thru lenexpr do block([pp,inthipowpp,hipowpp,
+      ttval,ttvaln,solpp,valpp], /* begin 10 */
+      if part(nexpr,0)="^" then pp:nexpr else pp : part(nexpr,ii),
+      /* print("Working with ", pp), */
+      if myfreeof(paramlist,uo,pp) then ( /* begin 20 */
+      hipowpp:hipow(pp,r),
+      inthipowpp:inthipow(pp,r),
+      ttval : ev(subst(r=-1,pp)),
+      ttvaln : ev(subst(r=0,pp)),
+         /* cases: without multiple roots */
+         if (inthipowpp=1 and coeff(pp,r)=1) then ( /* begin 30 */
+          if ttvaln>1 then trpos : trpos*pp, 
+          if ttvaln=1 then trone : trone*pp, 
+          if ttvaln=0 then trzero : trzero*pp, 
+          if ttvaln<0 then trneg : trneg*pp ), /* end 30 */
+       /* cases: with multiple roots */
+      if (inthipowpp>1 and (not ttval=0)) and ((not ttvaln=0) and
+         (not coeff(expand(pp),r^inthipowpp)=1)) and 
+         (not part(pp,0)="+") then (
+         trfrac : trfrac*pp, 
+         solpp : solve(pp,r),
+         valpp : -rhs(part(solpp,1)),
+         print("THE FRACTIONAL ROOT R =",-valpp,"OCCURS WITH MULTIPLICITY",
+         inthipowpp,".")),
+      if (inthipowpp=1 and (not ttval=0)) and ((not ttvaln=0) and
+         ((not coeff(pp,r)=1)) and part(pp,0)="+") then 
+         trfrac : trfrac*pp, 
+      if (inthipowpp >= 2 and ttvaln=0) then (
+             trzeropow : trzeropow*pp, 
+             print("THE ROOT R = 0 OCCURS WITH MULTIPLICITY",inthipowpp,"."),
+             print("THE EQUATION FAILS THE TEST."),
+             overallflag:false),
+      if (inthipowpp >= 2 and ttval=0) then (
+             tronepow : tronepow*pp, 
+             print("THE ROOT R = -1 OCCURS WITH MULTIPLICITY",inthipowpp,"."),
+             print("THE EQUATION FAILS THE TEST."),
+             overallflag:false),
+      if (inthipowpp >= 2 and hipowpp=1) and 
+          coeff(expand(pp),r^inthipowpp)=1 then ( /* begin 40 */
+          /* solvable cases */
+          solpp: solve(pp,r),
+          valpp: -rhs(part(solpp,1)),
+          if valpp>=2 then (trpos : trpos*pp, 
+           print("THE ROOT R =",-valpp,"OCCURS WITH MULTIPLICITY",
+           inthipowpp,".")),
+          if valpp<0 then (trneg : trneg*pp, 
+           print("THE ROOT R =",-valpp,"OCCURS WITH MULTIPLICITY",
+           inthipowpp,"."))
+         ), /* end 40 */
+        if inthipowpp = 2 and part(pp,0) = "+" then trqua : trqua * pp,
+        if inthipowpp > 2 and part(pp,0) = "+" then trhicub : trhicub * pp,
+        if (inthipowpp > 1 and part(pp,0) = "^") and hipowpp=2
+        then trqua : trqua * pp
+  ) /* end 20 */
+   else carryover : carryover*pp
+  ) /* end 10 */ ), /* end 0 */
+  if trneg*trzeropow*trzero = 1 
+  then (
+       if freeof(uo,nexpr) 
+        then ( /* begin then 1 */
+            lrtsnonneg:no_resonances,
+            print("       THERE ARE NO NON-NEGATIVE INTEGRAL ROOTS FOR r."),
+    if trpos*trqua*trfrac#1 then ( /* begin 50 */
+    otherroots : solve(trpos*trqua*trfrac,r),
+    if otherroots = [] then 
+    print("         ALSO WATCH FOR REPEATED ROOTS R = 0 OR R = -1.")
+    else ( print("         THE REMAINING, PERHAPS REPEATED, ROOTS ARE:"), 
+    print("            ",otherroots) ) ), /* end 50 */
+            if (not carryover = 1) then (
+            print("       THE REMAINING UNSOLVED POLYNOMIAL IS:"), 
+            print("       ",carryover,".") ) ) /* end then 1 */
+        else ( /* begin else 1 */
+        lrtsnonneg:no_resonances,
+        print ("       THE COEFFICIENT OF u[r] IS NOT FREEOF uo."),
+            if (not carryover = 1) then (
+            print("       THE REMAINING UNSOLVED POLYNOMIAL IS:"), 
+            print("      ", carryover,".") ) 
+        ) /* end else 1 */
+       )
+  else (
+    rtsnonneg : solve(trneg*trzeropow*trzero,r),
+    ll : length(rtsnonneg),
+    if ll = 1 then
+     print ("       THE ONLY NON-NEGATIVE INTEGRAL ROOT IS ", rtsnonneg,".")
+    else
+     print ("       THE",ll,"NON-NEGATIVE INTEGRAL ROOTS ARE ", rtsnonneg,"."),
+    lrtsnonneg : map(rhs,rtsnonneg),
+    if hipowr>ll+1 then (
+    print("         CONCLUSION: APART FROM R = -1, THE EQUATION HAS ONLY",ll,
+    "NON-NEGATIVE ROOT(S)."),
+    print("         THERE SHOULD BE",hipowr-ll-1,
+    "MORE NON-NEGATIVE INTEGER SINGLE ROOT(S)."),
+    print("         THE EQUATION FAILS THE TEST."),
+    if trpos*trqua*trfrac#1 then ( /* begin 60 */
+    otherroots : solve(trpos*trqua*trfrac,r),
+    if otherroots = [] then 
+    print("         WATCH FOR REPEATED ROOTS R = 0 OR R = -1.")
+    else ( print("         THE REMAINING, PERHAPS REPEATED, ROOTS ARE:"), 
+    print("            ",otherroots) ) ), /* end 60 */
+      if (not trhicub = 1) or (not carryover = 1) then (
+    print("         THE REMAINING UNSOLVED POLYNOMIAL IS:"),
+    print("         ",trhicub*carryover,".") ),
+    overallflag:false ),
+    print(" "),
+    maxrnonneg : apply(max,lrtsnonneg)
+   ),  /* closes the else */
+ /* checking if the test was done correctly */
+ result:trneg*trpos*tronepow*trqua*trhicub*carryover*
+ trzeropow*trfrac*trzero*trone,
+ testval:factor(expand(result-nexpr)),
+ if (not testval=0) then (
+   print("       ANALYSIS OF THE POLYNOMIAL IN R WAS INCOMPLETE."),
+   leftover:factor(nexpr/result),
+   print("       THE ANALYSIS MISSED THE FACTOR",leftover),
+   print("       POSSIBLE CAUSE OF TROUBLE: IF THE EQUATION HAS PARAMETERS,"),
+   print("       THEY SHOULD BE GIVEN IN A LIST. EXAMPLE, parameters:[aa,bb];")
+   ) else 
+   print("       ANALYSIS OF THE POLYNOMIAL IN R WAS COMPLETE."),
+    instantu : [],
+    if maxrnonneg > 0 then (
+      if do_resonances then (
+         if integerp(max_resonance) then maxrnonneg : max_resonance,
+         check_resonances(eq,valalfa,minpowg,uzero,maxrnonneg,s)
+      )
+      else
+         print ("    EXIT FIND_RESONANCES WITHOUT CHECKING.")
+    )
+    else (
+         print("       EXIT FIND_RESONANCES WITHOUT CHECKING."),
+         print("       ABORTING !"),
+         print("THE EQUATION MAY FAIL THE REST OF THE TEST."),
+         closefile(),
+         abort() ),
+ return (lrtsnonneg)
+)$ /* end of block */
+/* end of block analyser */
+
+/* *********************************************************************** */
+/* find_resonances()							   */
+/* ----------------------------------------------------------------------- */
+find_resonances(eq,valalfa,minpowg,uzero) := block (
+  [eq1,eq2,coefr,s,i,ii,temp1,temp2,powU0,dalfa],
+  print ("    SUBSTITUTE ", u[0]*g^alpha, " + ", u[r],g^(alpha+r),
+         " FOR f IN EQUATION"),
+  eq1 : ratsubst(u[0]*(g^valalfa)+u[r]*(g^(r+valalfa)),f,eq),
+  eq1 : ev(eq1,diff),
+  eq1 : ratsimp(eq1/(g^minpowg)),
+  dalfa : denom (abs(valalfa)),
+  if dalfa # 1 then eq1 : radcan(eq1), 
+  powU0 : hipow(lhs(uzero),u[0]),
+  temp1 : denom(eq1), if integerp(temp1) and temp1 # 1 then eq1 : num(eq1),
+  temp2 : hipow(subst(r=1,eq1),g),
+  domcoefr(powU0),
+/* reso:nonnegroots(eq,valalfa,minpowg,uzero,temp2,s,r),  */
+/* print("This coefr is going into the analyser:", coefr), */
+  reso : analyser(eq,valalfa,minpowg,uzero,coefr,s,r,paramlist),
+/*  print("This is reso at the end of function find_resonances:",reso), */
+  return (reso)
+)$ /* end of function find_resonances */
+
+/* *********************************************************************** */
+/* solveforuzero()							   */
+/* ----------------------------------------------------------------------- */
+solveforuzero(poweruo,uzero,lowest) := block( [],
+/* if not integerp(poweruo) or poweruo < 1 then error1,	*/
+   uzero : factor(uzero),
+   if poweruo > 4 then (
+	if part(rhs(uzero),0) # "*" then (
+	     print(" CANNOT SOLVE EXPLICITLY FOR ",u[0]),
+	   /*  return (cons(uzero,[])) */
+             orjuzero:uzero,
+             depends(uo,[t,x,y,z]),
+             uzero:[u[0]=uo],
+             return (uzero)
+        )
+	else uzero : solve(lowest,u[0])
+   )
+   else if poweruo > 2 then (
+        if (part(rhs(uzero),0) = "*") or solving_uzero then (
+		uzero : solve(lowest,u[0])
+	)
+	else (
+		print(" The equation ",uzero,"has long and messy solutions"),
+		print(" No explicit solution for ",u[0],"will be found."),
+		print(" If an explicit solution to",u[0],"is desired,"),
+		print("     set flag solving_uzero to true."),
+		/* return (cons(uzero,[])) */ 
+                depends(uo,[t,x,y,z]), 
+                uzero :[u[0]=uo],
+                return (uzero) 
+	)
+   )
+   else if poweruo > 0 then
+	uzero : solve(lowest,u[0]),
+   return(uzero)
+)$
+
+/* *********************************************************************** */
+/* find_uzero()								   */
+/* ----------------------------------------------------------------------- */
+find_uzero(eq,valalfa,minpowg) := block( 
+  [eq2,r,lowest,lowesti,dalfa,poweruo],
+  print ("    WITH alpha = ", valalfa, ", POWER OF g is ", minpowg,
+         " ----> SOLVE FOR ", u[0]),
+  eq2 : ratsubst(u[0]*(g^valalfa),f,eq),
+  eq2 : ev(eq2,diff),
+  eq2 : ratsimp(eq2 / (g^minpowg)),
+  dalfa : denom (abs(valalfa)),
+  if dalfa # 1 then eq2 : radcan(eq2), 
+  lowest : denom(eq2), 
+  if integerp(lowest) and lowest # 1 then  eq2 : num(eq2),  
+  lowest : factor(constant (eq2,g,dalfa)),
+  print ("       TERM ",lowest, g^minpowg, " IS DOMINANT"),
+  print ("       IN EQUATION."),
+  if lowest = 0 then  find_resonances (eq,valalfa,minpowg,[])
+  else if freeof(u[0],lowest) then (
+         print("***  FAILURE OF PAINLEVE TEST -- NONZERO LEADINGORDER IS ",
+               "FREE OF",u[0],", ABANDON THIS alfa VALUE. ***"),
+         overallflag:false) 
+  else (
+    for i:1 while remainder(lowest,u[0]) = 0 do lowest : xthru(lowest/u[0]),
+    if freeof(u[0],lowest) then (
+       print("  ***  FAILURE OF PAINLEVE TEST, ", u[0]=0,
+             ". ABANDON THIS alpha VALUE. ***"),
+       overallflag:false)
+    else (
+       if (denom(lowest) # 1) then lowest : num(lowest),
+       lowest : factor(lowest/(gcd(lowest,diff(lowest,u[0]),u[0]))),
+       if not atom(lowest) and part(lowest,0) = "-" then lowest : -lowest, 
+       if not atom(lowest) and part(lowest,0) = "/" then lowest : num(lowest),
+       if not atom(lowest) and part(lowest,0) # "*" then (
+        uzero : solveforhipow(lowest,u[0]),
+	poweruo : hipow(lhs(uzero),u[0]),
+        uzeroset[counteralpha]:solveforuzero(poweruo,uzero,lowest),
+        if giving_uzero  
+          then (
+           print("YOU HAVE CHOSEN TO USE THE SUPPLIED VALUE OF u[0]"),
+           print("CHECKING THE SUPPLIED VALUE OF u[0]"),
+           if member(u[0]=supplied_uzero,uzeroset[counteralpha])  
+            then uzeroset[counteralpha]:[u[0]=supplied_uzero] 
+            else (
+                 print("SUPPLIED u[0] IS NOT CORRECT"),
+                 print("USING THE TRUE u[0] (u[0]'s)") 
+                 )
+          ), 
+            
+/*           if not integerp(rhs(uzero)) then			      */ 
+/*             uzero : ratsubst(factor(rhs(uzero)),rhs(uzero),uzero), */
+	  for j:1 thru length(uzeroset[counteralpha]) do (
+	    printline(),
+print (j,")  WITH ",part(uzeroset[counteralpha],j), " ----> FIND RESONANCES"),
+            if hipow(lhs(part(uzeroset[counteralpha],j)),u[0])=1 
+             then uval[counteralpha,0,j]: rhs(part(uzeroset[counteralpha],j))
+             else uval[counteralpha,0,j]: not_explicitly_available,
+           res[counteralpha,j]:
+           find_resonances(eq,valalfa,minpowg,part(uzeroset[counteralpha],j)),
+           countert[counteralpha]:length(instantu)+length(res[counteralpha,j]),
+           compcond[counteralpha,j]:cocond,
+           counterr:0,
+             for ttt:1 thru countert[counteralpha] do (
+              if not member(ttt,res[counteralpha,j]) 
+               then uval[counteralpha,ttt,j]:part(instantu,ttt-counterr) 
+               else (
+                    uval[counteralpha,ttt,j]:resonance_val,
+                    counterr:counterr+1
+                    ) 
+             )
+	  )
+        )           
+        else (
+              uzeroset[counteralpha]:[],
+              for i:1 thru length(lowest) do (
+               lowesti : part(lowest,i),
+               if not freeof(u[0],lowesti) then (
+                 uzero : solveforhipow(lowesti,u[0]),
+	         poweruo : hipow(lhs(uzero),u[0]),
+	         uzero : solveforuzero(poweruo,uzero,lowesti),
+                 uzeroset[counteralpha] :append(uzeroset[counteralpha],uzero)
+                )
+              ), 
+              if giving_uzero then(
+               print("YOU HAVE CHOSEN TO USE THE SUPPLIED VALUE OF u[0]"),
+               print("CHECKING THE SUPPLIED CALUE OF u[0]"),
+               if member(u[0]=supplied_uzero,uzeroset[counteralpha]) 
+                 then uzeroset[counteralpha]:[u[0]=supplied_uzero]
+                 else (
+                      print("SUPPLIED u[0] IS NOT CORRECT"),
+                      print("USING THE TRUE u[0] (u[0]'s)")
+                      )
+              ),
+	      for j:1 thru length(uzeroset[counteralpha]) do (
+		 printline(),
+                 print (j,") WITH ",part(uzeroset[counteralpha],j),
+                                  " ---> FIND RESONANCES"),
+                if hipow(lhs(part(uzeroset[counteralpha],j)),u[0])=1
+                then uval[counteralpha,0,j]:rhs(part(uzeroset[counteralpha],j))
+                else uval[counteralpha,0,j]:not_explicitly_available,
+                res[counteralpha,j]:
+           find_resonances(eq,valalfa,minpowg,part(uzeroset[counteralpha],j)),
+           countert[counteralpha]:length(instantu)+length(res[counteralpha,j]),
+                 compcond[counteralpha,j]:cocond, 
+                 counterr:0,
+                 for ttt:1 thru countert[counteralpha] do (
+                   if not member(ttt,res[counteralpha,j])     
+                     then uval[counteralpha,ttt,j]:part(instantu,ttt-counterr)
+                     else (
+                          uval[counteralpha,ttt,j]:resonance_val,
+                          counterr:counterr+1 
+                          )
+                 )
+	      )
+             )
+  ))
+)$ /* end of function find_uzero */
+
+/* *********************************************************************** */
+/* solve_alpha()							   */
+/* ----------------------------------------------------------------------- */
+solve_alpha (len, list, alpha) := block([alfalist],
+  alfalist:[],
+  for i : 1 thru len-1 do	
+     for j:i+1 thru len do block([valalfa,list1,minpowg,li,lj],
+    	printline(),
+    	valalfa : solve(part(list,i)=part(list,j),alpha),
+	if valalfa = ALL then (
+		valalfa : alpha
+	)
+	else (
+    		valalfa : rhs(part(valalfa,1))
+	),
+       		list1 : subst(alpha=valalfa,list),
+       		minpowg : part(list1,i),
+       		li : part(list,i),
+       		lj : part(list,j),
+         	print ("  FOR EXPONENTS (",li,") AND (",lj,") OF g,"),
+       		if not member(valalfa,alfalist) then (
+         		alfalist : cons(valalfa,alfalist),
+         		if apply(min,list1) # minpowg then
+           			print("    POWER OF g IS NOT MINIMAL 
+						-- SKIP THIS VALUE OF ALPHA.")
+         		else (
+                              counteralpha:counteralpha+1,
+                              alpha[counteralpha]:valalfa,
+                              find_uzero(eq,valalfa,minpowg)
+                             )
+       		)
+       		else  print (" alpha = ",valalfa, "ALREADY DONE!")
+
+   ) /* This is the end of the first line including the block */
+)$ /* end of solve_alpha */
+
+/* *********************************************************************** */
+/* painleve()								   */
+/* ----------------------------------------------------------------------- */
+painleve (eq,alpha,do_resonances, max_resonance, do_simplification):= block (
+  [eq1, u0,i, list, list1, list2, len],
+  printline(),
+  print ("PAINLEVE ANALYSIS OF EQUATION, ", eq, " = 0"),
+   if paramlist#[] then 
+   print("  WITH PARAMETER LIST:",paramlist,".") 
+   else print("  WITHOUT ANY PARAMETERS."),
+  printline(),
+  print ("  SUBSTITUTE ", u[0]*g^alpha, " FOR f IN ORIGINAL EQUATION." ),
+  eq1  : ratsubst(u[0]*g^alpha,f,eq),
+  eq1  : ev(eq1,diff),
+  eq1  : map(factor,eq1),
+  i    : hipow(expand(denom(eq1)),g),
+  list1 : pow(num(eq1),g),
+  list1 : map(lambda([entry],entry-i),list1), 
+  len :length(list1),
+  list2 : apply(min,list1), 
+  if not atom(list2) and
+	part(list2,0) = min then list2 : args(list2)
+  else list2 :[list2],
+
+  len  : length(list2),
+  print("  MINIMUM POWERS OF g ARE ",list2),
+  find_coeff(eq1,list2,len,alpha),
+  counteralpha : 0,
+  if len > 1 and not ratnump (beta) 
+    then solve_alpha(len,list2,alpha),
+  printline(), 
+  list : subst(beta,alpha,list2),
+  list : apply(min,list),            
+  if ratnump(beta) then (
+     print("    USING THE USER-SUPPLIED VALUE alpha =",beta),
+     alpha[1]:beta,
+     counteralpha :1 ,
+     find_uzero(eq,beta,list) 
+  )
+)$ /* end of function painleve */
+
+/* **************************************************************** */
+
+kruskal(prefer_variable):=block([],     
+     print("You are using the simplification suggested by Kruskal."), 
+     if prefer_variable=x then(
+     print("You selected G(T,X,...) = X - H(T,...)."),
+     depends([g],[t,x,y,z]),
+     depends([u],[k,t,y,z]),
+     depends(h,[t,y,z]),
+     gradef(g,x,1),
+     gradef(g,t,-diff(h,t)),
+     gradef(g,y,-diff(h,y)),
+     gradef(g,z,-diff(h,z))
+                              ),
+     if prefer_variable=y then(
+     print("You selected G(T,X,...) = Y - H(T,X,...)"),
+     depends([g],[t,x,y,z]),
+     depends([u],[k,t,x,z]),
+     depends(h,[t,x,z]),
+     gradef(g,y,1),
+     gradef(g,t,-diff(h,t)),
+     gradef(g,x,-diff(h,x)),
+     gradef(g,z,-diff(h,z))
+                              ),
+     if prefer_variable=z then(
+     print("You selected G(T,X,...) = Z - H(T,X,...)"),
+     depends([g],[t,x,y,z]),
+     depends([u],[k,t,x,y]),
+     depends(h,[t,x,y]),
+     gradef(g,z,1),
+     gradef(g,t,-diff(h,t)),
+     gradef(g,x,-diff(h,x)),
+     gradef(g,y,-diff(h,y))
+                              ),
+     if prefer_variable=t then(
+     print("You selected G(T,X,...) = T - H(X,...)"),
+     depends([g],[t,x,y,z]),
+     depends([u],[k,x,y,z]),
+     depends(h,[x,y,z]),
+     gradef(g,t,1),
+     gradef(g,x,-diff(h,x)),
+     gradef(g,y,-diff(h,y)),
+     gradef(g,z,-diff(h,z))
+                             )
+)$
+
+/* *********************************************************************** */
+/* needs:	eq 		  - the equation to test;		   */
+/*		beta		  - WHAT AM I?				   */
+/*		do_resonances	  - boolean variable,if true do resonances;*/
+/*		max_resonance	  - integer                                */
+/*		do_simplification - set true for Kruskal simplification;   */
+/*									   */
+/* calls	- painleve						   */
+/* ----------------------------------------------------------------------- */
+exec_painleve (eq,alpha, do_resonances, max_resonance, do_simplification):= 
+   block (
+   [degpdft,degpdfx,degpdfy,degpdfz,temp1,temp2,temp3],
+   /* initializing the paramlist */
+   paramlist:parameters,
+   if paramlist#[] then 
+   print("LIST OF PARAMETERS OCCURRING IN THE EQUATION:",paramlist,".") 
+   else print("THERE ARE NO PARAMETERS IN THE EQUATION."),
+   overallflag : true,
+   degpdft : derivdegree(eq,f,t),
+   degpdfx : derivdegree(eq,f,x),
+   degpdfy : derivdegree(eq,f,y),
+   degpdfz : derivdegree(eq,f,z),
+   if (degpdft=0) and (degpdfy=0) and (degpdfz=0) then block ([i,degx,eq1],
+      remove([f,g,eq],dependency),
+      depends(f,g),
+      depends(g,x),	
+      depends(u,k),
+      declare(g,mainvar),
+      eq1 : ev(eq,diff),
+      eq1 : ratsubst(1,diff(g,x),eq1),
+      degx :  derivdegree(eq1,g,x),
+      for i:2 thru degx do (
+        eq1 : ratsubst(0,diff(g,x,ev(i)),eq1),
+        eq1 : num(xthru(eq1))
+      ),
+      eq : subst(g+x0,x,eq1),
+      print ("  SUBSTITUTE ", x, "---->", g+x0)
+   )
+   else (
+     if do_simplification 
+      then
+        kruskal(prefer_variable)
+      else (
+     	depends ([g],[t,x,y,z]),
+     	depends([u],[k,t,x,y,z])
+      )
+   ),
+   painleve (eq,alpha,do_resonances, max_resonance, do_simplification),
+   print("CONCLUSION:"),
+   if overallflag = true then 
+      print("THE EQUATION APPEARS TO PASS THE PAINLEVE TEST.") 
+   else 
+      print("THE EQUATION APPEARS TO FAIL THE PAINLEVE TEST."),
+   print(" -------------------------------------------------------------- ")
+)$ /* end of exec_painleve */
+
+/* ****************************** USER NOTES****************************** */
+/* 								       	   */
+/*	user_note1 -	called by find_coef				   */
+/*	printline							   */
+/*									   */
+/* *********************************************************************** */
+
+/* *********************************************************************** */
+/* 	user_note1 - 							   */
+/* ----------------------------------------------------------------------- */
+user_note1 (eq2, alpha) := block ([nlist],
+    nlist : solve(eq2,alpha),
+    if length(nlist) = 1 then (
+    	print("     NOTE : THIS TERM VANISHES FOR ", part(nlist,1),","),
+    	print("     VERIFY IF ", part(nlist,1)," LEADS TO DOMINANT BEHAVIOR,"),
+    	print("     IF IT DOES THEN RUN THE PROGRAM AGAIN WITH THIS USER "),
+    	print("     SUPPLIED VALUE OF ALPHA."),
+    	print("     HENCE, PUT BETA = ", rhs(part(nlist,1)), ".")) 
+                                                            /* closes then */
+    else ( if length(nlist) > 1 then (
+    	print("    NOTE : THIS TERM VANISHES FOR  ", nlist,","),
+    	print("    VERIFY IF ANY OF THESE VALUES FOR ALPHA LEADS TO DOMINANT"),
+    	print("    BEHAVIOR,"),
+    	print("    IF IT DOES THEN RUN THE PROGRAM AGAIN WITH THIS VALUE"),
+    	print("    AS USER SUPPLIED ALPHA, CALLED BETA.")) /* closes then */
+          ) /* closes else */
+)$ /* end of user_note1 */
+
+output():= block([],
+   listu:[],
+   listt:[],
+   for j:1 thru counteralpha do(
+       listu:append(listu,[length(uzeroset[j])]),
+       listt:append(listt,[countert[j]]) 
+   ),
+
+   printline(),
+   print("AT THE END OF THE COMPUTATIONS THE FOLLOWING ARE AVAILABLE:"),
+   print("* U VALUE(S)"),
+   print("  (type uval[j,k,l];   where 1 <= j <= ",counteralpha,
+         "and 0 <= k <= ",listt),
+   print("  and 1 <= l <= ",listu,")"),
+   print("  j stands for j_th alpha,k stands for u[k],l stands for"),
+   print("  l_th solution set for u[0] "),
+   print("* ALPHA VALUE(S)"),
+   print("  (type alpha[j];    where 1 <= j <= ",counteralpha,")"),
+   print("  j stands for j_th alpha"),
+   print("* COMPATIBILITY CONDITION(S)"),
+   print("  (type compcond[j,k];   where 1 <= j <= ",
+          counteralpha,"and 1 <= k <= ",listu,")"),
+   print("  j stands for j_th alpha,k stands for k_th solution set for u[0]"),
+   print("* RESONANCE(S)"),
+   print("  (type res[j,k];   where 1 <= j <= ",counteralpha,
+         "and 1 <= k <= ",listu,")"), 
+   print("  j stands for j_th alpha,k stands for k_th solution set for u[0]"),
+   printline(),
+   print("TO SEE THIS MENU AGAIN JUST TYPE <  output(); >"),
+   printline()
+)$ /* end of the function output() */
+ 
+/* *********************************************************************** */
+
+printline() := 
+    print("----------------------------------------------------------------")$
+
+/* *********************************************************************** */
+
+printd(string) :=
+	if debug1 then
+		print(string)$
+
+/* *********************************************************************** */
+
+printdd(string) :=
+	if debug2 then
+		print(string)$
+
+/* save ("np_sing.lsp", do_resonances, do_simplification, functions); */
+
+/* *************************** END of NP_SING.MAX ************************ */
+/*									   */
+/* ***********************  MAP OF NP_SING.MAX *************************** */
+/*									   */
+/*				exec_painleve				   */
+/*			             |					   */
+/*				painleve____________________________	   */
+/*              _______________/     |  \______________	            \	   */
+/*	       /	             |                 \	     \	   */
+/*	find_coef		find_uzero		solve_alpha   \	   */
+/*     	       ________________/ /    |   \__________________	      |	   */
+/*            /                 /     |		             \	      |	   */
+/*  solveforhipow    solveforuzero    |                       \       |    */
+/*                                    |                        \      |    */ 
+/*                  ____________find_resonances_____________   	\     |	   */
+/*        _________/ __________/    __|        \_	    \    \    |    */
+/*	 /          /              |             \	     \   |    |    */
+/*	/    domcoefr      check_resonances      analyser     \  |    |    */
+/*     |                __/        \____   \________ \_____   |  |    |    */
+/*     |               /                \          /  |    \  |  |    |    */
+/*     |     check_conditions	       inthipow	 /  stripper constant |    */
+/*     |             \___                   \_________ | ___________  |    */
+/*     |                 \                             |            \ |    */
+/*  nonposint           coefuks0		   myfreeof         pow    */
+/*								  _/       */
+/*						      get_exponent	   */
+/*									   */
+/* *********************************************************************** */
+

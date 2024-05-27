@@ -1,0 +1,21 @@
+
+/* ************************************************************************* */
+/*                           Batch file p_ram2.412                           */
+/* ************************************************************************* */
+
+/* Comment: INTERESTING CASE */
+
+/* 
+To use the simplification suggested by Kruskal the file needs to 
+contain the following two lines: 
+
+do_simplification: true;
+prefer_variable:x;
+*/
+
+/* The Ramani (2.15) equation :  */
+
+eq : fx[2](x)+4*f*fx[1](x)+2*f^3;
+
+/* **************************** END of P_RAM2.DAT ************************** */
+

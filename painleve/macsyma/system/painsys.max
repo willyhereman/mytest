@@ -1,0 +1,880 @@
+/* Last worked on: December 19th, 1998 at 0:45 */
+/* Bug fixed in the evaluation of alpha's */
+/* 2 major bugs were fixed, print statements are commented out */
+
+/***************************************************************************/
+/*                                                                         */
+/*           *** M A C S Y M A  P R O G R A M ***                          */
+/*                                                                         */
+/*   THE PAINLEVE TEST FOR SYSTEMS OF ORDINARY AND PARTIAL                 */
+/*                  DIFFERENTIAL EQUATIONS                                 */
+/*                                                                         */
+/*  program name: sp_sys.max                                               */
+/*                                                                         */
+/*  purpose: carry out the Painleve integrability test for                 */
+/*           systems of ordinary or partial differential                   */
+/*           equations                                                     */
+/*           (with or without the Kruskal simplification)                  */
+/*                                                                         */
+/*  computers: tested on VAX-11/750 & 780,                                 */
+/*             VAX-8600 and on VAX-2000                                    */
+/*                                                                         */
+/*  language: MACSYMA release 412,                                         */
+/*            compatible with REX MACSYMA 305                              */
+/*            and MACSYMA 309                                              */
+/*                                                                         */
+/*  authors: Willy Hereman, Unal Goktas and Chris Elmer                    */
+/*           Department of Mathematical and Computer Sciences              */
+/*           Colorado School of Mines,                                     */
+/*           Golden, CO 80401-1887, USA                                    */
+/*                                                                         */
+/*           Version  2.1.  Updated: April 16, 1996                        */
+/*                                                                         */
+/*  Copyright 1996                                                         */
+/*                                                                         */
+/***************************************************************************/
+
+
+/* *********************************************************************** */
+/* pow(expr,var)- returns a list of the powers of var occuring in expr.	   */
+/*									   */
+/* *********************************************************************** */
+
+pow(expr,var):=block(
+[power_list:'[],ff:expand(expr),tmp1,tmp2,infun,inflag:true],
+declare(power_list,special),
+if not atom(ff) and part(ff,0) = "+" then infun:args(ff) else infun:[ff],
+for ii% in infun do (
+ tmp1:ii%,
+ if not atom(tmp1) and part(tmp1,0) = "-" then tmp1:substpart("+",tmp1,0),
+ if atom(tmp1) or inpart(tmp1,0)#"*" then tmp1:[tmp1],
+ tmp2:maplist(lambda([u],get_exponent(u,var)),tmp1),
+ tmp2:delete('[],tmp2),
+ if tmp2 = '[] then(
+  power_list:endcons(0,power_list)
+  )
+  else (
+   power_list:endcons(first(tmp2),power_list)
+  )
+ ),
+power_list
+)$ /* end of pow */
+
+/* *********************************************************************** */
+/* get_exponent(expr,var) - returns exponent of var in first term of expr. */
+/* *********************************************************************** */
+
+get_exponent(expr,var):=block(
+if freeof(var,expr) then return('[]),
+if atom(expr) then return(1),
+if inpart(expr,0)="^" and inpart(expr,1)=var 
+ then return(inpart(expr,2)) else return('[]) 
+)$ /* end of get_exponent */
+
+/* *********************************************************************** */
+/* constant(expr,var,q) - returns the constant term in expression (in      */
+/*			     terms of var).				   */ 
+/* *********************************************************************** */
+
+constant(expr,var,q):=block([h,co],
+co:ratcoef(expand(expr),var,0),
+if q # 1 then( 
+ co:ratsubst(h,var^(1/q),co),
+ co:ratcoef(co,h,0)
+ ),
+return(co)
+)$ /* end of constant */
+
+/* *********************************************************************** */
+/* nonposint(x) -	returns true if x is a nonpositive integer.	   */
+/*			returns false otherwise.			   */
+/* *********************************************************************** */
+nonposint(expres):=if integerp(expres) then is(expres<=0) else false$
+
+/* *********************************************************************** */
+/* solveforhipower(expr,var) -	solves expr for the highest power of var.  */
+/* *********************************************************************** */
+
+solveforhipow(expr,var):=block([m],
+m:hipow(expand(expr),var),
+return(part(solve(expr,var^m),1))
+)$ /* end of solveforhipow */
+
+/* *********************************************************************** */
+/* check_conditions()							   */
+/* *********************************************************************** */
+
+check_conditions():=block(
+[ress:[],sulist:[],dalfa,colist,locolist,co,ulist,i,j,k,temp,ssr,coefm,
+augcoefm,triaugcoefm,equationlist,row1,equation1,colistsol,lencolistsol,
+tempt,compcond,theus,ntheus,lentheus],
+for i:1 thru length(res) do(
+ temp:rhs(part(res,i)),
+ ress:endcons(temp,ress)
+ ),
+sulist:[],
+for i:1 thru rmax do block([k],
+ dalfa:1,
+ colist:[],
+ locolist:[],
+ for j:1 thru noeqs do(
+  eq1[j]:ratsimp(eq1[j]/g),
+  eq1[j]:subst(uzero,eq1[j]),
+  co:constant(eq1[j],g,dalfa),
+  eq1[j]:eq1[j]-co,
+  co:ratsimp(xthru(co)),
+  if not integerp(co) then co:factor(co),
+  for k:1 thru length(sulist) do(
+   co:subst(part(sulist,k),co),
+   co:ratsimp(co)
+  ),	
+  colist:endcons(co,colist)
+ ),
+ ulist:[],
+ for j:1 thru nofun do
+  ulist:endcons(u[j,[i]],ulist),
+ if member(i,ress) then(
+  coefm:coefmatrix(colist,ulist),
+  coefm:ev(coefm,diff),
+  augcoefm:augcoefmatrix(colist,ulist),
+  augcoefm:ev(augcoefm,diff),
+  if factor(determinant(coefm)) = 0 
+   then(	
+    printline(),  
+    print("* THE COEFFICIENT MATRIX FOR THE VECTOR"),
+    print(" ",ulist),
+    printemptyline(),
+    print("  HAS A DETERMINANT EQUAL TO ZERO."),
+    triaugcoefm :triangularize(augcoefm), 
+    if debugfullinfo
+     then(
+      print("The augmented matrix for the vector:"),
+      print(augcoefm),
+      print("The triangularized form of the matrix:"),
+      print(triaugcoefm)
+     ),
+     linsolvewarn:false,
+     linsolve_params:false,
+     solve_inconsistent_error:false,
+     equationlist:[],
+     for k:1 thru noeqs do(
+      row1:row(triaugcoefm,k),
+      row1:part(row1,1),
+      equation1:part(row1,noeqs+1),
+      if row1 # zeromatrix(1,noeqs+1)
+       then(
+        for ssr:1 thru noeqs do 
+         equation1:equation1+part(row1,ssr)*part(ulist,ssr)
+       ),
+      equationlist:union(equationlist,[equation1])
+     ),
+     colistsol:linsolve(equationlist,ulist),
+     linsolvewarn:false,
+     linsolve_params:false,
+     solve_inconsistent_error:false,
+     lencolistsol:length(colistsol),
+     if colistsol # []
+      then(
+       for k:1 thru lencolistsol do(
+        tempt:ev(part(colistsol,k),diff),
+        tempt:ratsimp(tempt),
+        sulist:endcons(tempt,sulist)
+       )
+      ),
+     triaugcoefm:triangularize(augcoefm),
+     compcond:col(row(triaugcoefm,noeqs),noeqs+1),
+     compcond:part(compcond,1,1),
+     compcond:factor(compcond),
+     if (compcond = 0)
+      then(
+       print("  THE COMPATIBILITY CONDITION IS SATISFIED !"),
+       if colistsol # []
+        then print(" ",factor(part(colistsol,1))),
+         print("  THERE IS/ARE ",nofun-lencolistsol,
+                      " FREE FUNCTION(S) !")
+      )
+      else(
+       printline(),
+       print("  COMPATIBILITY CONDITION IS NOT SATISFIED !"),
+       print("  THIS IS THE COMPATIBILITY CONDITION :"),
+       print(" ",compcond," = 0") 
+      ),
+     printline()
+     )
+    )
+    else(
+     theus:solve(colist,ulist),
+     ntheus:[],
+     lentheus:length(theus),
+     for k:1 thru lentheus do
+      if ((noeqs = 1) and (listp(part(theus,k))) )  
+       then ntheus:union(ntheus,[part(theus,k)]) 
+        else  
+         if (noeqs = 1) 
+          then ntheus:union(ntheus,[[part(theus,k)]])
+          else ntheus:union(ntheus,[part(theus,k)]),
+     theus:ntheus,
+     for k:1 thru length(ulist) do(
+      tempt:ev(part(theus,1,k),diff),
+      tempt:ratsimp(tempt),
+      printline(),
+      print("*",tempt),  
+      sulist:endcons(tempt,sulist)
+     )
+    )
+  )
+)$  /* end of function check_conditions */
+
+/* *********************************************************************** */
+/* check_resonances(eq,valalfa,minpowg,uzero,rmax,s)			   */
+/* *********************************************************************** */
+
+check_resonances(valalfa,minpowg,uzero,rmax):=block(
+[temp,j,i,eq1],
+print("WITH MAXIMUM RESONANCE = ", rmax, " ----> CHECK RESONANCES."),
+printemptyline(),
+for j:1 thru nofun do(
+ temp:part(map(rhs,part(valalfa,1)),j),
+ print("SUBSTITUTE POWER SERIES ",
+   'sum(u[j,[k]]*g^(temp+k),k,0,rmax),
+   " FOR", f[j]," IN THE EQUATION(S)."),
+ printemptyline()
+),
+for i:1 thru noeqs do(
+ eq1[i]:part(eqlist,i),
+ for j:1 thru nofun do(
+  temp:part(map(rhs,part(valalfa,1)),j),
+  series[j]:sum(u[j,[k]]*g^(temp+k),k,0,rmax),
+  eq1[i]:ratsubst(series[j],f[j],eq1[i])
+ ),
+ eq1[i]:ev(eq1[i],diff),
+ eq1[i]:expand(eq1[i]/(g^minpowg[i]))
+),
+printline(),
+for i:1 thru nofun do(
+ print("*",part(uzero,i))
+),
+check_conditions()
+)$  /* end of function check_resonances */
+
+/* *********************************************************************** */
+/* find_resonances()							   */
+/* *********************************************************************** */
+
+find_resonances(valalfa,minpowg,uzero):=block(
+[i,j,eq1,tempo,lowlist,len,lowlist1,lowlist2,templist,tempp,len1,l,coefg,
+arblist,k,coeflist,cmatrix,cdetmatr,powr,resdebugct,rd],
+for i:1 thru nofun do(
+ print("SUBSTITUTE ",u[i,[0]]*g^alpha[i]," + ", 
+	u[i,[r]],g^(alpha[i]+r),
+        " FOR ",f[i]," IN THE EQUATION(S)."),
+ printemptyline()
+),
+for j:1 thru noeqs do(
+ eq1[j]:part(eqlist,j),
+ for i:1 thru nofun do(
+  eq1[j]:ratsubst(u[i,[0]]*(g^rhs(part(valalfa,1,i)))+
+       	 u[i,[r]]*(g^(r+rhs(part(valalfa,1,i))))
+	 ,f[i],eq1[j])
+ ),
+ eq1[j]:ev(eq1[j],diff),
+ eq1[j]:ratsimp(eq1[j]/(g^minpowg[j])),
+ tempo:pow(eq1[j],g),
+ lowlist:apply(min,tempo),
+ if not atom(lowlist) and part(lowlist,0) = min
+  then lowlist:args(lowlist)
+  else lowlist:[lowlist],
+ len:length(lowlist),
+ lowlist1:[],
+ lowlist2:[],
+ for i:1 thru len do(
+  if integerp(part(lowlist,i))
+   then lowlist1:endcons(part(lowlist,i),lowlist1)
+   else lowlist2:endcons(part(lowlist,i),lowlist2)
+ ),
+ templist:subst(1,r,lowlist2),
+ tempp:part(templist,1),
+ len1:length(templist),
+ l:1,
+ for i:2 thru len1 do(
+  if part(templist,i) < tempp then(
+   tempp:part(templist,i),
+   l:i
+  )
+ ),
+ lowlist2:part(lowlist2,l),
+ coefg[j]:coeff(expand(eq1[j]),g,lowlist2)
+),
+arblist:[],
+for k:1 thru nofun do
+ arblist:endcons(u[k,[r]],arblist),
+coeflist[k]:[],
+for j:1 thru noeqs do(
+ coefh[j]:coefg[j],
+ coefh[j]:subst(uzero,coefh[j]), 
+ coefh[j]:factor(coefh[j]),
+ coeflist[k]:endcons(coefh[j],coeflist[k])
+),
+cmatrix:coefmatrix(coeflist[k],arblist),
+print("THIS IS THE MATRIX FOR RESONANCES:"),
+printemptyline(),
+print(factor(cmatrix)),
+cdetmatr:factor(determinant(cmatrix)),
+printemptyline(),
+print("THIS IS THE EQUATION FOR RESONANCES:"),
+printemtyline(),
+print(cdetmatr," = 0"),
+printemptyline(),
+powr:part(powers(expand(cdetmatr),r+1),1),
+if powr > 1 
+ then print("CAUTION ! MULTIPLICITY OF r = -1 IS ",powr,"."),
+res:solve(cdetmatr,r),
+res:sort(res),
+resdebugct:0,
+for rd:1 thru length(res) do
+ if integerp(rhs(part(res,rd))) then resdebugct:resdebugct+1,
+if resdebugct=length(res)
+ then(
+  print("THESE ARE THE RESONANCES:"),
+  print(res),
+  printemptyline(),
+  rmax:apply(max,map(rhs,res)),
+  check_resonances(valalfa,minpowg,uzero,rmax)	
+ )
+ else(
+  if debugfullinfo 
+   then(
+    print("THESE ARE THE RESONANCES:"),
+    print(res), 
+    printemptyline() 
+   ),
+  print("NON-INTEGER RESONANCES OCCUR !"),
+  print("STOPPING THE PROGRAM !")
+ )
+)$ /* end of function find_resonances */
+
+/* *********************************************************************** */
+/* find_uzero()								   */
+/* *********************************************************************** */
+
+find_uzero(eqlist,valalfa,minpowg,len) := block( 
+[i,eq2,j,lowest,dalfa,temp,uzero,u0list,lenuzero,lenpartuzero,
+temppart,nuzero,nuzeroi,lenuzeroi,partnuzeroij,jr,partuzerojr],
+/* print statement added here */
+printline(), 
+print("Painleve test for the case: ", valalfa),
+for i:1 thru noeqs do 
+ print("THE POWER OF g is ",minpowg[i],"IN EQUATION ",i,"."),
+printemptyline(),
+for i:1 thru nofun do 
+ print("----> SOLVE FOR ", u[i,[0]]),
+printline(),
+for i:1 thru noeqs do(
+ /* @@@ correction was needed */
+ eq2[i]:orgeq1[i],
+ /* print("At point ZZZ1, we have eq2[i] : ", eq2[i]), */
+ for j:1 thru nofun do
+  eq2[i]:subst(part(valalfa,1,j),eq2[i]),
+  eq2[i]:ratsimp(eq2[i]/(g^minpowg[i]) 
+/* print("At point ZZZ2, we have eq2[i] : ", eq2[i]) */
+)
+),
+lowest:[],
+dalfa:1,
+for i:1 thru noeqs do(
+ temp:factor(constant(eq2[i],g,dalfa)),
+/* @@@@ */
+/* print("At point ZZZ3, we have temp : ", temp), */
+ lowest:endcons(temp = 0,lowest),
+ print ("TERM ",temp,g^minpowg[i]," IS DOMINANT"),
+  	print ("IN EQUATION ",i,".")
+),
+for i:1 thru noeqs do(
+ if (denom(part(lowest,i)) # 1) 
+  then subst(num(part(lowest,i)),part(lowest,i),lowest), 
+ if not atom(part(lowest,i)) and part(lowest,i,0) = "-" 
+  then subst(-(part(lowest,i)),part(lowest,i),lowest), 
+ if not atom(part(lowest,i)) and part(lowest,i,0) = "/" 
+  then subst(num(part(lowest,i)),part(lowest,i),lowest)
+),
+u0list:[],
+for j:1 thru nofun do 
+ u0list:endcons(u[j,[0]],u0list),
+uzero:solve(lowest,u0list),
+lenuzero:length(uzero),
+for i:1 thru lenuzero do(
+ lenpartuzero:length(part(uzero,i)),
+ for j:1 thru lenpartuzero do(
+  temppart:part(part(uzero,i),j),
+  if member(rhs(temppart),%rnum_list)
+   then uzero:ratsubst(lhs(temppart),rhs(temppart),uzero)
+ )
+),
+nuzero:[],
+for i:1 thru lenuzero do 
+if ((noeqs = 1) and (listp(part(uzero,i))) )
+ then nuzero:union(nuzero,[part(uzero,i)])
+ else  
+  if (noeqs = 1) 
+   then nuzero:union(nuzero,[[part(uzero,i)]])
+   else nuzero:union(nuzero,[part(uzero,i)]),
+uzero:nuzero,
+for i:1 thru lenuzero do(
+ nuzeroi:part(nuzero,i),
+ lennuzeroi:length(nuzeroi),
+ lennuzeroi:length(nuzeroi),
+ for j:1 thru lennuzeroi do(
+  partnuzeroij:part(nuzeroi,j),
+  if (rhs(partnuzeroij) = 0) 
+   then uzero:complement([part(nuzero,i)],uzero)
+ )
+),
+printline(),
+if uzero # []
+ then(
+  lenuzero:length(uzero),
+  for jr:1 thru lenuzero do(
+   partuzerojr:part(uzero,jr),
+   if (noeqs = 1 and length(partuzerojr) >1) 
+    then partuzerojr:[partuzerojr],
+   print("WITH",partuzerojr,"------> FIND RESONANCES"),
+   printemptyline(),
+   find_resonances(valalfa,minpowg,partuzerojr) 
+  )
+ )
+ else(
+  print("SOLUTION FOR NON-ZERO u[i,[0]] IS EMPTY SET !"),
+  print("STOPPING THE PROGRAM !")
+ )
+)$ /* end of function find_uzero */
+
+/* *********************************************************************** */
+/* solve_alpha()							   */
+/* *********************************************************************** */
+ 
+mysolve1(gcase,unknownlist):=block(
+[sol,sol1,ui,lenunknownlist],
+linsolvewarn:false,
+solve_inconsistent_error:false,
+sol1:linsolve(gcase,unknownlist),
+linsolve_params:false,
+sol:linsolve(gcase,unknownlist),
+linsolvewarn:true,
+linsolve_params:true,
+solve_inconsistent_error:true,
+if sol=[] and sol1#[]
+ then(
+  lenunknownlist:length(unknownlist),
+  for ui:1 thru lenunknownlist do
+   sol:append(sol,[alpha[ui]=alpha[ui]])
+ ),
+return(sol)
+)$
+
+mysolve2(listeqs,unknownlist):=block(
+[lenlisteqs,mysol:[],t,case,sol,sol1,lenunknownlist,ui],
+lenlisteqs:length(listeqs),
+linsolvewarn:false,
+linsolve_params:false,
+solve_inconsistent_error:false,
+for t:1 thru lenlisteqs do(
+ case:part(listeqs,t),
+ sol:linsolve(case,unknownlist),
+ if sol # [] 
+  then mysol:union(append(mysol,[sol]))
+  else(
+   linsolve_params:true,
+   sol1:linsolve(case,unknownlist),
+   linsolve_params:false,
+   if sol1 # [] 
+    then(
+     lenunknownlist:length(unknownlist),
+     for ui:1 thru lenunknownlist do
+      sol:append(sol,[alpha[ui]=alpha[ui]]),
+     mysol:union(append(mysol,[sol]))
+    )
+  )
+),
+linsolvewarn:true,
+linsolve_params:true,
+solve_inconsistent_error:true,
+return(mysol)
+)$
+
+comb_balance(nlist,unknownlist):=block(
+[tlist,subsets,lentlist,lennlist,totlen,counter,tpart,k:1,case,lensubsets,
+caselist:[],i,tsol],
+if nlist = []
+ then(
+  print("List that has been sent to comb_balance routine is empty !"),
+  print("Aborting !"),
+  closefile(),
+  abort()
+ )
+ else(
+  tlist:apply('min,nlist),
+  if part(tlist,0)=min
+   then tlist:args(tlist)
+   else tlist:[tlist],
+  if length(tlist)>1
+   then subsets:powerset(tlist)
+   else subsets:[[part(tlist,1),part(tlist,1)]]
+ ),
+lentlist:length(tlist),
+lennlist:length(nlist),
+if lentlist < lennlist
+ then(
+  totlen:lentlist,
+  for i:1 while (i<=lentlist and totlen<lennlist) do(
+   counter:0,
+   tpart:part(tlist,i),
+   for j:1 thru lennlist do
+    if part(nlist,j) = tpart then counter:counter+1,
+   if counter > 1
+    then(
+     totlen:totlen+counter,
+     case[k]:[tpart=tpart],
+     k:k+1
+    )
+  )
+ ),
+lensubsets:length(subsets),
+for i:1 thru lensubsets do(
+ if (length(part(subsets,i)) >= 2)
+  then(
+   case[k]:makelist(part(part(subsets,i),1)=y,y,rest(part(subsets,i),1)),
+   k:k+1
+  )
+),
+k:k-1,
+for i:1 thru k do(
+ tsol:mysolve1(case[i],unknownlist),
+ if (tsol#[] and intersection([tsol],caselist)=[])
+  then caselist:append(caselist,[tsol])
+),
+return(caselist)
+)$ 
+
+solve_alpha(list):=block(
+[lenlist,unknownlist,i,ttlist,tttlist,newset,len1,len2,j,k,solution,
+tempsolution,lensolution,partsol,lenpartsol,substlist,partsubstlist,
+minump,lenpartsubstlist,counterminp,exactsolution,s,lenexactsol,mainsolution,
+exptemp,counter,t],
+lenlist:length(list),
+unknownlist:[],
+for i:1 thru lenlist do(
+ unknownlist:append(unknownlist,[alpha[i]]),
+ ttlist[i]:part(list,i)
+),
+for i:1 thru lenlist do  
+ tttlist[i,0]:comb_balance(ttlist[i],unknownlist), 
+if lenlist >1 then( 
+ for i:1 thru (lenlist-1) do(
+  newset:[],
+  if i=1 
+   then len1:length(tttlist[i,0])
+   else len1:length(tttlist[i,1]), 
+  for j:1 thru len1 do(  
+   len2:length(tttlist[i+1,0]),
+  for k:1 thru len2 do 
+   if i=1
+    then newset:union(newset,[append(part(tttlist[i,0],j),
+                              part(tttlist[i+1,0],k))])
+    else newset:union(newset,[append(part(tttlist[i,1],j),
+                              part(tttlist[i+1,0],k))])
+  ),
+  tttlist[i+1,1]:mysolve2(newset,unknownlist)
+ ),
+ solution:union(tttlist[lenlist,1])
+ )
+ else solution:union(mysolve2(tttlist[1,0],unknownlist)),
+solution:union(solution),
+tempsolution:[] ,
+lensolution:length(solution),
+for i:1 thru lensolution do(
+ partsol:part(solution,i),
+ lenpartsol:length(partsol),
+ substlist:list,
+ for j:1 thru lenpartsol do
+  substlist:ratsubst(rhs(part(partsol,j)),lhs(part(partsol,j)),substlist) ,
+  for j:1 thru lenlist do(
+   partsubstlist:part(substlist,j),
+   minump:apply('min,partsubstlist),
+   lenpartsubstlist:length(partsubstlist),
+   counterminp:0,
+   for i2:1 thru lenpartsubstlist do
+    if part(partsubstlist,i2) = minump
+    then counterminp:counterminp+1,
+   if counterminp = 1
+    then tempsolution:union(tempsolution,[partsol])
+  )
+ ),
+ solution:complement(tempsolution,solution),
+ if debugfullinfo then(
+  print("The set: "),
+  print(tempsolution),
+  print("contains the solution(s) not corresponding to most singular"),
+  print("terms.We will not do the next steps for these solution(s).")
+ ),
+ print("By balancing any two or more terms, we obtain the solution set:"),
+ print(solution),
+ print("Now, we separate the cases above into different groups."),
+ lensolution:length(solution),
+ exactsolution:[],
+ for s:1 thru lensolution do 
+   if length(part(solution,s))=lenlist 
+     then exactsolution:union(exactsolution,[part(solution,s)]),
+ exactsolution : union(exactsolution),
+ if ( solution = [] ) 
+  then(
+   print("The solution set is empty ! We abort the computations !"),
+   closefile(),
+   abort() )
+ else(
+ if length(exactsolution)=length(solution)
+  then print("Next, we check the remaining steps with this solution.")   
+  else(
+   print("The set:"),
+   print(complement(exactsolution,solution)),
+   print("contains the case(s) where you have freedom. Note that"),
+   print("if only one value of alpha is specified then the other alphas"),
+   print("(the ones that are not listed) are arbitrary."),
+   print("The program will not automatically perform the remaining steps"),
+   print("of the Painleve test for the case(s) in the above list."),
+   print("If you want to continue with these cases, you can determine"),
+   print("appropriate values for the alphas, and give them to the "),
+   print("program as a user-supplied alphalist in the datafile."),
+   print("To do so, give the selected values in the betalist."),
+   print("Continuing the next steps with :"),
+   print(union(exactsolution))
+  ),
+ lenexactsol:length(exactsolution),
+ mainsolution:[],
+ for s:1 thru lenexactsol do(
+  exptemp:part(exactsolution,s),
+  counter:0,
+  for t:1 thru lenlist do 
+   if signum(rhs(part(exptemp,t))) = -1 and integerp(rhs(part(exptemp,t)))
+    then counter:counter+1, 
+   if counter=lenlist
+    then mainsolution:union(mainsolution,[exptemp]) 
+ ),
+ if length(mainsolution) # length(exactsolution)
+  then( 
+   print("The set: "),
+   print(union(complement(mainsolution,exactsolution))),
+   print("contains noninteger or nonnegative solution(s). The program"),
+   print("will not automatically perform the rest of the Painleve test"),
+   print("for these solution(s)."),
+   print("If you want to continue with these cases, you can select"),
+   print("values for the alphas and give them to the program"),
+   print("as a user-supplied alphalist in the datafile."),
+   print("To do so, give the selected values in the betalist."),
+   print("Therefore, we will continue the remaining steps of the"),
+   print("Painleve test with:"),
+   print(mainsolution)
+  )
+ ),
+ return(mainsolution) 
+)$
+
+/* *********************************************************************** */
+/* painleve()								   */
+/* *********************************************************************** */
+
+painleve(eqlist,do_resonances,max_resonance,do_simplification):=block(
+[i,list2,orgeq1,eq1,eq2,orglist1,list1,ppp,tempart,j,power,len,xi,sss,
+valalpha,tempalpha,lenalphasolutions,alphasolutions,minpowg],
+/* @@@ added orgeq1 to the above list */
+printline(),
+print("PAINLEVE ANALYSIS OF THE EQUATION(S),"),
+for i:1 thru noeqs do(
+ print(part(eqlist,i)," = 0"),
+ printemptyline()
+),
+printline(),
+for i:1 thru nofun do(
+ print ("SUBSTITUTE ",u[i,[0]]*g^alpha[i]," FOR" ,f[i]),
+ printemptyline()
+),
+printemptyline(),
+print("IN THE ORIGINAL EQUATION(S)."),
+list2:[],
+for i:1 thru noeqs do(
+ eq1[i]:part(eqlist,i),
+ eq2[i]:num(lhs(eq1[i])),
+ orglist1[i]:[],
+ for ppp:1 thru length(eq1[i]) do(
+  tempart:part(eq2[i],ppp),
+  for j:1 thru nofun do
+   tempart:ratsubst(u[j,[0]]*g^alpha[j],f[j],tempart),
+  tempart:ev(tempart,diff),
+  tempart:map(factor,tempart),
+  power[ppp]:pow(num(tempart),g),
+  power[ppp]:apply(min,power[ppp]),
+  if not(atom(power[ppp])) and part(power[ppp],0) = min
+   then power[ppp]:args(power[ppp]),
+  if not(listp(power[ppp])) then power[ppp]:[power[ppp]],
+  /* @@@ correction was needed here */
+  orglist1[i]:append(orglist1[i],power[ppp])
+  /* print("At pt YYY1 this is orglist1[i] ",orglist1[i]) */
+ ),
+ list2:append(list2,[orglist1[i]])
+),
+len:length(list2),
+for xi:1 thru noeqs do(
+  print("THE MINIMUM POWERS OF g IN EQUATION ",xi," ARE"),
+  print(part(list2,xi))),
+
+for i:1 thru noeqs do(
+ eq1[i]:part(eqlist,i),
+ for j:1 thru nofun do(
+  eq1[i]:ratsubst(u[j,[0]]*g^alpha[j],f[j],eq1[i])
+ ),
+ eq1[i]:ev(eq1[i],diff),
+ eq1[i]:map(factor,eq1[i]),
+ /* @@@ correction was needed: */
+ orgeq1[i]:eq1[i]
+),
+
+if betalist # []
+  then(
+   print("USING THE USER SUPLIED ALPHA LIST :",betalist),
+   alphasolutions:betalist
+  )
+  else
+   if len >= 1 		
+    then alphasolutions:solve_alpha(list2),
+lenalphasolutions:length(alphasolutions),
+for sss:1 thru lenalphasolutions do(
+ valalpha:[part(alphasolutions,sss)],
+/* @@@ */
+/* print("At pt. XXX1 working with valalpha : ", valalpha), */
+for j:1 thru noeqs do(
+/* ### Changed 12/18/98 */
+  list1[j]:orglist1[j],
+/* ### */
+  for i:1 thru nofun do(
+   tempalpha:part(valalpha,1,i),
+/*   print("At pt. XXX2 working with tempalpha : ", tempalpha), */
+/* ### 12/18/98: list1[j] in subt was orglist1[j], back to list1[j] */
+     list1[j]:subst(tempalpha,list1[j])
+/*   print("At pt. XXX3 working with list1[j] : ", list1[j]) */
+  ),
+  minpowg[j]:apply(min,list1[j])
+ /* print("At pt. XXX4 working with minpowg[j]: ", minpowg[j]) */
+ ),
+ find_uzero(eqlist,valalpha,minpowg,len),
+ printline() 
+)
+)$ /* end of function painleve */
+
+/* ********************************************************************* */
+
+kruskal(prefer_variable):=block([],     
+printemptyline(),
+print("YOU ARE USING THE SIMPLIFICATION SUGGESTED BY KRUSKAL."), 
+if prefer_variable=x then(
+ print("You selected G(T,X,...) = X - H(T,...)."),
+ depends([g],[t,x,y,z]),
+ depends([u],[k,t,y,z]),
+ depends(h,[t,y,z]),
+ gradef(g,x,1),
+ gradef(g,t,-diff(h,t)),
+ gradef(g,y,-diff(h,y)),
+ gradef(g,z,-diff(h,z))
+),
+if prefer_variable=y then(
+ print("You selected G(T,X,...) = Y - H(T,X,...)."),
+ depends([g],[t,x,y,z]),
+ depends([u],[k,t,x,z]),
+ depends(h,[t,x,z]),
+ gradef(g,y,1),
+ gradef(g,t,-diff(h,t)),
+ gradef(g,x,-diff(h,x)),
+ gradef(g,z,-diff(h,z))
+),
+if prefer_variable=z then(
+ print("You selected G(T,X,...) = Z - H(T,X,...)."),
+ depends([g],[t,x,y,z]),
+ depends([u],[k,t,x,y]),
+ depends(h,[t,x,y]),
+ gradef(g,z,1),
+ gradef(g,t,-diff(h,t)),
+ gradef(g,x,-diff(h,x)),
+ gradef(g,y,-diff(h,y))
+),
+if prefer_variable=t then(
+ print("You selected G(T,X,...) = T - H(X,...)."),
+ depends([g],[t,x,y,z]),
+ depends([u],[k,x,y,z]),
+ depends(h,[x,y,z]),
+ gradef(g,t,1),
+ gradef(g,x,-diff(h,x)),
+ gradef(g,y,-diff(h,y)),
+ gradef(g,z,-diff(h,z))
+),
+printemptyline()
+)$
+
+exec_painleve(eqlist,do_resonances,max_resonance,do_simplification):=block( 
+[degpdft,degpdfx,degpdfy,degpdfz,degt,degx,degy,degz,temp1,temp2,temp3],
+degt:0,
+degy:0,
+degz:0,
+for i:1 thru noeqs do(
+ for j:1 thru nofun do(
+  degpdft[i,j]:derivdegree(part(eqlist,i),f[j],t),
+  degpdfy[i,j]:derivdegree(part(eqlist,i),f[j],y),
+  degpdfz[i,j]:derivdegree(part(eqlist,i),f[j],z),
+  degt:degt + degpdft[i,j],
+  degy:degy + degpdfy[i,j],
+  degz:degz + degpdfz[i,j]
+ )
+),
+if (degt=0) and (degy=0) and (degz=0) 
+ then block ([i,deggx,eq1,eq2],
+  g:x,
+  for i:1 thru noeqs do(
+   eq2:part(eqlist,i),
+   for j:1 thru nofun do(	
+    d:f[j],
+    remove([d,g,eq2],dependency)
+   ),
+   depends(f,g),
+   depends(g,x),
+   depends(u,k),
+   declare(g,mainvar),
+   eq1[i]:ev(eq2,diff),
+   eq1[i]:ratsubst(1,diff(g,x),eq1[i]),
+   deggx:derivdegree(eq1[i],g,x),
+   for j:2 thru deggx do(
+    eq1[i]:ratsubst(0,diff(g,x,ev(j)),eq1[i]),
+    eq1[i]:num(xthru(eq1[i]))
+   )
+  ),
+  eqlist:[],
+  for i:1 thru noeqs do
+   eqlist:endcons(eq1[i],eqlist),
+  print("SUBSTITUTE ", x, "---->", g+x0)
+ )
+ else(   
+  if do_simplification 
+   then 
+    kruskal(prefer_variable) 
+   else(
+    depends([g],[t,x,y,z]),
+    depends([u],[k,t,x,y,z])
+   )
+ ),
+painleve (eqlist, do_resonances, max_resonance, do_simplification)
+)$ /* end of exec_painleve */
+ 
+/* *********************************************************************** */
+
+printline():=print( 
+"------------------------------------------------------------------------")$
+
+printemptyline():=print(" ")$
+
+/* end of SP_SYS.MAX */

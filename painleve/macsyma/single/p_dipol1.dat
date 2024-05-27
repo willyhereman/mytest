@@ -1,0 +1,13 @@
+
+/* Data for the Painleve test of 1 dim dipole equation: */
+
+/*
+do_simplification: false;
+prefer_variable:x;
+*/
+
+eq: fx[1](x)^2-(2/m)*(e-m*g*f-(2*a/3)*(1/f^3)); 
+eq: factor(eq);
+eq: num(eq);
+
+

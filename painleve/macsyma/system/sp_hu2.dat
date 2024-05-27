@@ -1,0 +1,27 @@
+
+/* sp_hu2.dat */
+
+/* The equations */
+
+eq[1]: -ftx[1,1,0](t,x)+ftx[1,0,3](t,x)+3*f[1]*ftx[1,0,2](t,x)+
+                3*f[1]*f[1]*ftx[1,0,1](t,x)+
+	        3*ftx[1,0,1](t,x)*ftx[1,0,1](t,x)+ftx[2,0,1](t,x)$ 
+eq[2]: -ftx[2,1,0](t,x)+ftx[2,0,3](t,x)+6*
+					ftx[1,0,1](t,x)*ftx[2,0,1](t,x)$
+ 
+noeqs: 2$
+nofun: 2$
+
+/* see J. Phys. A 27:L503 (1994), Equ. (2), by S Yu Sakovich */
+
+/* For Kruskal Simplification the file needs following 2 lines */
+
+do_simplification: true$
+prefer_variable: x$
+
+debugfullinfo: false$
+
+betalist: []$  
+/* betalist: [[alpha[1]=-1,alpha[2]=-1]]$ */ 
+
+/* sp_hu2.dat */

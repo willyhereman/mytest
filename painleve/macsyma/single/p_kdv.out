@@ -1,0 +1,264 @@
+
+(D18)      CSM$USERS:[WHEREMAN.PROGRAMS.NPAINLEVE.SINGLE]P_KDV.OUT;3
+
+
+(C19) batch("np_exec.max");
+
+
+(C20) /* ************************************************************************* */
+/*                           Batch file NP_EXEC.MAX                          */
+/* ************************************************************************* */
+
+exec_painleve (eq, alpha, do_resonances, max_resonance, do_simplification)$
+
+----------------------------------------------------------------
+
+PAINLEVE ANALYSIS OF EQUATION,  F      + F F  + F   = 0
+                                 X X X      X    T
+
+----------------------------------------------------------------
+
+                  ALPHA
+  SUBSTITUTE  U  G       FOR f IN ORIGINAL EQUATION.
+               0
+
+  MINIMUM POWERS OF g ARE  [2 ALPHA - 1, ALPHA - 3]
+
+                       2 ALPHA - 1       2
+    * COEFFICIENT OF  G             IS  U  ALPHA G
+                                         0        X
+
+     NOTE : THIS TERM VANISHES FOR  ALPHA = 0 ,
+
+     VERIFY IF  ALPHA = 0  LEADS TO DOMINANT BEHAVIOR,
+
+     IF IT DOES THEN RUN THE PROGRAM AGAIN WITH THIS USER 
+
+     SUPPLIED VALUE OF ALPHA.
+
+     HENCE, PUT BETA =  0 .
+
+                       ALPHA - 3                                           3
+    * COEFFICIENT OF  G           IS  U  (ALPHA - 2) (ALPHA - 1) ALPHA (G )
+                                       0                                 X
+
+    NOTE : THIS TERM VANISHES FOR   [ALPHA = 0, ALPHA = 1, ALPHA = 2] ,
+
+    VERIFY IF ANY OF THESE VALUES FOR ALPHA LEADS TO DOMINANT
+
+    BEHAVIOR,
+
+    IF IT DOES THEN RUN THE PROGRAM AGAIN WITH THIS VALUE
+
+    AS USER SUPPLIED ALPHA, CALLED BETA.
+
+----------------------------------------------------------------
+
+  FOR EXPONENTS ( 2 ALPHA - 1 ) AND ( ALPHA - 3 ) OF g,
+
+    WITH alpha =  - 2 , POWER OF g is  - 5  ----> SOLVE FOR  U
+                                                              0
+
+                               2       1
+       TERM  - 2 U  G  (12 (G )  + U ) --  IS DOMINANT
+                  0  X       X      0   5
+                                       G
+
+       IN EQUATION.
+
+----------------------------------------------------------------
+
+                         2
+1 )  WITH  U  = - 12 (G )   ----> FIND RESONANCES
+            0          X
+
+                    ALPHA         R + ALPHA
+    SUBSTITUTE  U  G       +  U  G           FOR f IN EQUATION
+                 0             R
+
+                  3                               R - 5
+       TERM ( (G )  (R - 6) (R - 4) (R + 1) ) U  G       IS DOMINANT
+                X                              R
+
+       IN EQUATION.
+
+       THE 2 NON-NEGATIVE INTEGRAL ROOTS ARE  [R = 4, R = 6]
+
+ 
+
+    WITH MAXIMUM RESONANCE =  6  ----> CHECK RESONANCES.
+
+                              6
+                             ====
+                             \      K - 2
+    SUBSTITUTE POWER SERIES   >    G      U   FOR f IN EQUATION.
+                             /             K
+                             ====
+                             K = 0
+
+                       2
+    WITH U  = - 12 (G )
+          0          X
+
+                         1            2            2
+        * COEFFICIENT OF -- IS  6 (G )  ((- 12 (G ) )  - 36 G  G    + 5 U  G )
+                          4         X            X           X  X X      1  X
+                         G                           X
+
+        U  = 12 G
+         1       X X
+
+                         1                                   2          2
+        * COEFFICIENT OF -- IS  24 G  (4 G  G      - 3 (G   )  + U  (G )
+                          3         X     X  X X X       X X      2   X
+                         G
+
+                                                                        + G  G )
+                                                                           T  X
+
+                                     2
+               4 G  G      - 3 (G   )  + G  G
+                  X  X X X       X X      T  X
+        U  = - -------------------------------
+         2                      2
+                            (G )
+                              X
+
+                         1                2
+        * COEFFICIENT OF -- IS  - 12 ((G )  G        - 4 G  G    G
+                          2             X    X X X X      X  X X  X X X
+                         G
+
+                                      3                       4            2
+                            + 3 (G   )  - G  G  G    - U  (G )  + G    (G ) )/G
+                                  X X      T  X  X X    3   X      T X   X     X
+
+        U  = 
+         3
+
+             2                                       3                         2
+         (G )  G        - 4 G  G    G      + 3 (G   )  - G  G  G    + G    (G )
+           X    X X X X      X  X X  X X X       X X      T  X  X X    T X   X
+         -----------------------------------------------------------------------
+                                              4
+                                          (G )
+                                            X
+
+                         1
+        * COEFFICIENT OF - IS  0
+                         G
+
+        U  IS ARBITRARY !
+         4
+
+       COMPATIBILITY CONDITION IS SATISFIED !
+
+                                      4                      3
+        * COEFFICIENT OF 1 IS  - ((G )  G            - 9 (G )  G    G
+                                    X    X X X X X X       X    X X  X X X X X
+
+          3                          2       2                     3
+ - 17 (G )  G      G        + 48 (G )  (G   )  G        - 2 G  (G )  G
+        X    X X X  X X X X        X     X X    X X X X      T   X    X X X X
+
+          2              2                3                    2
+ + 70 (G )  G    (G     )  - 174 G  (G   )  G      + 17 G  (G )  G    G
+        X    X X   X X X          X   X X    X X X       T   X    X X  X X X
+
+              3                   5                  3               2       2
+ - 8 G    (G )  G      + 81 (G   )  - 21 G  G  (G   )  + 21 G    (G )  (G   )
+      T X   X    X X X        X X         T  X   X X         T X   X     X X
+
+            6                     3            2     2                 8
+ + 6 U  (G )  G    - 9 G      (G )  G    + (G )  (G )  G    + 6 U  (G )
+      4   X    X X      T X X   X    X X     T     X    X X      5   X
+
+             7            4                  4                 3      5
+ + 6 U   (G )  + G    (G )  + 2 G        (G )  - 2 G  G    (G ) )/(G )
+      4    X      T T   X        T X X X   X        T  T X   X      X
+       X
+
+                    4                      3
+        U  = - ((G )  G            - 9 (G )  G    G
+         5        X    X X X X X X       X    X X  X X X X X
+
+          3                          2       2                     3
+ - 17 (G )  G      G        + 48 (G )  (G   )  G        - 2 G  (G )  G
+        X    X X X  X X X X        X     X X    X X X X      T   X    X X X X
+
+          2              2                3                    2
+ + 70 (G )  G    (G     )  - 174 G  (G   )  G      + 17 G  (G )  G    G
+        X    X X   X X X          X   X X    X X X       T   X    X X  X X X
+
+              3                   5                  3               2       2
+ - 8 G    (G )  G      + 81 (G   )  - 21 G  G  (G   )  + 21 G    (G )  (G   )
+      T X   X    X X X        X X         T  X   X X         T X   X     X X
+
+            6                     3            2     2                  7
+ + 6 U  (G )  G    - 9 G      (G )  G    + (G )  (G )  G    + 6 U   (G )
+      4   X    X X      T X X   X    X X     T     X    X X      4    X
+                                                                  X
+
+            4                  4                 3         8
+ + G    (G )  + 2 G        (G )  - 2 G  G    (G ) )/(6 (G ) )
+    T T   X        T X X X   X        T  T X   X         X
+
+        * COEFFICIENT OF G IS  0
+
+        U  IS ARBITRARY !
+         6
+
+       COMPATIBILITY CONDITION IS SATISFIED !
+
+----------------------------------------------------------------
+
+
+(C21) output()$
+
+----------------------------------------------------------------
+
+AT THE END OF THE COMPUTATIONS THE FOLLOWING ARE AVAILABLE:
+
+* U VALUE(S)
+
+  (type uval[j,k,l] where 1 <= j <=  1 and 0 <= k <=  [6]
+
+  and 1 <= l <=  [1] )
+
+  j stands for j_th alpha,k stands for u[k],l stands for
+
+  l_th solution set for u[0] 
+
+* ALPHA VALUE(S)
+
+  (type alpha[j] where 1 <= j <=  1 )
+
+  j stands for j_th alpha
+
+* COMPATIBILITY CONDITION(S)
+
+  (type compcond[j,k] where 1 <= j <=  1 and 1 <= k <=  [1] )
+
+  j stands for j_th alpha,k stands for k_th solution set for u[0]
+
+* RESONANCE(S)
+
+  (type res[j,k] where 1 <= j <=  1 and 1 <= k <=  [1] )
+
+  j stands for j_th alpha,k stands for k_th solution set for u[0]
+
+----------------------------------------------------------------
+
+TO SEE THIS MENU AGAIN JUST TYPE < output() >
+
+----------------------------------------------------------------
+
+
+
+(C22) /* ************************** END of NP_EXEC.MAX ************************** */
+
+
+(D22)                                 DONE
+
+
+(C23) closefile();

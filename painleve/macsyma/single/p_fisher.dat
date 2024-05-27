@@ -1,0 +1,14 @@
+
+/* Data for the Painleve test of the FISHER equation: */
+/* u_t - u_xx + u*(u-1) = 0  */
+/* in travelling frame of reference z = x - c*t, and rename z to x */
+
+/*
+do_simplification: false;
+prefer_variable:x;
+*/
+
+eq: c*fx[1](x)-f^2+f+fx[2](x); 
+
+/* where c is the wave velocity (constant) */
+

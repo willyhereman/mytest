@@ -1,0 +1,19 @@
+
+/* ************************************************************************* */
+/*                         Batch file P_KIN.DAT                              */
+/* ************************************************************************* */
+
+/* Comment:
+To use the simplification suggested by Kruskal the file needs to 
+contain the following two lines: 
+
+do_simplification: true;
+prefer_variable:x;
+*/
+
+/* The KINIMATIC equation :  */
+
+eq : ftx[1,0](t,x)+f*ftx[0,1](t,x); 
+
+/* **************************** END of P_KIN.DAT ************************** */
+

@@ -1,0 +1,42 @@
+
+/* ************************************************************************* */
+/*                           Batch file p_haj.dat                            */
+/* ************************************************************************* */
+
+debug1 : true;
+debug2 : true;
+
+/* To use the simplification suggested by Kruskal the file needs to 
+   contain the following two lines: */ 
+
+/*
+do_simplification: true;
+prefer_variable:x;
+*/
+
+/* To use user-supplied alpha (called beta) the file needs to contain
+   the following line: */
+
+/* beta :-2 */
+
+/* To give uzero from outside the flag giving_uzero must be set to true
+   on the next line */
+
+giving_uzero : false ;
+depends(g,[x,t]) ;
+supplied_uzero : diff(g,x) ; 
+
+/* Sometimes solutions to u[0] can be very messy,for those cases if you still
+   want to solve for u[0] explicitly set the flag solving_uzero to true
+   on the next line */
+
+solving_uzero : false ;
+
+/* The Hajee equation:  */
+
+eq: fx[3](x)+a*f*fx[2](x)+b*(fx[1](x))^2+c*f^4+d*f*fx[1](x)+e*f^3+p*f^2+q*f;
+
+/* where a,b,c,d,e,p and q are arbitrary real constants */
+
+/* **************************** END of HAJ.412 ************************** */
+

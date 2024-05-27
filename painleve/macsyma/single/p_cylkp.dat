@@ -1,0 +1,19 @@
+
+/* This is data file for the cylindrical KP equation */
+/* in book Ablowitz and Clarkson on p 64 */
+
+do_simplification: true;
+prefer_variable:x;
+
+/*
+giving_uzero : false ;
+solving_uzero : false ;
+*/
+
+eq : ftxy[1,1,0](t,x,y)+6*f*ftxy[0,2,0](t,x,y)
+     + 6*(ftxy[0,1,0](t,x,y))^2
+     + ftxy[0,4,0](t,x,y)+a(t)*ftxy[0,1,0](t,x,y)
+     + b(t)*ftxy[0,0,2](t,x,y); 
+
+/* where a(t) and b(t) are arbitrary functions */ 
+

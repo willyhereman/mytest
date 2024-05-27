@@ -1,0 +1,20 @@
+
+/* sp_ram.dat */
+
+/* Ramani (2.15) equation */
+
+eq[1]: fx[1,2](x)+4*f[1]*fx[1,1](x)+2*f[1]^3$ 
+
+noeqs: 1$
+nofun: 1$
+
+/* For Kruskal Simplification the file needs following 2 lines */
+
+do_simplification: true$
+prefer_variable: x$
+
+debugfullinfo: false$
+
+betalist: []$
+
+/* sp_ram.dat */

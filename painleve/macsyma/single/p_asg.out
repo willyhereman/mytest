@@ -1,0 +1,167 @@
+(d15) 		    /usr/people/whereman/painsing/p_asg.out
+
+(c16) batch("np_exec.max")$
+
+(c17) /* ************************************************************************* */
+/*                           Batch file NP_EXEC.MAX                          */
+/* ************************************************************************* */
+
+exec_painleve (eq, alpha, do_resonances, max_resonance, do_simplification)$
+You are using the simplification suggested by KRUSKAL
+You selected G(T,X,...) = X - H(T,...)
+----------------------------------------------------------------
+						 2		      2	   3
+PAINLEVE ANALYSIS OF EQUATION,  2 f f    - 2 (f )  + 2 f f    - 2 (f )  - f  + f
+				     x x       x	  t t	    t
+
+									     = 0
+----------------------------------------------------------------
+		  alpha
+  SUBSTITUTE  u  g       FOR f IN ORIGINAL EQUATION.
+	       0
+  MINIMUM POWERS OF g ARE  [2 alpha - 2, 3 alpha, alpha]
+		       2 alpha - 2	     2		  2
+    * COEFFICIENT OF  g		    IS  - 2 u  alpha ((h )  + 1)
+					     0	        t
+     NOTE : THIS TERM VANISHES FOR  alpha = 0 ,
+     VERIFY IF  alpha = 0  LEADS TO DOMINANT BEHAVIOR,
+     IF IT DOES THEN RUN THE PROGRAM AGAIN WITH THIS USER 
+     SUPPLIED VALUE OF ALPHA.
+     HENCE, PUT BETA =  0 .
+		       3 alpha	       3
+    * COEFFICIENT OF  g	        IS  - u
+				       0
+		       alpha
+    * COEFFICIENT OF  g	      IS  u
+				   0
+----------------------------------------------------------------
+  FOR EXPONENTS ( 2 alpha - 2 ) AND ( 3 alpha ) OF g,
+    WITH alpha =  - 2 , POWER OF g is  - 6  ----> SOLVE FOR  u
+							      0
+	      2	       2	   1
+       TERM  u  (4 (h )  - u  + 4) --  IS DOMINANT
+	      0	     t	    0	    6
+				   g
+       IN EQUATION.
+----------------------------------------------------------------
+		      2
+1 )  WITH  u  = 4 (h )  + 4  ----> FIND RESONANCES
+	    0	    t
+		    alpha	  r + alpha
+    SUBSTITUTE  u  g	   +  u  g	     FOR f IN EQUATION
+		 0	       r
+		     2	   2			   r - 6
+       TERM ( 8 ((h )  + 1)  (r - 2) (r + 1) ) u  g       IS DOMINANT
+		   t			        r
+       IN EQUATION.
+       THE ONLY NON-NEGATIVE INTEGRAL ROOT IS  [r = 2]
+ 
+    WITH MAXIMUM RESONANCE =  2  ----> CHECK RESONANCES.
+			      2
+			     ====
+			     \	    k - 2
+    SUBSTITUTE POWER SERIES   >	   g	  u   FOR f IN EQUATION.
+			     /		   k
+			     ====
+			     k = 0
+		    2
+    WITH u  = 4 (h )  + 4
+	  0	  t
+			 1	        2     2
+        * COEFFICIENT OF -- IS  16 ((h )  + 1)  (4 h    - u )
+			  5	      t		    t t	   1
+			 g
+        u  = 4 h
+	 1      t t
+			 1
+        * COEFFICIENT OF -- IS  0
+			  4
+			 g
+        u  IS ARBITRARY !
+	 2
+       COMPATIBILITY CONDITION IS SATISFIED !
+----------------------------------------------------------------
+  FOR EXPONENTS ( 2 alpha - 2 ) AND ( alpha ) OF g,
+    WITH alpha =  2 , POWER OF g is  2  ----> SOLVE FOR  u
+							  0
+			    2		   2
+       TERM  - u  (4 u  (h )  + 4 u  - 1) g   IS DOMINANT
+		0     0	  t	   0
+       IN EQUATION.
+----------------------------------------------------------------
+		     1
+1 )  WITH  u  = -----------  ----> FIND RESONANCES
+	    0	      2
+		4 (h )  + 4
+		    t
+		    alpha	  r + alpha
+    SUBSTITUTE  u  g	   +  u  g	     FOR f IN EQUATION
+		 0	       r
+				    r + 2
+       TERM ( (r - 2) (r + 1) ) u  g	   IS DOMINANT
+				 r
+       IN EQUATION.
+       THE ONLY NON-NEGATIVE INTEGRAL ROOT IS  [r = 2]
+ 
+    WITH MAXIMUM RESONANCE =  2  ----> CHECK RESONANCES.
+			      2
+			     ====
+			     \	    k + 2
+    SUBSTITUTE POWER SERIES   >	   g	  u   FOR f IN EQUATION.
+			     /		   k
+			     ====
+			     k = 0
+		   1
+    WITH u  = -----------
+	  0	    2
+	      4 (h )  + 4
+		  t
+						  4	       2
+				  h    + 4 u  (h )  + 8 u  (h )  + 4 u
+			  3	   t t	    1   t	 1   t	      1
+        * COEFFICIENT OF g  IS  - -------------------------------------
+						    2	  2
+					     4 ((h )  + 1)
+						  t
+		    h
+		     t t
+        u  = - --------------
+	 1	      2	    2
+	       4 ((h )  + 1)
+		    t
+			  4
+        * COEFFICIENT OF g  IS  0
+        u  IS ARBITRARY !
+	 2
+       COMPATIBILITY CONDITION IS SATISFIED !
+----------------------------------------------------------------
+  FOR EXPONENTS ( 3 alpha ) AND ( alpha ) OF g,
+    POWER OF g IS NOT MINIMAL 
+						-- SKIP THIS VALUE OF ALPHA.
+----------------------------------------------------------------
+
+(c18) output()$
+----------------------------------------------------------------
+AT THE END OF THE COMPUTATIONS THE FOLLOWING ARE AVAILABLE:
+* U VALUE(S)
+  (type uval[j,k,l] where 1 <= j <=  2 and 0 <= k <=  [2, 2]
+  and 1 <= l <=  [1, 1] )
+  j stands for j_th alpha,k stands for u[k],l stands for
+  l_th solution set for u[0] 
+* ALPHA VALUE(S)
+  (type alpha[j] where 1 <= j <=  2 )
+  j stands for j_th alpha
+* COMPATIBILITY CONDITION(S)
+  (type compcond[j,k] where 1 <= j <=  2 and 1 <= k <=  [1, 1] )
+  j stands for j_th alpha,k stands for k_th solution set for u[0]
+* RESONANCE(S)
+  (type res[j,k] where 1 <= j <=  2 and 1 <= k <=  [1, 1] )
+  j stands for j_th alpha,k stands for k_th solution set for u[0]
+----------------------------------------------------------------
+TO SEE THIS MENU AGAIN JUST TYPE < output() >
+----------------------------------------------------------------
+
+(c19) /* ************************** END of NP_EXEC.MAX ************************** */
+
+
+(c20) closefile();

@@ -1,0 +1,24 @@
+
+/* Data file for the Painleve test of the sine-Gordon equation */
+
+/* ************************************************************************* */
+/*                           Batch file P_SG.DAT                             */
+/* ************************************************************************* */
+
+/*
+do_simplification: false;
+prefer_variable:x;
+*/
+
+/*
+giving_uzero : false ;
+solving_uzero : false ;
+*/
+
+/* The sine-Gordon equation :  u_tx - sin(u) = 0 */
+/* Replace f = exp(iu) */
+
+eq : -2*ftx[1,0](t,x)*ftx[0,1](t,x)+2*f*ftx[1,1](t,x)-f^3+f; 
+
+/* **************************** END of P_SG.DAT ************************** */
+

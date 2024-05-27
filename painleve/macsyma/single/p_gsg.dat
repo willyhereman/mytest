@@ -1,0 +1,7 @@
+
+do_simplification: true$
+prefer_variable: x$
+
+eq: f*ftx[1,2](t,x)-ftx[0,1](t,x)*ftx[1,1](t,x)-k*ftx[0,1](t,x)+
+    f^3*ftx[1,0](t,x)-(1/2)*f^2; 
+

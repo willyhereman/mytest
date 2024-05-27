@@ -1,0 +1,58 @@
+
+(D13)     CSM$USERS:[WHEREMAN.PROGRAMS.NPAINLEVE.SINGLE]P_DIPOLE.OUT;1
+
+
+(C14) batch("np_exec.max")$
+
+
+(C15) /* ************************************************************************* */
+/*                           Batch file NP_EXEC.MAX                          */
+/* ************************************************************************* */
+
+exec_painleve (eq, alpha, do_resonances, max_resonance, do_simplification)$
+
+  SUBSTITUTE  X ----> G + X0
+
+----------------------------------------------------------------
+
+                                   4          3     2          3
+                                6 F  M G + 3 F  (F )  M - 6 E F  + 4 A
+                                                  G
+PAINLEVE ANALYSIS OF EQUATION,  --------------------------------------  = 0
+                                                   3
+                                                3 F  M
+
+----------------------------------------------------------------
+
+                  ALPHA
+  SUBSTITUTE  U  G       FOR f IN ORIGINAL EQUATION.
+               0
+
+  MINIMUM POWERS OF g ARE  [2 ALPHA - 2, ALPHA + 1, - 3 ALPHA, 0]
+
+                       2 ALPHA - 2       2      2
+    * COEFFICIENT OF  G             IS  U  ALPHA
+                                         0
+
+     NOTE : THIS TERM VANISHES FOR  ALPHA = 0 ,
+
+     VERIFY IF  ALPHA = 0  LEADS TO DOMINANT BEHAVIOR,
+
+     IF IT DOES THEN RUN THE PROGRAM AGAIN WITH THIS USER 
+
+     SUPPLIED VALUE OF ALPHA.
+
+     HENCE, PUT BETA =  0 .
+
+                       ALPHA + 1
+    * COEFFICIENT OF  G           IS  2 U
+                                         0
+
+                         1
+    * COEFFICIENT OF  --------  IS  0
+                       3 ALPHA
+                      G
+Quotient by zero
+Returned to Macsyma Toplevel.
+(C16) QUIT();
+

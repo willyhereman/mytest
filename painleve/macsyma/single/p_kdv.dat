@@ -1,0 +1,58 @@
+
+/* ************************************************************************* */
+/*                         Batch file P_KDV.DAT                              */
+/* ************************************************************************* */
+
+/* The only line the data file needs to contain is the equation in the 
+   proper format (see lower), the rest are all optional settings */
+
+/* To see more info, in particular a better trace of messages, you could 
+set the two debuggers to true */
+
+/*
+debug1 : true;
+debug2 : true;
+*/
+
+/* To use the simplification suggested by Kruskal the file needs to 
+   contain the following two lines: */ 
+
+/*
+do_simplification: true ;
+prefer_variable:x;
+*/
+
+/* To use user-supplied alpha (called beta) the file needs to contain
+   the following line: */
+
+/* beta : -2; */  
+ 
+/* To prevent that the program checks the compatibility conditions at the
+   resonances levels you can set do_resonance to false */
+
+/* do_resonances: false; */
+
+/* To give uzero from outside the flag giving_uzero must be set to true 
+   on the next line, and then give the correct version of uzero, with it
+   dependencies on variables */
+
+/*
+giving_uzero: true; 
+depends(g,x);
+supplied_uzero: -12*diff(g,x)^2;
+*/
+
+/* Sometimes solutions to u[0] can be very messy, for those cases if you 
+   still want to solve for u[0] explicitly set the flag solving_uzero to 
+   true on the next line */
+
+/*
+solving_uzero: false;
+*/
+
+/* The KORTEWEG-DE VRIES equation :  */
+
+eq : ftx[1,0](t,x)+f*ftx[0,1](t,x)+ftx[0,3](t,x); 
+
+/* **************************** END of P_KDV.DAT ************************* */
+

@@ -1,0 +1,20 @@
+
+/* ************************************************************************* */
+/*                       Batch file P_SASHA.DAT                              */
+/* ************************************************************************* */
+
+/* Data file for the equation is related to the Jimbo-Miwa hierarchy */
+/* of evolution equations related to the the Kadomtsev-Petviashvili equation */
+
+do_simplification: true;
+prefer_variable:x;
+
+
+eq: ftxy[0,4,1](t,x,y)+4*ftxy[0,2,1](t,x,y)*ftxy[0,1,0](t,x,y)+
+6*ftxy[0,1,1](t,x,y)*ftxy[0,2,0](t,x,y)+
+2*ftxy[0,0,1](t,x,y)*ftxy[0,3,0](t,x,y)-
+2*ftxy[1,2,0](t,x,y)+ftxy[0,0,3](t,x,y);
+
+/* *************************** END of P_SASHA.DAT ************************** */
+
+

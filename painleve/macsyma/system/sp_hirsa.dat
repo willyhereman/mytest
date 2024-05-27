@@ -1,0 +1,23 @@
+
+/* sp_hirsa.dat */
+
+/* Coupled  KdV system by Hirota and Satsuma */
+
+eq[1]: -ftx[1,1,0](t,x)+(1/2)*ftx[1,0,3](t,x)+3*f[1]*ftx[1,0,1](t,x)-
+						6*f[2]*ftx[2,0,1](t,x)$ 
+eq[2]: -ftx[2,1,0](t,x)-ftx[2,0,3](t,x) -3*f[1]*ftx[2,0,1](t,x)$
+
+noeqs: 2$
+nofun: 2$
+
+/* For Kruskal Simplification the file needs following 2 lines */
+
+do_simplification: true$
+prefer_variable: x$
+
+debugfullinfo: false$
+
+/* betalist: [[alpha[1]=-2,alpha[2]=-1]]$ */
+betalist: []$ 
+
+/* sp_hirsa.dat */

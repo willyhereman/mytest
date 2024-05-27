@@ -1,0 +1,275 @@
+
+(D1)      CSM$USERS:[WHEREMAN.PROGRAMS.NPAINLEVE.SINGLE]P_CYLKP.OUT;2
+
+
+(C2) batch("p_cylkp.dat");
+
+
+(C3) /* This is data file for the cylindrical KP equation */
+/* in book Ablowitz and Clarkson on p 64 */
+
+do_simplification: true;
+
+(D3)                                  TRUE
+
+
+(C4) prefer_variable:x;
+
+(D4)                                   X
+
+
+
+(C5) /*
+giving_uzero : false ;
+solving_uzero : false ;
+*/
+
+eq : ftxy[1,1,0](t,x,y)+6*f*ftxy[0,2,0](t,x,y)
+     + 6*(ftxy[0,1,0](t,x,y))^2
+     + ftxy[0,4,0](t,x,y)+a(t)*ftxy[0,1,0](t,x,y)
+     + b(t)*ftxy[0,0,2](t,x,y);
+
+                                                             2
+(D5)       F    B(T) + F  A(T) + F        + 6 F F    + 6 (F )  + F
+            Y Y         X         X X X X        X X       X      T X
+ 
+
+
+(C6) /* where a(t) and b(t) are arbitrary functions */ 
+
+
+(D6)                                  DONE
+
+
+(C7) batch("np_exec.max");
+
+
+(C8) /* ************************************************************************* */
+/*                           Batch file NP_EXEC.MAX                          */
+/* ************************************************************************* */
+
+exec_painleve (eq, alpha, do_resonances, max_resonance, do_simplification)$
+
+You are using the simplification suggested by KRUSKAL
+
+You selected G(T,X,...) = X - H(T,...)
+
+----------------------------------------------------------------
+
+PAINLEVE ANALYSIS OF EQUATION,  F    B(T) + F  A(T) + F        + 6 F F
+                                 Y Y         X         X X X X        X X
+
+                                                                   2
+                                                           + 6 (F )  + F     = 0
+                                                                 X      T X
+
+----------------------------------------------------------------
+
+                  ALPHA
+  SUBSTITUTE  U  G       FOR f IN ORIGINAL EQUATION.
+               0
+
+  MINIMUM POWERS OF g ARE  [2 ALPHA - 2, ALPHA - 4]
+
+                       2 ALPHA - 2         2
+    * COEFFICIENT OF  G             IS  6 U  ALPHA (2 ALPHA - 1)
+                                           0
+
+                                             1
+    NOTE : THIS TERM VANISHES FOR   [ALPHA = -, ALPHA = 0] ,
+                                             2
+
+    VERIFY IF ANY OF THESE VALUES FOR ALPHA LEADS TO DOMINANT
+
+    BEHAVIOR,
+
+    IF IT DOES THEN RUN THE PROGRAM AGAIN WITH THIS VALUE
+
+    AS USER SUPPLIED ALPHA, CALLED BETA.
+
+                       ALPHA - 4
+    * COEFFICIENT OF  G           IS  U  (ALPHA - 3) (ALPHA - 2) (ALPHA - 1)
+                                       0
+
+                                                                           ALPHA
+
+    NOTE : THIS TERM VANISHES FOR   [ALPHA = 0, ALPHA = 1, ALPHA = 2, ALPHA = 3]
+
+                                                                               ,
+
+    VERIFY IF ANY OF THESE VALUES FOR ALPHA LEADS TO DOMINANT
+
+    BEHAVIOR,
+
+    IF IT DOES THEN RUN THE PROGRAM AGAIN WITH THIS VALUE
+
+    AS USER SUPPLIED ALPHA, CALLED BETA.
+
+----------------------------------------------------------------
+
+  FOR EXPONENTS ( 2 ALPHA - 2 ) AND ( ALPHA - 4 ) OF g,
+
+    WITH alpha =  - 2 , POWER OF g is  - 6  ----> SOLVE FOR  U
+                                                              0
+
+                            1
+       TERM  60 U  (U  + 2) --  IS DOMINANT
+                 0   0       6
+                            G
+
+       IN EQUATION.
+
+----------------------------------------------------------------
+
+1 )  WITH  U  = - 2  ----> FIND RESONANCES
+            0
+
+                    ALPHA         R + ALPHA
+    SUBSTITUTE  U  G       +  U  G           FOR f IN EQUATION
+                 0             R
+
+                                                    R - 6
+       TERM ( (R - 6) (R - 5) (R - 4) (R + 1) ) U  G       IS DOMINANT
+                                                 R
+
+       IN EQUATION.
+
+       THE 3 NON-NEGATIVE INTEGRAL ROOTS ARE  [R = 4, R = 5, R = 6]
+
+ 
+
+    WITH MAXIMUM RESONANCE =  6  ----> CHECK RESONANCES.
+
+                              6
+                             ====
+                             \      K - 2
+    SUBSTITUTE POWER SERIES   >    G      U   FOR f IN EQUATION.
+                             /             K
+                             ====
+                             K = 0
+
+    WITH U  = - 2
+          0
+
+                         1
+        * COEFFICIENT OF -- IS  - 120 U
+                          5            1
+                         G
+
+        U  = 0
+         1
+
+                         1                2
+        * COEFFICIENT OF -- IS  - 12 ((H )  B(T) - H  + 6 U )
+                          4             Y           T      2
+                         G
+
+                   2
+               (H )  B(T) - H
+                 Y           T
+        U  = - ---------------
+         2            6
+
+                         1
+        * COEFFICIENT OF -- IS  - 4 (H    B(T) - A(T) + 6 U )
+                          3           Y Y                  3
+                         G
+
+               H    B(T) - A(T)
+                Y Y
+        U  = - ----------------
+         3            6
+
+                         1
+        * COEFFICIENT OF -- IS  0
+                          2
+                         G
+
+        U  IS ARBITRARY !
+         4
+
+       COMPATIBILITY CONDITION IS SATISFIED !
+
+                         1
+        * COEFFICIENT OF - IS  0
+                         G
+
+        U  IS ARBITRARY !
+         5
+
+       COMPATIBILITY CONDITION IS SATISFIED !
+
+                                                                            2
+                                 H    B(T)  - A(T)  + 4 H    A(T) B(T) - 2 A (T)
+                                  Y Y     T       T      Y Y
+        * COEFFICIENT OF 1 IS  - -----------------------------------------------
+                                                        6
+
+        U   IS ARBITRARY ?
+         6
+
+        COMPATIBILITY CONDITION:  
+
+                                                                      2
+                           H    B(T)  - A(T)  + 4 H    A(T) B(T) - 2 A (T)
+                            Y Y     T       T      Y Y
+                         - -----------------------------------------------  = 0,
+                                                  6
+
+   *** CONDITION IS NOT SATISFIED. ***
+
+   *** CHECK FOR FREE PARAMETERS OR PRESENCE OF U  . ***
+                                                 0
+
+----------------------------------------------------------------
+
+
+(C9) output()$
+
+----------------------------------------------------------------
+
+AT THE END OF THE COMPUTATIONS THE FOLLOWING ARE AVAILABLE:
+
+* U VALUE(S)
+
+  (type uval[j,k,l] where 1 <= j <=  1 and 0 <= k <=  [6]
+
+  and 1 <= l <=  [1] )
+
+  j stands for j_th alpha,k stands for u[k],l stands for
+
+  l_th solution set for u[0] 
+
+* ALPHA VALUE(S)
+
+  (type alpha[j] where 1 <= j <=  1 )
+
+  j stands for j_th alpha
+
+* COMPATIBILITY CONDITION(S)
+
+  (type compcond[j,k] where 1 <= j <=  1 and 1 <= k <=  [1] )
+
+  j stands for j_th alpha,k stands for k_th solution set for u[0]
+
+* RESONANCE(S)
+
+  (type res[j,k] where 1 <= j <=  1 and 1 <= k <=  [1] )
+
+  j stands for j_th alpha,k stands for k_th solution set for u[0]
+
+----------------------------------------------------------------
+
+TO SEE THIS MENU AGAIN JUST TYPE < output() >
+
+----------------------------------------------------------------
+
+
+
+(C10) /* ************************** END of NP_EXEC.MAX ************************** */
+
+
+(D10)                                 DONE
+
+
+(C11) closefile();

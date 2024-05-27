@@ -1,0 +1,17 @@
+
+/* Data file for the cylindrical KdV equation */
+
+debug1 : true;
+debug2 : true;
+
+/* This is the cylindrical KdV Eq (7.2.27) in Ablowitz-Clarkson's book p 373 */
+
+/*
+giving_uzero : false ;
+solving_uzero : false ;
+*/
+
+eq: ftx[1,0](t,x)+6*f*ftx[0,1](t,x)+ftx[0,3](t,x)+a(t)*f; 
+
+/* where a(t) is arbitrary function */ 
+

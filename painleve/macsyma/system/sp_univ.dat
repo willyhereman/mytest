@@ -1,0 +1,28 @@
+
+/* sp_univ.dat */
+
+/* Mix-Master Universe System */
+
+eq[1]: fx[1,0](x)*fx[1,2](x)-fx[1,1](x)^2-
+       fx[1,0](x)^2*(fx[2,0](x)^2-2*fx[2,0](x)*fx[3,0](x)+
+       fx[3,0](x)^2-fx[1,0](x)^2)$
+eq[2]: fx[2,0](x)*fx[2,2](x)-fx[2,1](x)^2-
+       fx[2,0](x)^2*(fx[3,0](x)^2-2*fx[3,0](x)*fx[1,0](x)+
+       fx[1,0](x)^2-fx[2,0](x)^2)$
+eq[3]: fx[3,0](x)*fx[3,2](x)-fx[3,1](x)^2-
+       fx[3,0](x)^2*(fx[1,0](x)^2-2*fx[1,0](x)*fx[2,0](x)+
+       fx[2,0](x)^2-fx[3,0](x)^2)$ 
+
+noeqs: 3$
+nofun: 3$
+
+/* For Kruskal Simplification the file needs following 2 lines */
+
+do_simplification: true$
+prefer_variable: x$
+
+debugfullinfo: false$
+
+betalist: []$
+
+/* sp_univ.dat */

@@ -1,0 +1,2261 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 11.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     72258,       2253]
+NotebookOptionsPosition[     67628,       2104]
+NotebookOutlinePosition[     68171,       2124]
+CellTagsIndexPosition[     68128,       2121]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[" Painlev\[EAcute] Test", "Title"],
+
+Cell[BoxData[
+ RowBox[{"IMPORTANT", " ", 
+  RowBox[{"MESSAGE", ":", " "}]}]], "Input"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+  "It", " ", "can", " ", "happen", " ", "that", " ", "our", " ", "software", 
+   " ", "for", " ", "the", " ", "PainleveTestV2", " ", "fails", " ", "to", "  ",
+    "find", " ", "all", " ", "possible", " ", "dominant", " ", 
+   RowBox[{"behaviors", ".", " ", "In"}], " ", "particular"}], ",", " ", 
+  RowBox[{
+  "this", " ", "can", " ", "happen", " ", "when", " ", "one", " ", "or", " ", 
+   "more", " ", "of", " ", "the", " ", "leading", " ", "order", " ", 
+   "exponents", " ", 
+   RowBox[{"(", "alphas", ")"}], "  ", "remain", " ", 
+   RowBox[{"undetermined", ".", "  ", "In"}], " ", "such", " ", 
+   "cases"}]}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+  "our", " ", "software", " ", "has", " ", "no", " ", "straightforward", " ", 
+   "way", " ", "of", " ", "finding", " ", 
+   RowBox[{"(", 
+    RowBox[{"or", " ", "trying"}], ")"}], " ", "values", " ", "for", " ", 
+   "the", " ", "undetermined", " ", 
+   RowBox[{
+   "alphas", ".", "  ", "\[IndentingNewLine]", "\[IndentingNewLine]", 
+    "WHEN"}], " ", "IN", " ", "DOUBT"}], ",", " ", 
+  RowBox[{
+   RowBox[{
+   "the", " ", "software", " ", "should", " ", "be", " ", "run", " ", "with", 
+    " ", "DominantBehaviorMin"}], " ", "\[Rule]", " ", 
+   RowBox[{
+    RowBox[{"integer1", "  ", 
+     RowBox[{"and", "/", "or"}], "  ", "DominantBehaviorMax"}], " ", 
+    "\[Rule]", " ", "integer2"}]}], ",", " ", 
+  RowBox[{
+  "where", "  ", "integer1", " ", "and", " ", "integer2", " ", "can", " ", 
+   "be", " ", "specified", "  ", "by", " ", "the", " ", 
+   RowBox[{"user", ".", " ", "For"}], " ", "example"}], ",", " ", 
+  RowBox[{"DominantBehaviorMin", " ", "\[Rule]", " ", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"-", "3"}], " ", 
+     RowBox[{"and", "/", "or"}], " ", "DominantBehaviorMax"}], " ", "\[Rule]",
+     " ", "4"}], " "}]}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"were", " ", "choosen"}], ",", " ", 
+   RowBox[{
+   "the", " ", "the", " ", "code", " ", "will", " ", "consider", " ", "the", 
+    " ", "following", " ", "choices", " ", "for", " ", "the", " ", "free", 
+    " ", 
+    RowBox[{"alphas", ":", " ", 
+     RowBox[{"-", "3"}]}]}], ",", 
+   RowBox[{"-", "2"}], ",", 
+   RowBox[{"-", "1"}], ",", "0", ",", "1", ",", "2", ",", "3", ",", " ", 
+   RowBox[{"and", " ", "4."}]}], 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"Default", " ", 
+    RowBox[{"values", ":", 
+     RowBox[{
+      RowBox[{"DominantBehaviorMin", " ", "is", " ", "set", " ", "to"}], " ", 
+      "-", 
+      RowBox[{
+      "3", " ", "and", "  ", "DominantBehaviorMax", " ", "is", " ", "set", 
+       " ", "to"}], " ", "-", 
+      RowBox[{"1", " ", "by", " ", 
+       RowBox[{"default", ".", " ", "So"}]}]}]}]}], ",", " ", 
+   RowBox[{"if", " ", "not", " ", "values", " ", "are", " ", "selected"}], 
+   ",", " ", 
+   RowBox[{
+   "the", " ", "code", " ", "will", " ", "run", " ", "the", " ", "test", " ", 
+    "for", " ", "the", " ", "default", " ", "values", " ", "for", " ", "the", 
+    " ", "alphas", " ", "starting", "  ", "from", " ", "the", " ", "default", 
+    " ", "DominantBehaviorMin", " ", "to", " ", "the", " ", "default", " ", 
+    "DominantBehaviorMax", " ", 
+    RowBox[{"value", ".", " ", "Thus"}]}], ",", " ", 
+   RowBox[{"for", " ", "each", " ", "undetermined", " ", "alpha"}], ",", " ", 
+   RowBox[{
+    RowBox[{
+    "the", " ", "code", " ", "will", " ", "consider", " ", "the", " ", 
+     "values"}], " ", "-", "3"}], ",", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"-", "2"}], " ", "and"}], " ", "-", "1."}]}], " ", 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+  "Selecting", " ", "appropriate", " ", "values", " ", "for", " ", 
+   "DominantBehaviorMax", " ", "is", " ", "important", " ", "when", " ", 
+   "one", " ", "or", " ", "more", " ", "of", " ", "the", " ", "alphas", " ", 
+   "are", " ", "positive", " ", "and", " ", "the"}], 
+  " "}], "\[IndentingNewLine]", 
+ RowBox[{"other", " ", "alphas", " ", "remain", " ", 
+  RowBox[{"undetermined", ".", " ", "Examples"}], " ", "are", " ", "given", 
+  " ", "at", " ", "the", " ", "bottom", " ", "of", " ", "this", " ", 
+  RowBox[{
+  "notebook", ".", "\[IndentingNewLine]", "\[IndentingNewLine]", "Why"}], " ",
+   "did", " ", "we", " ", "not", " ", "design", " ", "more", " ", 
+  "sophisticated", " ", "code", " ", "that", " ", "would", " ", 
+  "automatically", " ", "compute", " ", "bounds", " ", "for", " ", "the", " ",
+   "undetermined", " ", 
+  RowBox[{"values", "?", " ", "\[IndentingNewLine]", " ", "This"}], " ", "is",
+   " ", "largely", " ", "due", " ", "to", " ", "the", " ", "lack", " ", "of", 
+  " ", "reliable", " ", "Mathematica", " ", "functions", " ", "that", " ", 
+  "handle", " ", 
+  RowBox[{"inequalities", "."}]}]}], "Input"],
+
+Cell["\<\
+To load the package, you must set the directory to where the file is located, \
+say c:\\myDirectory, and load the package as follows:\
+\>", "Text"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", " ", 
+   RowBox[{
+    RowBox[{"SetDirectory", "[", "\"\<c:\\\\myDirectory\>\"", "]"}], ";"}], 
+   " ", "*)"}], "\n", 
+  RowBox[{"(*", " ", 
+   RowBox[{
+    RowBox[{"For", " ", "example"}], ",", " ", 
+    RowBox[{"SetDirectory", "[", "\"\<d:\\\\demoPainleveTest\>\"", "]"}]}], 
+   " ", "*)"}]}]], "Input",
+ CellChangeTimes->{{3.739929065736014*^9, 3.73992907510355*^9}}],
+
+Cell[BoxData[
+ RowBox[{" ", 
+  RowBox[{
+  "SetDirectory", "[", "\"\<c:\\\\data\\\\demoPainlevetest\>\"", "]"}], 
+  " "}]], "Input",
+ CellChangeTimes->{{3.739406689071066*^9, 3.739406699133167*^9}}],
+
+Cell[BoxData[
+ RowBox[{"\[IndentingNewLine]", 
+  RowBox[{"Get", "[", "\"\<PainleveTestV4-2018.m\>\"", "]"}]}]], "Input",
+ CellChangeTimes->{{3.739406704754223*^9, 3.73940671344531*^9}, {
+  3.739406759581772*^9, 3.7394067602017784`*^9}}],
+
+Cell[TextData[{
+ "The companion paper by Baldwin and Hereman, entitled ``Symbolic Software \
+for the Painleve Test of Nonlinear Ordinary and Partial\nDifferential \
+Equations\" has been published in the Journal of Nonlinear Mathematical \
+Physics, vol. 13, number 1, February 2006,\npages 90-110. ",
+ StyleBox[" \n\n",
+  FontSlant->"Italic"],
+ "A short description of how to use the package can be obtained by entering:"
+}], "Text",
+ CellChangeTimes->{3.7399293511413383`*^9}],
+
+Cell[BoxData[
+ RowBox[{"??", "PainleveTest"}]], "Input"],
+
+Cell["\<\
+As a first example, we consider the equation due to Korteweg and de Vries \
+(the KdV equation) :\
+\>", "Text"],
+
+Cell[BoxData[
+ RowBox[{"PainleveTest", "[", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"D", "[", 
+       RowBox[{
+        RowBox[{"u", "[", 
+         RowBox[{"x", ",", "t"}], "]"}], ",", " ", "t"}], "]"}], "+", 
+      RowBox[{"6", "*", 
+       RowBox[{"u", "[", 
+        RowBox[{"x", ",", "t"}], "]"}], "*", 
+       RowBox[{"D", "[", 
+        RowBox[{
+         RowBox[{"u", "[", 
+          RowBox[{"x", ",", "t"}], "]"}], ",", " ", "x"}], "]"}]}], "+", 
+      RowBox[{"D", "[", 
+       RowBox[{
+        RowBox[{"u", "[", 
+         RowBox[{"x", ",", "t"}], "]"}], ",", " ", 
+        RowBox[{"{", 
+         RowBox[{"x", ",", "3"}], "}"}]}], "]"}]}], "\[Equal]", "0"}], "}"}], 
+   ",", " ", "\[IndentingNewLine]", 
+   RowBox[{"u", "[", 
+    RowBox[{"x", ",", "t"}], "]"}], ",", " ", 
+   RowBox[{"{", 
+    RowBox[{"x", ",", "t"}], "}"}], " ", ",", " ", 
+   RowBox[{"Verbose", " ", "\[Rule]", " ", "True"}]}], " ", "]"}]], "Input",
+ FontSize->10],
+
+Cell["\<\
+The output of the Painleve Test is in the form {{Dominant Behavior, \
+Resonances, {Constants of Integration, Constraints}, ...}.  In this example, \
+the dominant behavior implies that the singularity manifold given by \
+\>", "Text"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"g", 
+    RowBox[{"(", 
+     RowBox[{"x", ",", "t"}], ")"}]}], "=", "0"}], ","}]], "DisplayFormula"],
+
+Cell["\<\
+is a double pole and the solutions has a Laurent series expansion of the form\
+\>", "Text"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"u", 
+    RowBox[{"(", 
+     RowBox[{"x", ",", "t"}], ")"}]}], " ", "=", " ", 
+   RowBox[{
+    SuperscriptBox["g", 
+     RowBox[{"-", "2"}]], 
+    RowBox[{"(", 
+     RowBox[{"x", ",", "t"}], ")"}], "  ", 
+    RowBox[{
+     UnderoverscriptBox["\[Sum]", 
+      RowBox[{"n", "=", "0"}], "\[Infinity]"], 
+     RowBox[{
+      SubscriptBox["u", "n"], 
+      RowBox[{"(", 
+       RowBox[{"x", ",", "t"}], ")"}], 
+      SuperscriptBox["g", "n"], 
+      RowBox[{"(", 
+       RowBox[{"x", ",", "t"}], ")"}]}]}]}]}], ","}]], "DisplayFormula"],
+
+Cell[TextData[{
+ "where ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["u", "n"], "(", 
+    RowBox[{"x", ",", "t"}], ")"}], TraditionalForm]]],
+ " are analytic functions in the neighborhood of the singularity manifold ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"g", " ", "=", " ", "0."}], TraditionalForm]]],
+ "  The integer resonances ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"r", " ", "=", " ", 
+     RowBox[{"-", "1"}]}], ",", "4", ",", "6"}], TraditionalForm]]],
+ " indicate that the solution lacks any algebraic branch-points in the \
+neighborhood of the singularity manifold.  Furthermore, since the \
+compatibility conditions were trivially satisfied, the solution lacks \
+logarithmic branch-points in the neighborhood of the singularity manifold. \
+Indeed, at resonance levels r = 4 and r = 6, there were arbitrary \
+coefficients  in the series and at all other levels the coefficients (also \
+called integration constants) were unambiguously and uniquely determined. \n\n\
+Detail can be seen for each of the three main steps of the algorithm by \
+setting DominantBehaviorVerbose, ResonancesVerbose, and \
+ConstantsOfIntegrationVerbose to a number between 1 and 3  (where larger \
+numbers give incrementally more detail). \nWe run the same example to see a \
+full trace of the computations. "
+}], "Text",
+ CellChangeTimes->{3.7399293759447565`*^9}],
+
+Cell[BoxData[
+ RowBox[{"PainleveTest", "[", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"D", "[", 
+       RowBox[{
+        RowBox[{"u", "[", 
+         RowBox[{"x", ",", "t"}], "]"}], ",", " ", "t"}], "]"}], "+", 
+      RowBox[{"6", "*", 
+       RowBox[{"u", "[", 
+        RowBox[{"x", ",", "t"}], "]"}], "*", 
+       RowBox[{"D", "[", 
+        RowBox[{
+         RowBox[{"u", "[", 
+          RowBox[{"x", ",", "t"}], "]"}], ",", " ", "x"}], "]"}]}], "+", 
+      RowBox[{"D", "[", 
+       RowBox[{
+        RowBox[{"u", "[", 
+         RowBox[{"x", ",", "t"}], "]"}], ",", " ", 
+        RowBox[{"{", 
+         RowBox[{"x", ",", "3"}], "}"}]}], "]"}]}], "\[Equal]", "0"}], "}"}], 
+   ",", " ", "\[IndentingNewLine]", 
+   RowBox[{"u", "[", 
+    RowBox[{"x", ",", "t"}], "]"}], ",", " ", 
+   RowBox[{"{", 
+    RowBox[{"x", ",", "t"}], "}"}], " ", ",", " ", 
+   RowBox[{"Verbose", " ", "\[Rule]", " ", "True"}], ",", " ", 
+   RowBox[{"DominantBehaviorVerbose", " ", "\[Rule]", " ", "3"}], ",", " ", 
+   RowBox[{"ResonancesVerbose", " ", "\[Rule]", " ", "3"}], ",", " ", 
+   "\[IndentingNewLine]", 
+   RowBox[{"ConstantsOfIntegrationVerbose", " ", "\[Rule]", " ", "3"}]}], " ",
+   "]"}]], "Input"],
+
+Cell[TextData[{
+ "The Weiss-Kruskal simplified algorithm is also implemented and can be \
+activated with the KruskalSimplification -> x option. \nIf so, the code uses \
+the simplified Kruskal ansatz where ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"g", "(", 
+     RowBox[{"x", ",", "t"}], ")"}], " ", "\[Congruent]", " ", 
+    RowBox[{"x", " ", "-", " ", 
+     RowBox[{"h", "(", "t", ")"}]}]}], TraditionalForm]]],
+ " for the singularity manifold. The coefficients in the\nLaurent series are \
+functions of t only, which drastically simplifies the computations."
+}], "Text"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"PainleveTest", "[", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"D", "[", 
+        RowBox[{
+         RowBox[{"u", "[", 
+          RowBox[{"x", ",", "t"}], "]"}], ",", " ", "t"}], "]"}], "+", 
+       RowBox[{"6", "*", 
+        RowBox[{"u", "[", 
+         RowBox[{"x", ",", "t"}], "]"}], "*", 
+        RowBox[{"D", "[", 
+         RowBox[{
+          RowBox[{"u", "[", 
+           RowBox[{"x", ",", "t"}], "]"}], ",", " ", "x"}], "]"}]}], "+", 
+       RowBox[{"D", "[", 
+        RowBox[{
+         RowBox[{"u", "[", 
+          RowBox[{"x", ",", "t"}], "]"}], ",", " ", 
+         RowBox[{"{", 
+          RowBox[{"x", ",", "3"}], "}"}]}], "]"}]}], "\[Equal]", "0"}], "}"}],
+     ",", " ", "\[IndentingNewLine]", 
+    RowBox[{"u", "[", 
+     RowBox[{"x", ",", "t"}], "]"}], ",", " ", 
+    RowBox[{"{", 
+     RowBox[{"x", ",", "t"}], "}"}], ",", " ", 
+    RowBox[{"KruskalSimplification", "\[Rule]", "x"}], ",", " ", 
+    RowBox[{"Verbose", " ", "\[Rule]", " ", "True"}]}], " ", "]"}], 
+  " "}]], "Input",
+ CellChangeTimes->{{3.739929110999603*^9, 3.739929134128926*^9}},
+ FontSize->10],
+
+Cell["\<\
+Let us now turn to our second example: a system of nonlinearly coupled \
+Korteweg-de Vries equations (due to Hirota and Satsuma):\
+\>", "Text"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"PainleveTest", "[", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{
+       RowBox[{
+        RowBox[{
+         RowBox[{"-", "aa"}], "*", 
+         RowBox[{"D", "[", 
+          RowBox[{
+           RowBox[{"u", "[", 
+            RowBox[{"x", ",", "t"}], "]"}], ",", " ", 
+           RowBox[{"{", 
+            RowBox[{"x", ",", " ", "3"}], "}"}]}], "]"}]}], "-", 
+        RowBox[{"6", "*", "aa", "*", 
+         RowBox[{"u", "[", 
+          RowBox[{"x", ",", "t"}], "]"}], "*", 
+         RowBox[{"D", "[", 
+          RowBox[{
+           RowBox[{"u", "[", 
+            RowBox[{"x", ",", "t"}], "]"}], ",", " ", "x"}], "]"}]}], "+", 
+        RowBox[{"6", "*", 
+         RowBox[{"v", "[", 
+          RowBox[{"x", ",", "t"}], "]"}], "*", 
+         RowBox[{"D", "[", 
+          RowBox[{
+           RowBox[{"v", "[", 
+            RowBox[{"x", ",", "t"}], "]"}], ",", " ", "x"}], "]"}]}], "+", 
+        RowBox[{"D", "[", 
+         RowBox[{
+          RowBox[{"u", "[", 
+           RowBox[{"x", ",", "t"}], "]"}], ",", " ", "t"}], "]"}]}], " ", 
+       "\[Equal]", " ", "0"}], ",", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"D", "[", 
+         RowBox[{
+          RowBox[{"v", "[", 
+           RowBox[{"x", ",", "t"}], "]"}], ",", " ", 
+          RowBox[{"{", 
+           RowBox[{"x", ",", " ", "3"}], "}"}]}], "]"}], "+", 
+        RowBox[{"3", "*", 
+         RowBox[{"u", "[", 
+          RowBox[{"x", ",", "t"}], "]"}], "*", 
+         RowBox[{"D", "[", 
+          RowBox[{
+           RowBox[{"v", "[", 
+            RowBox[{"x", ",", "t"}], "]"}], ",", " ", "x"}], "]"}]}], "+", 
+        RowBox[{"D", "[", 
+         RowBox[{
+          RowBox[{"v", "[", 
+           RowBox[{"x", ",", "t"}], "]"}], ",", " ", "t"}], "]"}]}], " ", 
+       "\[Equal]", " ", "0"}]}], "}"}], ",", " ", "\[IndentingNewLine]", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"u", "[", 
+       RowBox[{"x", ",", "t"}], "]"}], ",", 
+      RowBox[{"v", "[", 
+       RowBox[{"x", ",", "t"}], "]"}]}], "}"}], ",", " ", 
+    "\[IndentingNewLine]", 
+    RowBox[{"{", 
+     RowBox[{"x", ",", "t"}], "}"}]}], "]"}], " "}]], "Input",
+ FontSize->10],
+
+Cell["\<\
+Here, we see that the system has a parameter, called aa.  Note that (i) there \
+are two choices for the dominant behavior of the solution, and (ii) the \
+compatibility condition implies that aa = 1/2. 
+
+Below, the Verbose option is set to True in order for the user to see a \
+detailed trace of the computations.  A greater level of  detail can be see \
+for each of the three main steps of the algorithm by setting \
+DominantBehaviorVerbose, ResonancesVerbose, or ConstantsOfIntegrationVerbose \
+to a number between 1 and 3 (where larger numbers give incrementally more \
+detail).  \
+\>", "Text",
+ CellChangeTimes->{{3.739929343725914*^9, 3.7399293440299315`*^9}, {
+  3.739929385557307*^9, 3.7399293867413745`*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"PainleveTest", "[", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{
+       RowBox[{
+        RowBox[{
+         RowBox[{"-", "aa"}], "*", 
+         RowBox[{"D", "[", 
+          RowBox[{
+           RowBox[{"u", "[", 
+            RowBox[{"x", ",", "t"}], "]"}], ",", " ", 
+           RowBox[{"{", 
+            RowBox[{"x", ",", " ", "3"}], "}"}]}], "]"}]}], "-", 
+        RowBox[{"6", "*", "aa", "*", 
+         RowBox[{"u", "[", 
+          RowBox[{"x", ",", "t"}], "]"}], "*", 
+         RowBox[{"D", "[", 
+          RowBox[{
+           RowBox[{"u", "[", 
+            RowBox[{"x", ",", "t"}], "]"}], ",", " ", "x"}], "]"}]}], "+", 
+        RowBox[{"6", "*", 
+         RowBox[{"v", "[", 
+          RowBox[{"x", ",", "t"}], "]"}], "*", 
+         RowBox[{"D", "[", 
+          RowBox[{
+           RowBox[{"v", "[", 
+            RowBox[{"x", ",", "t"}], "]"}], ",", " ", "x"}], "]"}]}], " ", 
+        "+", 
+        RowBox[{"D", "[", 
+         RowBox[{
+          RowBox[{"u", "[", 
+           RowBox[{"x", ",", "t"}], "]"}], ",", " ", "t"}], "]"}]}], " ", 
+       "\[Equal]", " ", "0"}], ",", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"D", "[", 
+         RowBox[{
+          RowBox[{"v", "[", 
+           RowBox[{"x", ",", "t"}], "]"}], ",", " ", 
+          RowBox[{"{", 
+           RowBox[{"x", ",", " ", "3"}], "}"}]}], "]"}], "+", 
+        RowBox[{"3", "*", 
+         RowBox[{"u", "[", 
+          RowBox[{"x", ",", "t"}], "]"}], "*", 
+         RowBox[{"D", "[", 
+          RowBox[{
+           RowBox[{"v", "[", 
+            RowBox[{"x", ",", "t"}], "]"}], ",", " ", "x"}], "]"}]}], "+", 
+        RowBox[{"D", "[", 
+         RowBox[{
+          RowBox[{"v", "[", 
+           RowBox[{"x", ",", "t"}], "]"}], ",", " ", "t"}], "]"}]}], " ", 
+       "\[Equal]", " ", "0"}]}], "}"}], ",", " ", "\[IndentingNewLine]", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"u", "[", 
+       RowBox[{"x", ",", "t"}], "]"}], ",", 
+      RowBox[{"v", "[", 
+       RowBox[{"x", ",", "t"}], "]"}]}], "}"}], ",", " ", 
+    "\[IndentingNewLine]", 
+    RowBox[{"{", 
+     RowBox[{"x", ",", "t"}], "}"}], ",", "\[IndentingNewLine]", 
+    RowBox[{"Verbose", "\[Rule]", "True"}]}], "\[IndentingNewLine]", 
+   RowBox[{"(*", " ", 
+    RowBox[{",", " ", 
+     RowBox[{"KruskalSimplification", "\[Rule]", "x"}], ",", "  ", 
+     RowBox[{"DominantBehaviorVerbose", " ", "\[Rule]", " ", "1"}], ",", " ", 
+     RowBox[{"ResonancesVerbose", " ", "\[Rule]", " ", "1"}], ",", " ", 
+     RowBox[{"ConstantsOfIntegrationVerbose", " ", "\[Rule]", " ", "3"}]}], 
+    " ", "*)"}], "]"}], " "}]], "Input"],
+
+Cell[CellGroupData[{
+
+Cell["ODEs", "Section"],
+
+Cell[CellGroupData[{
+
+Cell["PI - Painleve Equation I", "Subsection",
+ FontSize->12],
+
+Cell[BoxData[
+ RowBox[{"PainleveTest", "[", 
+  RowBox[{
+   RowBox[{
+    RowBox[{
+     RowBox[{"w", "''"}], "[", "z", "]"}], "\[Equal]", 
+    RowBox[{
+     RowBox[{"6", "*", 
+      RowBox[{
+       RowBox[{"w", "[", "z", "]"}], "^", "2"}]}], "+", "z"}]}], ",", 
+   RowBox[{"w", "[", "z", "]"}], ",", "z"}], "]"}]], "Input"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["PII - Painleve Equation II", "Subsection",
+ FontSize->12],
+
+Cell[BoxData[
+ RowBox[{"PainleveTest", "[", 
+  RowBox[{
+   RowBox[{
+    RowBox[{
+     RowBox[{"w", "''"}], "[", "z", "]"}], "\[Equal]", 
+    RowBox[{
+     RowBox[{"2", "*", 
+      RowBox[{
+       RowBox[{"w", "[", "z", "]"}], "^", "3"}]}], "+", 
+     RowBox[{"z", "*", 
+      RowBox[{"w", "[", "z", "]"}]}], "+", "\[Alpha]"}]}], ",", 
+   RowBox[{"w", "[", "z", "]"}], ",", "z"}], "]"}]], "Input"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["\<\
+Chazy Equation:  The Chazy equation has only negative resonances.\
+\>", "Subsection",
+ FontSize->12],
+
+Cell[BoxData[
+ RowBox[{"PainleveTest", "[", "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{
+    RowBox[{
+     RowBox[{"y", "'''"}], "[", "x", "]"}], "\[Equal]", 
+    RowBox[{
+     RowBox[{"2", "*", 
+      RowBox[{"y", "[", "x", "]"}], "*", 
+      RowBox[{
+       RowBox[{"y", "''"}], "[", "x", "]"}]}], "-", 
+     RowBox[{"3", "*", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"y", "'"}], "[", "x", "]"}], "^", "2"}]}]}]}], ",", 
+   "\[IndentingNewLine]", 
+   RowBox[{"y", "[", "x", "]"}], ",", "x", ",", 
+   RowBox[{"Verbose", "\[Rule]", "True"}]}], "]"}]], "Input"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["\<\
+Example of an ODE with one positive and one negative alpha (Ramani, \
+Grammaticos and Bountis).\
+\>", "Subsection",
+ FontSize->12],
+
+Cell[BoxData[
+ RowBox[{"PainleveTest", "[", 
+  RowBox[{
+   RowBox[{"{", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"D", "[", 
+       RowBox[{
+        RowBox[{"x", "[", "t", "]"}], ",", " ", "t"}], "]"}], " ", "\[Equal]",
+       " ", 
+      RowBox[{
+       RowBox[{"x", "[", "t", "]"}], "*", 
+       RowBox[{"(", 
+        RowBox[{"a", "-", 
+         RowBox[{"x", "[", "t", "]"}], "-", 
+         RowBox[{"y", "[", "t", "]"}]}], ")"}]}]}], ",", 
+     "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"D", "[", 
+       RowBox[{
+        RowBox[{"y", "[", "t", "]"}], ",", "t"}], "]"}], " ", "\[Equal]", " ", 
+      RowBox[{
+       RowBox[{"y", "[", "t", "]"}], "*", 
+       RowBox[{"(", 
+        RowBox[{
+         RowBox[{"x", "[", "t", "]"}], " ", "-", "1"}], " ", ")"}]}]}]}], 
+    "\[IndentingNewLine]", "}"}], ",", " ", "\[IndentingNewLine]", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"x", "[", "t", "]"}], ",", 
+     RowBox[{"y", "[", "t", "]"}]}], "}"}], ",", " ", "\[IndentingNewLine]", 
+   RowBox[{"{", "t", "}"}], ",", "\[IndentingNewLine]", 
+   RowBox[{"Verbose", "\[Rule]", "True"}], ",", "   ", 
+   RowBox[{"DominantBehaviorMin", " ", "\[Rule]", " ", 
+    RowBox[{"-", "5"}]}], "  ", ",", "\[IndentingNewLine]", 
+   RowBox[{"DominantBehaviorMax", " ", "\[Rule]", " ", "5"}]}], " ", 
+  "\[IndentingNewLine]", "]"}]], "Input"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[" F-XVIII (Cosgrove)", "Subsection",
+ FontSize->12],
+
+Cell[BoxData[
+ RowBox[{"PainleveTest", "[", "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{
+    RowBox[{
+     RowBox[{"y", "''''"}], "[", "x", "]"}], "\[Equal]", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"-", "5"}], "*", 
+      RowBox[{
+       RowBox[{"y", "'"}], "[", "x", "]"}], "*", 
+      RowBox[{
+       RowBox[{"y", "''"}], "[", "x", "]"}]}], "+", 
+     RowBox[{"5", "*", 
+      RowBox[{
+       RowBox[{"y", "[", "x", "]"}], "^", "2"}], "*", 
+      RowBox[{
+       RowBox[{"y", "''"}], "[", "x", "]"}]}], "+", 
+     RowBox[{"5", "*", 
+      RowBox[{"y", "[", "x", "]"}], "*", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"y", "'"}], "[", "x", "]"}], "^", "2"}]}], "-", 
+     RowBox[{
+      RowBox[{"y", "[", "x", "]"}], "^", "5"}], "+", 
+     RowBox[{
+      RowBox[{"(", 
+       RowBox[{
+        RowBox[{"\[Lambda]", "*", "x"}], "+", "\[Alpha]"}], ")"}], "*", 
+      RowBox[{"y", "[", "x", "]"}]}], "+", "\[Gamma]"}]}], ",", 
+   "\[IndentingNewLine]", 
+   RowBox[{"y", "[", "x", "]"}], ",", "x"}], "]"}]], "Input"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Single PDEs", "Section"],
+
+Cell[CellGroupData[{
+
+Cell["Fisher Equation", "Subsection",
+ FontSize->12],
+
+Cell[BoxData[
+ RowBox[{"PainleveTest", "[", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"D", "[", 
+       RowBox[{
+        RowBox[{"u", "[", 
+         RowBox[{"x", ",", "t"}], "]"}], ",", 
+        RowBox[{"{", 
+         RowBox[{"x", ",", "2"}], "}"}]}], "]"}], "+", 
+      RowBox[{"c", "*", 
+       RowBox[{"D", "[", 
+        RowBox[{
+         RowBox[{"u", "[", 
+          RowBox[{"x", ",", "t"}], "]"}], ",", "x"}], "]"}]}], "-", 
+      RowBox[{
+       RowBox[{"u", "[", 
+        RowBox[{"x", ",", "t"}], "]"}], "^", "2"}], "+", 
+      RowBox[{"u", "[", 
+       RowBox[{"x", ",", "t"}], "]"}]}], "\[Equal]", "0"}], "}"}], ",", 
+   RowBox[{"u", "[", 
+    RowBox[{"x", ",", "t"}], "]"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"x", ",", "t"}], "}"}], ",", 
+   RowBox[{"KruskalSimplification", "\[Rule]", "x"}]}], "]"}]], "Input"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Cylindrical KDV Equation", "Subsection",
+ FontSize->12],
+
+Cell[BoxData[
+ RowBox[{"PainleveTest", "[", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"a", "[", "t", "]"}], "*", 
+      RowBox[{"D", "[", 
+       RowBox[{
+        RowBox[{"u", "[", 
+         RowBox[{"x", ",", "t"}], "]"}], ",", " ", "x"}], "]"}]}], "+", 
+     RowBox[{"D", "[", 
+      RowBox[{
+       RowBox[{"u", "[", 
+        RowBox[{"x", ",", "t"}], "]"}], ",", " ", 
+       RowBox[{"{", 
+        RowBox[{"x", ",", " ", "4"}], "}"}]}], "]"}], "+", 
+     RowBox[{"6", "*", 
+      RowBox[{"u", "[", 
+       RowBox[{"x", ",", "t"}], "]"}], "*", 
+      RowBox[{"D", "[", 
+       RowBox[{
+        RowBox[{"u", "[", 
+         RowBox[{"x", ",", "t"}], "]"}], ",", " ", 
+        RowBox[{"{", 
+         RowBox[{"x", ",", " ", "2"}], "}"}]}], "]"}]}], "+", 
+     RowBox[{"6", "*", 
+      RowBox[{
+       RowBox[{"D", "[", 
+        RowBox[{
+         RowBox[{"u", "[", 
+          RowBox[{"x", ",", "t"}], "]"}], ",", " ", "x"}], "]"}], "^", 
+       "2"}]}], "+", 
+     RowBox[{"D", "[", 
+      RowBox[{
+       RowBox[{"u", "[", 
+        RowBox[{"x", ",", "t"}], "]"}], ",", " ", 
+       RowBox[{"{", 
+        RowBox[{"x", ",", " ", "1"}], "}"}], ",", " ", 
+       RowBox[{"{", 
+        RowBox[{"t", ",", " ", "1"}], "}"}]}], "]"}]}], "}"}], ",", " ", 
+   RowBox[{"u", "[", 
+    RowBox[{"x", ",", "t"}], "]"}], ",", " ", 
+   RowBox[{"{", 
+    RowBox[{"x", ",", "t"}], "}"}]}], "]"}]], "Input"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Burgers' Equation", "Subsection",
+ CellChangeTimes->{3.7399292840615015`*^9},
+ FontSize->12],
+
+Cell[BoxData[
+ RowBox[{"PainleveTest", "[", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"D", "[", 
+      RowBox[{
+       RowBox[{"u", "[", 
+        RowBox[{"x", ",", "t"}], "]"}], ",", " ", "t"}], "]"}], "+", 
+     RowBox[{
+      RowBox[{"u", "[", 
+       RowBox[{"x", ",", "t"}], "]"}], "*", 
+      RowBox[{"D", "[", 
+       RowBox[{
+        RowBox[{"u", "[", 
+         RowBox[{"x", ",", "t"}], "]"}], ",", " ", "x"}], "]"}]}], "-", 
+     RowBox[{"sigma", "*", 
+      RowBox[{"D", "[", 
+       RowBox[{
+        RowBox[{"u", "[", 
+         RowBox[{"x", ",", "t"}], "]"}], ",", " ", 
+        RowBox[{"{", 
+         RowBox[{"x", ",", "2"}], "}"}]}], "]"}]}]}], "}"}], ",", " ", 
+   RowBox[{"u", "[", 
+    RowBox[{"x", ",", "t"}], "]"}], ",", " ", 
+   RowBox[{"{", 
+    RowBox[{"x", ",", "t"}], "}"}], ",", " ", 
+   RowBox[{"Verbose", "\[Rule]", "True"}]}], "]"}]], "Input"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Modified KdV", "Subsection",
+ FontSize->12],
+
+Cell[BoxData[
+ RowBox[{"PainleveTest", "[", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"D", "[", 
+      RowBox[{
+       RowBox[{"u", "[", 
+        RowBox[{"x", ",", "t"}], "]"}], ",", " ", "t"}], "]"}], "-", 
+     RowBox[{"3", "*", " ", 
+      RowBox[{
+       RowBox[{"u", "[", 
+        RowBox[{"x", ",", "t"}], "]"}], "^", "2"}], "*", 
+      RowBox[{"D", "[", 
+       RowBox[{
+        RowBox[{"u", "[", 
+         RowBox[{"x", ",", "t"}], "]"}], ",", " ", "x"}], "]"}]}], "+", 
+     RowBox[{"2", "*", 
+      RowBox[{"sigma", "^", "2"}], "*", 
+      RowBox[{"D", "[", 
+       RowBox[{
+        RowBox[{"u", "[", 
+         RowBox[{"x", ",", "t"}], "]"}], ",", " ", 
+        RowBox[{"{", 
+         RowBox[{"x", ",", "3"}], "}"}]}], "]"}]}]}], "}"}], ",", 
+   RowBox[{"u", "[", 
+    RowBox[{"x", ",", "t"}], "]"}], ",", " ", 
+   RowBox[{"{", 
+    RowBox[{"x", ",", "t"}], "}"}], ",", " ", 
+   RowBox[{"Verbose", " ", "\[Rule]", " ", "True"}]}], "]"}]], "Input",
+ CellChangeTimes->{{3.739419846647276*^9, 3.7394198583603935`*^9}}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Boussinesq Equation", "Subsection",
+ FontSize->12],
+
+Cell[BoxData[
+ RowBox[{"PainleveTest", "[", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"D", "[", 
+      RowBox[{
+       RowBox[{"u", "[", 
+        RowBox[{"x", ",", "t"}], "]"}], ",", " ", 
+       RowBox[{"{", 
+        RowBox[{"t", ",", "2"}], "}"}]}], "]"}], "+", 
+     RowBox[{"2", "*", 
+      RowBox[{"u", "[", 
+       RowBox[{"x", ",", "t"}], "]"}], "*", 
+      RowBox[{"D", "[", 
+       RowBox[{
+        RowBox[{"u", "[", 
+         RowBox[{"x", ",", "t"}], "]"}], ",", " ", 
+        RowBox[{"{", 
+         RowBox[{"x", ",", "2"}], "}"}]}], "]"}]}], "+", 
+     RowBox[{"2", "*", 
+      RowBox[{
+       RowBox[{"D", "[", 
+        RowBox[{
+         RowBox[{"u", "[", 
+          RowBox[{"x", ",", "t"}], "]"}], ",", " ", "x"}], "]"}], "^", 
+       "2"}]}], "+", 
+     RowBox[{
+      RowBox[{"(", 
+       RowBox[{"1", "/", "3"}], ")"}], "*", 
+      RowBox[{"D", "[", 
+       RowBox[{
+        RowBox[{"u", "[", 
+         RowBox[{"x", ",", "t"}], "]"}], ",", " ", 
+        RowBox[{"{", 
+         RowBox[{"x", ",", "4"}], "}"}]}], "]"}]}]}], "}"}], ",", " ", 
+   RowBox[{"u", "[", 
+    RowBox[{"x", ",", "t"}], "]"}], ",", " ", 
+   RowBox[{"{", 
+    RowBox[{"x", ",", "t"}], "}"}]}], "]"}]], "Input"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Integrable Nonlinear Klein-Gordon Equations", "Subsection",
+ FontSize->12],
+
+Cell[CellGroupData[{
+
+Cell["Case I:  Sine-Gordon equation", "Subsubsection",
+ CellChangeTimes->{{3.7394199197610083`*^9, 3.739419922391034*^9}}],
+
+Cell[BoxData[
+ RowBox[{"PainleveTest", "[", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"u", "[", 
+       RowBox[{"x", ",", "t"}], "]"}], "*", 
+      RowBox[{"(", 
+       RowBox[{
+        RowBox[{"D", "[", 
+         RowBox[{
+          RowBox[{"u", "[", 
+           RowBox[{"x", ",", "t"}], "]"}], ",", " ", 
+          RowBox[{"{", 
+           RowBox[{"t", ",", " ", "2"}], "}"}]}], "]"}], "-", 
+        RowBox[{"D", "[", 
+         RowBox[{
+          RowBox[{"u", "[", 
+           RowBox[{"x", ",", "t"}], "]"}], ",", " ", 
+          RowBox[{"{", 
+           RowBox[{"x", ",", "2"}], "}"}]}], "]"}]}], ")"}]}], "-", 
+     RowBox[{
+      RowBox[{"D", "[", 
+       RowBox[{
+        RowBox[{"u", "[", 
+         RowBox[{"x", ",", "t"}], "]"}], ",", " ", "t"}], "]"}], "^", "2"}], 
+     "+", 
+     RowBox[{
+      RowBox[{"D", "[", 
+       RowBox[{
+        RowBox[{"u", "[", 
+         RowBox[{"x", ",", "t"}], "]"}], ",", " ", "x"}], "]"}], "^", "2"}], 
+     " ", "-", " ", 
+     RowBox[{
+      RowBox[{"(", 
+       RowBox[{"1", "/", "2"}], ")"}], "*", 
+      RowBox[{
+       RowBox[{"u", "[", 
+        RowBox[{"x", ",", "t"}], "]"}], "^", "3"}]}], "+", 
+     RowBox[{
+      RowBox[{"(", 
+       RowBox[{"1", "/", "2"}], ")"}], "*", 
+      RowBox[{"u", "[", 
+       RowBox[{"x", ",", "t"}], "]"}]}]}], "}"}], ",", " ", 
+   RowBox[{"u", "[", 
+    RowBox[{"x", ",", "t"}], "]"}], ",", " ", 
+   RowBox[{"{", 
+    RowBox[{"x", ",", "t"}], "}"}]}], "]"}]], "Input"],
+
+Cell[BoxData[
+ RowBox[{"PainleveTest", "[", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"-", "2"}], "*", 
+      RowBox[{"D", "[", 
+       RowBox[{
+        RowBox[{"u", "[", 
+         RowBox[{"x", ",", "t"}], "]"}], ",", " ", "t"}], "]"}], "*", 
+      RowBox[{"D", "[", 
+       RowBox[{
+        RowBox[{"u", "[", 
+         RowBox[{"x", ",", "t"}], "]"}], ",", " ", "x"}], "]"}]}], "+", 
+     RowBox[{"2", "*", 
+      RowBox[{"u", "[", 
+       RowBox[{"x", ",", "t"}], "]"}], "*", 
+      RowBox[{"D", "[", 
+       RowBox[{
+        RowBox[{"u", "[", 
+         RowBox[{"x", ",", "t"}], "]"}], ",", " ", 
+        RowBox[{"{", 
+         RowBox[{"x", ",", " ", "1"}], "}"}], ",", " ", 
+        RowBox[{"{", 
+         RowBox[{"t", ",", " ", "1"}], "}"}]}], "]"}]}], "-", 
+     RowBox[{
+      RowBox[{"u", "[", 
+       RowBox[{"x", ",", "t"}], "]"}], "^", "3"}], "+", 
+     RowBox[{"u", "[", 
+      RowBox[{"x", ",", "t"}], "]"}]}], "}"}], ",", 
+   RowBox[{"u", "[", 
+    RowBox[{"x", ",", "t"}], "]"}], ",", " ", 
+   RowBox[{"{", 
+    RowBox[{"x", ",", "t"}], "}"}]}], "]"}]], "Input"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Case II: Liouville equations", "Subsubsection"],
+
+Cell[BoxData[
+ RowBox[{"PainleveTest", "[", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"u", "[", 
+       RowBox[{"x", ",", "t"}], "]"}], "*", 
+      RowBox[{"(", 
+       RowBox[{
+        RowBox[{"D", "[", 
+         RowBox[{
+          RowBox[{"u", "[", 
+           RowBox[{"x", ",", "t"}], "]"}], ",", " ", 
+          RowBox[{"{", 
+           RowBox[{"t", ",", " ", "2"}], "}"}]}], "]"}], "-", 
+        RowBox[{"D", "[", 
+         RowBox[{
+          RowBox[{"u", "[", 
+           RowBox[{"x", ",", "t"}], "]"}], ",", " ", 
+          RowBox[{"{", 
+           RowBox[{"x", ",", "2"}], "}"}]}], "]"}]}], ")"}]}], "-", 
+     RowBox[{
+      RowBox[{"D", "[", 
+       RowBox[{
+        RowBox[{"u", "[", 
+         RowBox[{"x", ",", "t"}], "]"}], ",", " ", "t"}], "]"}], "^", "2"}], 
+     "+", 
+     RowBox[{
+      RowBox[{"D", "[", 
+       RowBox[{
+        RowBox[{"u", "[", 
+         RowBox[{"x", ",", "t"}], "]"}], ",", " ", "x"}], "]"}], "^", "2"}], 
+     " ", "-", " ", 
+     RowBox[{
+      RowBox[{"u", "[", 
+       RowBox[{"x", ",", "t"}], "]"}], "^", "3"}]}], "}"}], ",", " ", 
+   RowBox[{"u", "[", 
+    RowBox[{"x", ",", "t"}], "]"}], ",", " ", 
+   RowBox[{"{", 
+    RowBox[{"x", ",", "t"}], "}"}]}], "]"}]], "Input"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["\<\
+Another example, page 180 in Willi Steeb\[CloseCurlyQuote]s book, where \
+alpha[1]\[Rule] -1\
+\>", "Subsection",
+ CellChangeTimes->{{3.7399293110700464`*^9, 3.7399293167093687`*^9}},
+ FontSize->12],
+
+Cell[BoxData[
+ RowBox[{"PainleveTest", "[", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"2", "*", 
+      RowBox[{"u", "[", 
+       RowBox[{"x", ",", "t"}], "]"}], "*", 
+      RowBox[{"D", "[", 
+       RowBox[{
+        RowBox[{"u", "[", 
+         RowBox[{"x", ",", "t"}], "]"}], ",", " ", "t"}], "]"}]}], "+", 
+     RowBox[{"D", "[", 
+      RowBox[{
+       RowBox[{"u", "[", 
+        RowBox[{"x", ",", "t"}], "]"}], ",", " ", 
+       RowBox[{"{", 
+        RowBox[{"x", ",", " ", "2"}], "}"}]}], "]"}]}], "}"}], ",", 
+   RowBox[{"u", "[", 
+    RowBox[{"x", ",", "t"}], "]"}], ",", " ", 
+   RowBox[{"{", 
+    RowBox[{"x", ",", "t"}], "}"}]}], "]"}]], "Input"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Systems of PDEs", "Section"],
+
+Cell[CellGroupData[{
+
+Cell["One-Dimensional Nonlinear Schrodinger Equation", "Subsection",
+ FontSize->12],
+
+Cell[BoxData[
+ RowBox[{"PainleveTest", "[", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"D", "[", 
+       RowBox[{
+        RowBox[{"u", "[", 
+         RowBox[{"x", ",", "t"}], "]"}], ",", " ", "t"}], "]"}], "+", 
+      RowBox[{"D", "[", 
+       RowBox[{
+        RowBox[{"v", "[", 
+         RowBox[{"x", ",", "t"}], "]"}], ",", " ", 
+        RowBox[{"{", 
+         RowBox[{"x", ",", "2"}], "}"}]}], "]"}], "+", 
+      RowBox[{"a", "*", 
+       RowBox[{"v", "[", 
+        RowBox[{"x", ",", "t"}], "]"}], "*", 
+       RowBox[{"(", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"u", "[", 
+           RowBox[{"x", ",", "t"}], "]"}], "^", "2"}], "+", 
+         RowBox[{
+          RowBox[{"v", "[", 
+           RowBox[{"x", ",", "t"}], "]"}], "^", "2"}]}], ")"}]}]}], ",", " ", 
+     RowBox[{
+      RowBox[{"D", "[", 
+       RowBox[{
+        RowBox[{"v", "[", 
+         RowBox[{"x", ",", "t"}], "]"}], ",", " ", "t"}], "]"}], "-", 
+      RowBox[{"D", "[", 
+       RowBox[{
+        RowBox[{"u", "[", 
+         RowBox[{"x", ",", "t"}], "]"}], ",", " ", 
+        RowBox[{"{", 
+         RowBox[{"x", ",", "2"}], "}"}]}], "]"}], "-", 
+      RowBox[{"a", "*", 
+       RowBox[{"u", "[", 
+        RowBox[{"x", ",", "t"}], "]"}], "*", 
+       RowBox[{"(", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"u", "[", 
+           RowBox[{"x", ",", "t"}], "]"}], "^", "2"}], "+", 
+         RowBox[{
+          RowBox[{"v", "[", 
+           RowBox[{"x", ",", "t"}], "]"}], "^", "2"}]}], ")"}]}]}]}], "}"}], 
+   ",", " ", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"u", "[", 
+      RowBox[{"x", ",", "t"}], "]"}], ",", " ", 
+     RowBox[{"v", "[", 
+      RowBox[{"x", ",", "t"}], "]"}]}], "}"}], ",", " ", 
+   RowBox[{"{", 
+    RowBox[{"x", ",", "t"}], "}"}], ",", " ", 
+   RowBox[{"KruskalSimplification", "\[Rule]", "x"}]}], "]"}]], "Input"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Reduced Maxwell Bloch Equations", "Subsection",
+ FontSize->12],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"PainleveTest", "[", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"D", "[", 
+        RowBox[{
+         RowBox[{"u", "[", 
+          RowBox[{"x", ",", "t"}], "]"}], ",", "x"}], "]"}], "+", 
+       RowBox[{"mu", "*", 
+        RowBox[{"v", "[", 
+         RowBox[{"x", ",", "t"}], "]"}]}]}], ",", " ", 
+      RowBox[{
+       RowBox[{"D", "[", 
+        RowBox[{
+         RowBox[{"v", "[", 
+          RowBox[{"x", ",", "t"}], "]"}], ",", " ", "x"}], "]"}], "-", 
+       RowBox[{
+        RowBox[{"e", "[", 
+         RowBox[{"x", ",", "t"}], "]"}], "*", 
+        RowBox[{"w", "[", 
+         RowBox[{"x", ",", "t"}], "]"}]}], "-", 
+       RowBox[{"mu", "*", 
+        RowBox[{"u", "[", 
+         RowBox[{"x", ",", "t"}], "]"}]}]}], ",", " ", 
+      RowBox[{
+       RowBox[{"D", "[", 
+        RowBox[{
+         RowBox[{"w", "[", 
+          RowBox[{"x", ",", "t"}], "]"}], ",", " ", "x"}], "]"}], "+", 
+       RowBox[{
+        RowBox[{"e", "[", 
+         RowBox[{"x", ",", "t"}], "]"}], "*", 
+        RowBox[{"v", "[", 
+         RowBox[{"x", ",", "t"}], "]"}]}]}], ",", " ", 
+      RowBox[{
+       RowBox[{"D", "[", 
+        RowBox[{
+         RowBox[{"e", "[", 
+          RowBox[{"x", ",", "t"}], "]"}], ",", " ", "t"}], "]"}], "+", 
+       RowBox[{"v", "[", 
+        RowBox[{"x", ",", "t"}], "]"}]}]}], "}"}], ",", " ", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"u", "[", 
+       RowBox[{"x", ",", "t"}], "]"}], ",", 
+      RowBox[{"v", "[", 
+       RowBox[{"x", ",", "t"}], "]"}], ",", 
+      RowBox[{"w", "[", 
+       RowBox[{"x", ",", "t"}], "]"}], ",", 
+      RowBox[{"e", "[", 
+       RowBox[{"x", ",", "t"}], "]"}]}], "}"}], ",", 
+    RowBox[{"{", 
+     RowBox[{"x", ",", "t"}], "}"}], ",", 
+    RowBox[{"KruskalSimplification", "\[Rule]", "x"}]}], "]"}], 
+  " "}]], "Input"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Lorenz Model of a Dissipative System with lim_{epsilon\[Rule]0}", \
+"Subsection",
+ FontSize->12],
+
+Cell[BoxData[
+ RowBox[{"PainleveTest", "[", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"v", "[", 
+       RowBox[{"x", ",", "t"}], "]"}], "-", 
+      RowBox[{"D", "[", 
+       RowBox[{
+        RowBox[{"u", "[", 
+         RowBox[{"x", ",", "t"}], "]"}], ",", " ", "t"}], "]"}]}], ",", " ", 
+     RowBox[{
+      RowBox[{"u", "[", 
+       RowBox[{"x", ",", "t"}], "]"}], "-", 
+      RowBox[{
+       RowBox[{"u", "[", 
+        RowBox[{"x", ",", "t"}], "]"}], "*", 
+       RowBox[{"w", "[", 
+        RowBox[{"x", ",", "t"}], "]"}]}], "-", 
+      RowBox[{"D", "[", 
+       RowBox[{
+        RowBox[{"v", "[", 
+         RowBox[{"x", ",", "t"}], "]"}], ",", " ", "t"}], "]"}]}], ",", " ", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"u", "[", 
+        RowBox[{"x", ",", "t"}], "]"}], "*", 
+       RowBox[{"v", "[", 
+        RowBox[{"x", ",", "t"}], "]"}]}], "-", 
+      RowBox[{"D", "[", 
+       RowBox[{
+        RowBox[{"w", "[", 
+         RowBox[{"x", ",", "t"}], "]"}], ",", " ", "t"}], "]"}]}]}], "}"}], 
+   ",", " ", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"u", "[", 
+      RowBox[{"x", ",", "t"}], "]"}], ",", " ", 
+     RowBox[{"v", "[", 
+      RowBox[{"x", ",", "t"}], "]"}], ",", 
+     RowBox[{"w", "[", 
+      RowBox[{"x", ",", "t"}], "]"}]}], "}"}], ",", " ", 
+   RowBox[{"{", 
+    RowBox[{"x", ",", "t"}], "}"}], ",", 
+   RowBox[{"KruskalSimplification", "\[Rule]", "x"}]}], "]"}]], "Input"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Nonlinearly coupled interacting harmonic oscillators.", "Subsection",
+ FontSize->12],
+
+Cell[BoxData[
+ RowBox[{"PainleveTest", "[", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"D", "[", 
+       RowBox[{
+        RowBox[{"u", "[", 
+         RowBox[{"x", ",", "t"}], "]"}], ",", " ", 
+        RowBox[{"{", 
+         RowBox[{"t", ",", " ", "2"}], "}"}]}], "]"}], "+", 
+      RowBox[{
+       RowBox[{"w1", "^", "2"}], "*", 
+       RowBox[{"u", "[", 
+        RowBox[{"x", ",", "t"}], "]"}]}], " ", "+", " ", 
+      RowBox[{"mu", "*", 
+       RowBox[{"v", "[", 
+        RowBox[{"x", ",", "t"}], "]"}], "*", 
+       RowBox[{"w", "[", 
+        RowBox[{"x", ",", "t"}], "]"}]}]}], ",", " ", 
+     RowBox[{
+      RowBox[{"D", "[", 
+       RowBox[{
+        RowBox[{"v", "[", 
+         RowBox[{"x", ",", "t"}], "]"}], ",", " ", 
+        RowBox[{"{", 
+         RowBox[{"t", ",", " ", "2"}], "}"}]}], "]"}], "+", 
+      RowBox[{
+       RowBox[{"w1", "^", "2"}], "*", 
+       RowBox[{"v", "[", 
+        RowBox[{"x", ",", "t"}], "]"}]}], " ", "+", " ", 
+      RowBox[{"mu", "*", 
+       RowBox[{"u", "[", 
+        RowBox[{"x", ",", "t"}], "]"}], "*", 
+       RowBox[{"w", "[", 
+        RowBox[{"x", ",", "t"}], "]"}]}]}], ",", " ", 
+     RowBox[{
+      RowBox[{"D", "[", 
+       RowBox[{
+        RowBox[{"w", "[", 
+         RowBox[{"x", ",", "t"}], "]"}], ",", " ", 
+        RowBox[{"{", 
+         RowBox[{"t", ",", " ", "2"}], "}"}]}], "]"}], "+", 
+      RowBox[{
+       RowBox[{"w1", "^", "2"}], "*", 
+       RowBox[{"w", "[", 
+        RowBox[{"x", ",", "t"}], "]"}]}], " ", "+", " ", 
+      RowBox[{"mu", "*", 
+       RowBox[{"u", "[", 
+        RowBox[{"x", ",", "t"}], "]"}], "*", 
+       RowBox[{"v", "[", 
+        RowBox[{"x", ",", "t"}], "]"}]}]}]}], "}"}], ",", " ", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"u", "[", 
+      RowBox[{"x", ",", "t"}], "]"}], ",", " ", 
+     RowBox[{"v", "[", 
+      RowBox[{"x", ",", "t"}], "]"}], ",", " ", 
+     RowBox[{"w", "[", 
+      RowBox[{"x", ",", "t"}], "]"}]}], "}"}], ",", " ", 
+   RowBox[{"{", 
+    RowBox[{"x", ",", "t"}], "}"}]}], "]"}]], "Input"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Two coupled PDEs", "Subsection",
+ FontSize->12],
+
+Cell[BoxData[
+ RowBox[{"PainleveTest", "[", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"-", 
+       RowBox[{"D", "[", 
+        RowBox[{
+         RowBox[{"u", "[", 
+          RowBox[{"x", ",", "t"}], "]"}], ",", " ", "t"}], "]"}]}], "+", 
+      RowBox[{
+       RowBox[{"(", 
+        RowBox[{"1", "/", "3"}], ")"}], "*", 
+       RowBox[{"(", 
+        RowBox[{
+         RowBox[{"-", 
+          RowBox[{"D", "[", 
+           RowBox[{
+            RowBox[{"u", "[", 
+             RowBox[{"x", ",", "t"}], "]"}], ",", " ", 
+            RowBox[{"{", 
+             RowBox[{"x", ",", " ", "2"}], "}"}]}], "]"}]}], "-", 
+         RowBox[{
+          RowBox[{"(", 
+           RowBox[{"7", "/", "2"}], ")"}], "*", 
+          RowBox[{"D", "[", 
+           RowBox[{
+            RowBox[{"u", "[", 
+             RowBox[{"x", ",", "t"}], "]"}], ",", " ", "x"}], "]"}], "*", 
+          RowBox[{"v", "[", 
+           RowBox[{"x", ",", "t"}], "]"}]}], "+", 
+         RowBox[{
+          RowBox[{"(", 
+           RowBox[{"1", "/", "2"}], ")"}], "*", 
+          RowBox[{"u", "[", 
+           RowBox[{"x", ",", "t"}], "]"}], "*", 
+          RowBox[{"D", "[", 
+           RowBox[{
+            RowBox[{"v", "[", 
+             RowBox[{"x", ",", "t"}], "]"}], ",", " ", "x"}], "]"}]}], "-", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"u", "[", 
+            RowBox[{"x", ",", "t"}], "]"}], "^", "2"}], "*", 
+          RowBox[{"v", "[", 
+           RowBox[{"x", ",", "t"}], "]"}]}]}], ")"}]}]}], ",", " ", 
+     RowBox[{
+      RowBox[{"-", 
+       RowBox[{"D", "[", 
+        RowBox[{
+         RowBox[{"v", "[", 
+          RowBox[{"x", ",", "t"}], "]"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"t", ",", " ", "2"}], "}"}]}], "]"}]}], "+", 
+      RowBox[{"D", "[", 
+       RowBox[{
+        RowBox[{"v", "[", 
+         RowBox[{"x", ",", "t"}], "]"}], ",", " ", 
+        RowBox[{"{", 
+         RowBox[{"x", ",", " ", "2"}], "}"}]}], "]"}], "-", 
+      RowBox[{
+       RowBox[{"(", 
+        RowBox[{"1", "/", "2"}], ")"}], "*", 
+       RowBox[{"D", "[", 
+        RowBox[{
+         RowBox[{"u", "[", 
+          RowBox[{"x", ",", "t"}], "]"}], ",", " ", "x"}], "]"}], "*", 
+       RowBox[{"v", "[", 
+        RowBox[{"x", ",", "t"}], "]"}]}], "+", 
+      RowBox[{
+       RowBox[{"(", 
+        RowBox[{"3", "/", "2"}], ")"}], "*", 
+       RowBox[{"u", "[", 
+        RowBox[{"x", ",", "t"}], "]"}], "*", 
+       RowBox[{"D", "[", 
+        RowBox[{
+         RowBox[{"v", "[", 
+          RowBox[{"x", ",", "t"}], "]"}], ",", " ", "x"}], "]"}]}]}]}], "}"}],
+    ",", " ", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"u", "[", 
+      RowBox[{"x", ",", "t"}], "]"}], ",", " ", 
+     RowBox[{"v", "[", 
+      RowBox[{"x", ",", "t"}], "]"}]}], "}"}], ",", " ", 
+   RowBox[{"{", 
+    RowBox[{"x", ",", "t"}], "}"}]}], "]"}]], "Input"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["\<\
+Equation (2) in \"A note on the Painleve property
+of coupled KdV equations by S.Yu.Sakovich.  arXiv:nlin.SI/0402004 v1 2 Feb \
+2004\
+\>", "Subsection",
+ CellChangeTimes->{3.739929403420328*^9},
+ FontSize->12],
+
+Cell[BoxData[
+ RowBox[{"PainleveTest", "[", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{
+       RowBox[{
+        RowBox[{"D", "[", 
+         RowBox[{
+          RowBox[{"v", "[", 
+           RowBox[{"x", ",", "t"}], "]"}], ",", "t"}], "]"}], " ", "+", " ", 
+        RowBox[{"6", "*", 
+         RowBox[{"v", "[", 
+          RowBox[{"x", ",", "t"}], "]"}], "*", 
+         RowBox[{"D", "[", 
+          RowBox[{
+           RowBox[{"v", "[", 
+            RowBox[{"x", ",", "t"}], "]"}], ",", " ", "x"}], "]"}]}], " ", 
+        "+", " ", 
+        RowBox[{"D", "[", 
+         RowBox[{
+          RowBox[{"v", "[", 
+           RowBox[{"x", ",", "t"}], "]"}], ",", " ", 
+          RowBox[{"{", 
+           RowBox[{"x", ",", " ", "3"}], "}"}]}], "]"}]}], " ", "\[Equal]", 
+       " ", "0"}], ",", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"D", "[", 
+         RowBox[{
+          RowBox[{"w", "[", 
+           RowBox[{"x", ",", "t"}], "]"}], ",", " ", "t"}], "]"}], " ", "+", 
+        " ", 
+        RowBox[{"6", "*", "a", "*", 
+         RowBox[{"v", "[", 
+          RowBox[{"x", ",", "t"}], "]"}], "*", 
+         RowBox[{"D", "[", 
+          RowBox[{
+           RowBox[{"w", "[", 
+            RowBox[{"x", ",", "t"}], "]"}], ",", "x"}], " ", "]"}]}], " ", 
+        "+", " ", 
+        RowBox[{"6", "*", 
+         RowBox[{"(", 
+          RowBox[{"1", "-", "a"}], ")"}], "*", 
+         RowBox[{"w", "[", 
+          RowBox[{"x", ",", "t"}], "]"}], "*", 
+         RowBox[{"D", "[", 
+          RowBox[{
+           RowBox[{"v", "[", 
+            RowBox[{"x", ",", "t"}], "]"}], ",", " ", "x"}], "]"}]}], " ", 
+        "+", " ", 
+        RowBox[{"D", "[", 
+         RowBox[{
+          RowBox[{"w", "[", 
+           RowBox[{"x", ",", "t"}], "]"}], ",", " ", 
+          RowBox[{"{", 
+           RowBox[{"x", ",", "3"}], "}"}]}], "]"}]}], " ", "\[Equal]", " ", 
+       "0"}]}], "}"}], "/.", " ", 
+    RowBox[{"a", " ", "\[Rule]", " ", 
+     RowBox[{"3", "/", "2"}]}]}], ",", "\[IndentingNewLine]", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"v", "[", 
+      RowBox[{"x", ",", "t"}], "]"}], ",", " ", 
+     RowBox[{"w", "[", 
+      RowBox[{"x", ",", "t"}], "]"}]}], "}"}], ",", "\[IndentingNewLine]", 
+   RowBox[{"{", 
+    RowBox[{"x", ",", "t"}], "}"}], ",", " ", 
+   RowBox[{"Verbose", "\[Rule]", "True"}], ",", " ", 
+   RowBox[{"KruskalSimplification", "\[Rule]", "x"}]}], "]"}]], "Input"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Positive DominantBehaviorMax", "Section"],
+
+Cell[TextData[{
+ "Three interesting examples where one of the exponents in the dominant \
+behaviors is positive.  It is important that at least one of the values of ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["\[Alpha]", "i"], TraditionalForm]]],
+ " is negative.  Furthermore, the branch with a positive \[Alpha] is called \
+the non-principal (or non-generic) branch."
+}], "Text"],
+
+Cell[BoxData[{
+ StyleBox[
+  RowBox[{
+   RowBox[{
+   "Example", " ", "1", " ", "is", " ", "a", " ", "coupled", " ", "system", 
+    " ", "of", " ", "KdV"}], "-", 
+   RowBox[{
+   "mKdV", " ", "equations", " ", "taken", " ", "from", "  ", 
+    "``Integrability", " ", "of", " ", "Kersten"}], "-", 
+   RowBox[{"Krasilshchik", " ", "coupled", " ", "KdV"}], "-", "mKdV"}], "Text",
+  FontWeight->"Plain",
+  FontVariations->{"CompatibilityType"->0}], "\[IndentingNewLine]", 
+ StyleBox[
+  RowBox[{"equations", ":", " ", 
+   RowBox[{
+   "singularity", " ", "analysis", " ", "and", " ", "Lax", " ", "pair", 
+    "\"\< by  Kalkani, Sakovich, and Yurdusen. J. Math. Phys. 44(4) 2003, pp. \
+1703-1708. \>"}]}], "Text",
+  FontWeight->"Plain",
+  FontVariations->{"CompatibilityType"->0}]}], "Input"],
+
+Cell[BoxData[
+ RowBox[{"\[IndentingNewLine]", 
+  StyleBox[
+   RowBox[{
+   "We", " ", "first", " ", "run", " ", "the", " ", "test", " ", "without", 
+    " ", "specifiction", " ", "of", " ", "DominantBehaviorMax", " ", 
+    RowBox[{
+     RowBox[{"(", 
+      RowBox[{
+       RowBox[{"which", " ", "by", " ", "default", " ", "will", " ", "be"}], 
+       " ", "-", "1"}], ")"}], "."}]}], "Text",
+   FontWeight->"Plain",
+   FontVariations->{"CompatibilityType"->0}]}]], "Input"],
+
+Cell[BoxData[
+ RowBox[{"\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{"PainleveTest", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"D", "[", 
+         RowBox[{
+          RowBox[{"u", "[", 
+           RowBox[{"x", ",", "t"}], "]"}], ",", " ", "t"}], "]"}], "\[Equal]", 
+        RowBox[{
+         RowBox[{"-", 
+          RowBox[{"D", "[", 
+           RowBox[{
+            RowBox[{"u", "[", 
+             RowBox[{"x", ",", "t"}], "]"}], ",", " ", 
+            RowBox[{"{", 
+             RowBox[{"x", ",", "3"}], "}"}]}], "]"}]}], "+", 
+         RowBox[{"6", "*", 
+          RowBox[{"u", "[", 
+           RowBox[{"x", ",", "t"}], "]"}], "*", 
+          RowBox[{"D", "[", 
+           RowBox[{
+            RowBox[{"u", "[", 
+             RowBox[{"x", ",", "t"}], "]"}], ",", " ", "x"}], "]"}]}], "-", 
+         RowBox[{"3", "*", 
+          RowBox[{"w", "[", 
+           RowBox[{"x", ",", "t"}], "]"}], "*", 
+          RowBox[{"D", "[", 
+           RowBox[{
+            RowBox[{"w", "[", 
+             RowBox[{"x", ",", "t"}], "]"}], ",", " ", 
+            RowBox[{"{", 
+             RowBox[{"x", ",", "3"}], "}"}]}], "]"}]}], "-", 
+         RowBox[{"3", "*", 
+          RowBox[{"D", "[", 
+           RowBox[{
+            RowBox[{"w", "[", 
+             RowBox[{"x", ",", "t"}], "]"}], ",", " ", "x"}], "]"}], "*", 
+          RowBox[{"D", "[", 
+           RowBox[{
+            RowBox[{"w", "[", 
+             RowBox[{"x", ",", "t"}], "]"}], ",", " ", 
+            RowBox[{"{", 
+             RowBox[{"x", ",", "2"}], "}"}]}], "]"}]}], "+", 
+         RowBox[{"3", "*", 
+          RowBox[{"D", "[", 
+           RowBox[{
+            RowBox[{"u", "[", 
+             RowBox[{"x", ",", "t"}], "]"}], ",", " ", "x"}], "]"}], "*", 
+          RowBox[{
+           RowBox[{"w", "[", 
+            RowBox[{"x", ",", "t"}], "]"}], "^", "2"}]}], "+", 
+         RowBox[{"6", "*", 
+          RowBox[{"u", "[", 
+           RowBox[{"x", ",", "t"}], "]"}], "*", 
+          RowBox[{"w", "[", 
+           RowBox[{"x", ",", "t"}], "]"}], "*", 
+          RowBox[{"D", "[", 
+           RowBox[{
+            RowBox[{"w", "[", 
+             RowBox[{"x", ",", "t"}], "]"}], ",", " ", "x"}], "]"}]}]}]}], 
+       ",", " ", 
+       RowBox[{
+        RowBox[{"D", "[", 
+         RowBox[{
+          RowBox[{"w", "[", 
+           RowBox[{"x", ",", "t"}], "]"}], ",", " ", "t"}], "]"}], "\[Equal]", 
+        RowBox[{
+         RowBox[{"-", 
+          RowBox[{"D", "[", 
+           RowBox[{
+            RowBox[{"w", "[", 
+             RowBox[{"x", ",", "t"}], "]"}], ",", " ", 
+            RowBox[{"{", 
+             RowBox[{"x", ",", "3"}], "}"}]}], "]"}]}], "+", 
+         RowBox[{"3", "*", 
+          RowBox[{
+           RowBox[{"w", "[", 
+            RowBox[{"x", ",", "t"}], "]"}], "^", "2"}], "*", 
+          RowBox[{"D", "[", 
+           RowBox[{
+            RowBox[{"w", "[", 
+             RowBox[{"x", ",", "t"}], "]"}], ",", " ", "x"}], "]"}]}], "+", 
+         RowBox[{"3", "*", 
+          RowBox[{"u", "[", 
+           RowBox[{"x", ",", "t"}], "]"}], "*", 
+          RowBox[{"D", "[", 
+           RowBox[{
+            RowBox[{"w", "[", 
+             RowBox[{"x", ",", "t"}], "]"}], ",", " ", "x"}], "]"}]}], "+", 
+         RowBox[{"3", "*", 
+          RowBox[{"w", "[", 
+           RowBox[{"x", ",", "t"}], "]"}], "*", 
+          RowBox[{"D", "[", 
+           RowBox[{
+            RowBox[{"u", "[", 
+             RowBox[{"x", ",", "t"}], "]"}], ",", " ", "x"}], "]"}]}]}]}]}], 
+      "}"}], ",", " ", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"u", "[", 
+        RowBox[{"x", ",", "t"}], "]"}], ",", " ", 
+       RowBox[{"w", "[", 
+        RowBox[{"x", ",", "t"}], "]"}]}], "}"}], ",", " ", 
+     RowBox[{"{", 
+      RowBox[{"x", ",", "t"}], "}"}], ",", 
+     RowBox[{"KruskalSimplification", "\[Rule]", "x"}]}], "]"}], 
+   "\[IndentingNewLine]"}]}]], "Input"],
+
+Cell[BoxData[
+ RowBox[{
+  StyleBox[" ", "Text"], 
+  RowBox[{
+   StyleBox[
+    RowBox[{
+     RowBox[{
+      RowBox[{
+       RowBox[{
+       "The", " ", "software", " ", "misses", " ", "two", " ", "non"}], "-", 
+       RowBox[{"generic", " ", 
+        RowBox[{"branches", ":", " ", "alpha1"}]}]}], " ", "=", " ", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"-", "2"}], " ", "with", " ", "alpha2"}], " ", "=", " ", 
+       "2"}]}], ",", 
+     RowBox[{
+      RowBox[{"and", " ", "alpha1"}], "=", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"-", "2"}], " ", "with", " ", "alpha2"}], "=", " ", 
+       "3."}]}]}], "Text"], 
+   StyleBox[" ", "Text"], 
+   StyleBox["\[IndentingNewLine]", "Text"], 
+   StyleBox[" ", "Text"], 
+   RowBox[{
+    StyleBox[
+     RowBox[{
+     "By", " ", "setting", " ", "DemominantBehaviorMax", " ", "sufficiently", 
+      " ", "high"}], "Text"], 
+    StyleBox[",", "Text"], 
+    StyleBox[" ", "Text"], 
+    StyleBox[
+     RowBox[{
+     "in", " ", "this", " ", "case", " ", "3", " ", "or", " ", "larger"}], 
+     "Text"], 
+    StyleBox[",", "Text"], 
+    StyleBox[" ", "Text"], 
+    StyleBox[
+     RowBox[{"these", " ", "branches", " ", "will", " ", "be", " ", 
+      RowBox[{"considered", ".", " ", "\[IndentingNewLine]", "Hence"}]}], 
+     "Text"], 
+    StyleBox[",", "Text"], 
+    RowBox[{
+     StyleBox["run", "Text"], 
+     StyleBox[" ", "Text"], 
+     StyleBox["the", "Text"], 
+     StyleBox[" ", "Text"], 
+     StyleBox["test", "Text"], 
+     StyleBox[" ", "Text"], 
+     StyleBox["again", "Text"], 
+     StyleBox[" ", "Text"], 
+     StyleBox["with", "Text"], 
+     StyleBox[" ", "Text"], 
+     StyleBox["the", "Text"], 
+     StyleBox[" ", "Text"], 
+     StyleBox["following", "Text"], 
+     StyleBox[" ", "Text"], 
+     RowBox[{
+      StyleBox["settings", "Text"], 
+      StyleBox[":", "Text"], "\[IndentingNewLine]"}]}]}]}]}]], "Input",
+ PageWidth->Infinity],
+
+Cell[BoxData[
+ RowBox[{"PainleveTest", "[", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"D", "[", 
+       RowBox[{
+        RowBox[{"u", "[", 
+         RowBox[{"x", ",", "t"}], "]"}], ",", " ", "t"}], "]"}], "\[Equal]", 
+      RowBox[{
+       RowBox[{"-", 
+        RowBox[{"D", "[", 
+         RowBox[{
+          RowBox[{"u", "[", 
+           RowBox[{"x", ",", "t"}], "]"}], ",", " ", 
+          RowBox[{"{", 
+           RowBox[{"x", ",", "3"}], "}"}]}], "]"}]}], "+", 
+       RowBox[{"6", "*", 
+        RowBox[{"u", "[", 
+         RowBox[{"x", ",", "t"}], "]"}], "*", 
+        RowBox[{"D", "[", 
+         RowBox[{
+          RowBox[{"u", "[", 
+           RowBox[{"x", ",", "t"}], "]"}], ",", " ", "x"}], "]"}]}], "-", 
+       RowBox[{"3", "*", 
+        RowBox[{"w", "[", 
+         RowBox[{"x", ",", "t"}], "]"}], "*", 
+        RowBox[{"D", "[", 
+         RowBox[{
+          RowBox[{"w", "[", 
+           RowBox[{"x", ",", "t"}], "]"}], ",", " ", 
+          RowBox[{"{", 
+           RowBox[{"x", ",", "3"}], "}"}]}], "]"}]}], "-", 
+       RowBox[{"3", "*", 
+        RowBox[{"D", "[", 
+         RowBox[{
+          RowBox[{"w", "[", 
+           RowBox[{"x", ",", "t"}], "]"}], ",", " ", "x"}], "]"}], "*", 
+        RowBox[{"D", "[", 
+         RowBox[{
+          RowBox[{"w", "[", 
+           RowBox[{"x", ",", "t"}], "]"}], ",", " ", 
+          RowBox[{"{", 
+           RowBox[{"x", ",", "2"}], "}"}]}], "]"}]}], "+", 
+       RowBox[{"3", "*", 
+        RowBox[{"D", "[", 
+         RowBox[{
+          RowBox[{"u", "[", 
+           RowBox[{"x", ",", "t"}], "]"}], ",", " ", "x"}], "]"}], "*", 
+        RowBox[{
+         RowBox[{"w", "[", 
+          RowBox[{"x", ",", "t"}], "]"}], "^", "2"}]}], "+", 
+       RowBox[{"6", "*", 
+        RowBox[{"u", "[", 
+         RowBox[{"x", ",", "t"}], "]"}], "*", 
+        RowBox[{"w", "[", 
+         RowBox[{"x", ",", "t"}], "]"}], "*", 
+        RowBox[{"D", "[", 
+         RowBox[{
+          RowBox[{"w", "[", 
+           RowBox[{"x", ",", "t"}], "]"}], ",", " ", "x"}], "]"}]}]}]}], ",", 
+     " ", 
+     RowBox[{
+      RowBox[{"D", "[", 
+       RowBox[{
+        RowBox[{"w", "[", 
+         RowBox[{"x", ",", "t"}], "]"}], ",", " ", "t"}], "]"}], "\[Equal]", 
+      RowBox[{
+       RowBox[{"-", 
+        RowBox[{"D", "[", 
+         RowBox[{
+          RowBox[{"w", "[", 
+           RowBox[{"x", ",", "t"}], "]"}], ",", " ", 
+          RowBox[{"{", 
+           RowBox[{"x", ",", "3"}], "}"}]}], "]"}]}], "+", 
+       RowBox[{"3", "*", 
+        RowBox[{
+         RowBox[{"w", "[", 
+          RowBox[{"x", ",", "t"}], "]"}], "^", "2"}], "*", 
+        RowBox[{"D", "[", 
+         RowBox[{
+          RowBox[{"w", "[", 
+           RowBox[{"x", ",", "t"}], "]"}], ",", " ", "x"}], "]"}]}], "+", 
+       RowBox[{"3", "*", 
+        RowBox[{"u", "[", 
+         RowBox[{"x", ",", "t"}], "]"}], "*", 
+        RowBox[{"D", "[", 
+         RowBox[{
+          RowBox[{"w", "[", 
+           RowBox[{"x", ",", "t"}], "]"}], ",", " ", "x"}], "]"}]}], "+", 
+       RowBox[{"3", "*", 
+        RowBox[{"w", "[", 
+         RowBox[{"x", ",", "t"}], "]"}], "*", 
+        RowBox[{"D", "[", 
+         RowBox[{
+          RowBox[{"u", "[", 
+           RowBox[{"x", ",", "t"}], "]"}], ",", " ", "x"}], "]"}]}]}]}]}], 
+    "}"}], ",", " ", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"u", "[", 
+      RowBox[{"x", ",", "t"}], "]"}], ",", " ", 
+     RowBox[{"w", "[", 
+      RowBox[{"x", ",", "t"}], "]"}]}], "}"}], ",", " ", 
+   RowBox[{"{", 
+    RowBox[{"x", ",", "t"}], "}"}], ",", 
+   RowBox[{"KruskalSimplification", "\[Rule]", "x"}], ",", " ", 
+   RowBox[{"DominantBehaviorMax", "\[Rule]", "3"}]}], "]"}]], "Input"],
+
+Cell[BoxData[
+ RowBox[{"\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{"Example", " ", "2"}], ":", " ", 
+   RowBox[{"A", " ", "coupled", " ", "system", " ", "of", " ", 
+    RowBox[{"ODEs", "."}]}]}]}]], "Input"],
+
+Cell[BoxData[
+ RowBox[{"PainleveTest", "[", 
+  RowBox[{
+   RowBox[{"{", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"D", "[", 
+       RowBox[{
+        RowBox[{"x", "[", "t", "]"}], ",", " ", "t"}], "]"}], " ", "\[Equal]",
+       " ", 
+      RowBox[{
+       RowBox[{"x", "[", "t", "]"}], "*", 
+       RowBox[{"(", 
+        RowBox[{"a", "-", 
+         RowBox[{"x", "[", "t", "]"}], "-", 
+         RowBox[{"y", "[", "t", "]"}]}], ")"}]}]}], ",", 
+     "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"D", "[", 
+       RowBox[{
+        RowBox[{"y", "[", "t", "]"}], ",", "t"}], "]"}], " ", "\[Equal]", " ", 
+      RowBox[{
+       RowBox[{"y", "[", "t", "]"}], "*", 
+       RowBox[{"(", 
+        RowBox[{
+         RowBox[{"x", "[", "t", "]"}], " ", "-", "1"}], " ", ")"}]}]}]}], 
+    "\[IndentingNewLine]", "}"}], ",", " ", "\[IndentingNewLine]", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"x", "[", "t", "]"}], ",", 
+     RowBox[{"y", "[", "t", "]"}]}], "}"}], ",", " ", "\[IndentingNewLine]", 
+   RowBox[{"{", "t", "}"}], ",", "\[IndentingNewLine]", 
+   RowBox[{"Verbose", "\[Rule]", "True"}], ",", "\[IndentingNewLine]", 
+   RowBox[{"DominantBehaviorMax", " ", "\[Rule]", " ", "2"}]}], 
+  "\[IndentingNewLine]", "]"}]], "Input"],
+
+Cell[BoxData[
+ RowBox[{"\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{"Example", " ", "3"}], ":", " ", 
+   RowBox[{
+   "A", " ", "coupled", " ", "system", " ", "of", " ", "PDEs", 
+    " "}]}]}]], "Input"],
+
+Cell[BoxData[
+ RowBox[{"PainleveTest", "[", "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"D", "[", 
+       RowBox[{
+        RowBox[{"u", "[", 
+         RowBox[{"x", ",", "t"}], "]"}], ",", "t"}], "]"}], " ", "\[Equal]", 
+      " ", 
+      RowBox[{
+       RowBox[{"D", "[", 
+        RowBox[{
+         RowBox[{"u", "[", 
+          RowBox[{"x", ",", "t"}], "]"}], ",", " ", 
+         RowBox[{"{", 
+          RowBox[{"x", ",", " ", "2"}], "}"}]}], "]"}], " ", "-", " ", 
+       RowBox[{"2", "*", 
+        RowBox[{
+         RowBox[{"u", "[", 
+          RowBox[{"x", ",", "t"}], "]"}], "^", "2"}]}], " ", "+", " ", 
+       RowBox[{"12", "*", 
+        RowBox[{"v", "[", 
+         RowBox[{"x", ",", "t"}], "]"}]}]}]}], ",", "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"D", "[", 
+       RowBox[{
+        RowBox[{"v", "[", 
+         RowBox[{"x", ",", "t"}], "]"}], ",", "t"}], "]"}], " ", "\[Equal]", 
+      " ", 
+      RowBox[{
+       RowBox[{"D", "[", 
+        RowBox[{
+         RowBox[{"v", "[", 
+          RowBox[{"x", ",", "t"}], "]"}], ",", " ", 
+         RowBox[{"{", 
+          RowBox[{"x", ",", " ", "2"}], "}"}]}], "]"}], " ", "-", " ", 
+       RowBox[{"2", "*", 
+        RowBox[{"u", "[", 
+         RowBox[{"x", ",", "t"}], "]"}], "*", 
+        RowBox[{"v", "[", 
+         RowBox[{"x", ",", "t"}], "]"}]}]}]}]}], "}"}], ",", 
+   "\[IndentingNewLine]", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"u", "[", 
+      RowBox[{"x", ",", "t"}], "]"}], ",", 
+     RowBox[{"v", "[", 
+      RowBox[{"x", ",", "t"}], "]"}]}], "}"}], ",", "\[IndentingNewLine]", 
+   RowBox[{"{", 
+    RowBox[{"x", ",", "t"}], "}"}], ",", "\[IndentingNewLine]", 
+   RowBox[{"Verbose", "\[Rule]", "True"}], ",", "\[IndentingNewLine]", 
+   RowBox[{"DominantBehaviorMax", " ", "\[Rule]", " ", "3"}], ",", 
+   "\[IndentingNewLine]", 
+   RowBox[{"KruskalSimplification", "\[Rule]", "x"}]}], "\[IndentingNewLine]",
+   "]"}]], "Input"],
+
+Cell[BoxData[
+ RowBox[{"PainleveTest", "[", 
+  RowBox[{
+   RowBox[{
+    RowBox[{
+     RowBox[{"D", "[", 
+      RowBox[{
+       RowBox[{"u", "[", 
+        RowBox[{"x", ",", "t"}], "]"}], ",", " ", "t"}], "]"}], "+", 
+     RowBox[{"6", "*", 
+      RowBox[{"u", "[", 
+       RowBox[{"x", ",", "t"}], "]"}], "*", 
+      RowBox[{"D", "[", 
+       RowBox[{
+        RowBox[{"u", "[", 
+         RowBox[{"x", ",", "t"}], "]"}], ",", " ", "x"}], "]"}]}], "+", 
+     RowBox[{"D", "[", 
+      RowBox[{
+       RowBox[{"u", "[", 
+        RowBox[{"x", ",", "t"}], "]"}], ",", " ", 
+       RowBox[{"{", 
+        RowBox[{"x", ",", "3"}], "}"}]}], "]"}]}], "\[Equal]", "0"}], ",", 
+   " ", "\[IndentingNewLine]", 
+   RowBox[{"u", "[", 
+    RowBox[{"x", ",", "t"}], "]"}], ",", " ", 
+   RowBox[{"{", 
+    RowBox[{"x", ",", "t"}], "}"}], " ", ",", " ", 
+   RowBox[{"Verbose", " ", "\[Rule]", " ", "True"}]}], " ", "]"}]], "Input",
+ CellChangeTimes->{{3.7395014267742653`*^9, 3.739501431345311*^9}}],
+
+Cell[BoxData[
+ RowBox[{"(*", " ", 
+  RowBox[{"Example", " ", "given", " ", "by", " ", "Michel", " ", 
+   RowBox[{"Grundland", ":", " ", 
+    RowBox[{"Minimal", " ", "Surface", " ", "Equation"}]}]}], " ", 
+  "*)"}]], "Input",
+ CellChangeTimes->{{3.739929222197963*^9, 3.739929224439091*^9}}],
+
+Cell[BoxData[
+ RowBox[{"PainleveTest", "[", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{
+      RowBox[{
+       RowBox[{"(", 
+        RowBox[{"1", "+", 
+         RowBox[{
+          RowBox[{"D", "[", 
+           RowBox[{
+            RowBox[{"u", "[", 
+             RowBox[{"x", ",", "y"}], "]"}], ",", " ", "x"}], "]"}], "^", 
+          "2"}]}], ")"}], "*", 
+       RowBox[{"D", "[", 
+        RowBox[{
+         RowBox[{"u", "[", 
+          RowBox[{"x", ",", "y"}], "]"}], ",", " ", 
+         RowBox[{"{", 
+          RowBox[{"y", ",", "2"}], "}"}]}], "]"}]}], "-", 
+      RowBox[{"2", "*", 
+       RowBox[{"D", "[", 
+        RowBox[{
+         RowBox[{"u", "[", 
+          RowBox[{"x", ",", "y"}], "]"}], ",", " ", "x"}], "]"}], "*", 
+       RowBox[{"D", "[", 
+        RowBox[{
+         RowBox[{"u", "[", 
+          RowBox[{"x", ",", "y"}], "]"}], ",", " ", "y"}], "]"}], "*", 
+       RowBox[{"D", "[", 
+        RowBox[{
+         RowBox[{"u", "[", 
+          RowBox[{"x", ",", "y"}], "]"}], ",", " ", "x", ",", "y"}], "]"}]}], 
+      "+", 
+      RowBox[{
+       RowBox[{"(", 
+        RowBox[{"1", "+", 
+         RowBox[{
+          RowBox[{"D", "[", 
+           RowBox[{
+            RowBox[{"u", "[", 
+             RowBox[{"x", ",", "y"}], "]"}], ",", " ", "y"}], "]"}], "^", 
+          "2"}]}], ")"}], "*", 
+       RowBox[{"D", "[", 
+        RowBox[{
+         RowBox[{"u", "[", 
+          RowBox[{"x", ",", "y"}], "]"}], ",", " ", 
+         RowBox[{"{", 
+          RowBox[{"x", ",", "2"}], "}"}]}], "]"}]}]}], "\[Equal]", "0"}], 
+    "}"}], ",", " ", "\[IndentingNewLine]", 
+   RowBox[{"u", "[", 
+    RowBox[{"x", ",", "y"}], "]"}], ",", " ", 
+   RowBox[{"{", 
+    RowBox[{"x", ",", "y"}], "}"}], " ", ",", 
+   RowBox[{"DominantBehaviorMax", " ", "\[Rule]", " ", "5"}], ",", 
+   RowBox[{"DominantBehaviorMin", " ", "\[Rule]", " ", 
+    RowBox[{"-", "5"}]}], ",", " ", 
+   RowBox[{"Verbose", " ", "\[Rule]", " ", "True"}]}], " ", "]"}]], "Input",
+ CellChangeTimes->{{3.7395019343833485`*^9, 3.7395019534185395`*^9}, 
+   3.7399292442142224`*^9}],
+
+Cell[BoxData[
+ RowBox[{"(*", " ", 
+  RowBox[{"Michael", " ", 
+   RowBox[{"Grundland", "'"}], "s", " ", "sample", " ", "ODE1", " ", "see", 
+   " ", "paper", " ", 
+   RowBox[{"Olver", ".", " ", 
+    RowBox[{
+     RowBox[{"TROUBLE", " ", "!!"}], "!"}]}]}], "  ", "*)"}]], "Input",
+ CellChangeTimes->{{3.7395018727617316`*^9, 3.7395018951859565`*^9}, {
+  3.739929228231308*^9, 3.7399292332545958`*^9}}],
+
+Cell[BoxData[
+ RowBox[{"PainleveTest", "[", 
+  RowBox[{
+   RowBox[{
+    RowBox[{
+     RowBox[{"D", "[", 
+      RowBox[{
+       RowBox[{"w", "[", "z", "]"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"z", ",", "4"}], "}"}]}], "]"}], "+", 
+     RowBox[{
+      RowBox[{"w", "[", "z", "]"}], "*", 
+      RowBox[{"D", "[", 
+       RowBox[{
+        RowBox[{"w", "[", "z", "]"}], ",", 
+        RowBox[{"{", 
+         RowBox[{"z", ",", "2"}], "}"}]}], "]"}]}], "+", 
+     RowBox[{
+      RowBox[{"D", "[", 
+       RowBox[{
+        RowBox[{"w", "[", "z", "]"}], ",", "z"}], "]"}], "^", "2"}], "-", 
+     RowBox[{"D", "[", 
+      RowBox[{
+       RowBox[{"w", "[", "z", "]"}], ",", "z"}], "]"}], "+", "2"}], 
+    "\[Equal]", "0"}], ",", "\[IndentingNewLine]", 
+   RowBox[{"w", "[", "z", "]"}], ",", "z", ",", " ", 
+   RowBox[{"Verbose", " ", "\[Rule]", " ", "True"}], ",", " ", 
+   RowBox[{"ResonancesVerbose", " ", "\[Rule]", " ", "3"}], ",", 
+   RowBox[{"DominantBehaviorVerbose", " ", "\[Rule]", " ", "3"}], ",", " ", 
+   RowBox[{"ConstantsOfIntegrationVerbose", " ", "\[Rule]", " ", "3"}]}], " ",
+   "]"}]], "Input"]
+}, Open  ]]
+}, Open  ]]
+},
+ScreenStyleEnvironment->"Working",
+WindowSize->{1366, 686},
+WindowMargins->{{-8, Automatic}, {Automatic, -8}},
+PrintingCopies->1,
+PrintingPageRange->{Automatic, Automatic},
+PrivateNotebookOptions->{"VersionedStylesheet"->{"Default.nb"[8.] -> True}},
+Magnification->1.25,
+FrontEndVersion->"11.0 for Microsoft Windows (64-bit) (September 21, 2016)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[580, 22, 39, 0, 103, "Title"],
+Cell[622, 24, 86, 2, 36, "Input"],
+Cell[711, 28, 4767, 105, 405, "Input"],
+Cell[5481, 135, 157, 3, 34, "Text"],
+Cell[5641, 140, 409, 11, 60, "Input"],
+Cell[6053, 153, 197, 5, 36, "Input"],
+Cell[6253, 160, 236, 4, 60, "Input"],
+Cell[6492, 166, 476, 9, 117, "Text"],
+Cell[6971, 177, 56, 1, 45, "Input"],
+Cell[7030, 180, 120, 3, 42, "Text"],
+Cell[7153, 185, 968, 29, 66, "Input"],
+Cell[8124, 216, 242, 4, 68, "Text"],
+Cell[8369, 222, 146, 5, 35, "DisplayFormula"],
+Cell[8518, 229, 101, 2, 42, "Text"],
+Cell[8622, 233, 577, 20, 70, "DisplayFormula"],
+Cell[9202, 255, 1376, 30, 198, "Text"],
+Cell[10581, 287, 1214, 33, 103, "Input"],
+Cell[11798, 322, 584, 13, 95, "Text"],
+Cell[12385, 337, 1143, 33, 66, "Input"],
+Cell[13531, 372, 153, 3, 42, "Text"],
+Cell[13687, 377, 2173, 64, 113, "Input"],
+Cell[15863, 443, 725, 13, 121, "Text"],
+Cell[16591, 458, 2629, 72, 190, "Input"],
+Cell[CellGroupData[{
+Cell[19245, 534, 23, 0, 110, "Section"],
+Cell[CellGroupData[{
+Cell[19293, 538, 61, 1, 53, "Subsection"],
+Cell[19357, 541, 321, 10, 45, "Input"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[19715, 556, 63, 1, 53, "Subsection"],
+Cell[19781, 559, 396, 12, 45, "Input"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[20214, 576, 110, 3, 53, "Subsection"],
+Cell[20327, 581, 569, 17, 103, "Input"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[20933, 603, 140, 4, 53, "Subsection"],
+Cell[21076, 609, 1358, 36, 276, "Input"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[22471, 650, 56, 1, 53, "Subsection"],
+Cell[22530, 653, 1022, 31, 103, "Input"]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[23601, 690, 30, 0, 110, "Section"],
+Cell[CellGroupData[{
+Cell[23656, 694, 52, 1, 53, "Subsection"],
+Cell[23711, 697, 850, 26, 45, "Input"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[24598, 728, 61, 1, 53, "Subsection"],
+Cell[24662, 731, 1411, 44, 75, "Input"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[26110, 780, 98, 2, 53, "Subsection"],
+Cell[26211, 784, 882, 27, 45, "Input"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[27130, 816, 49, 1, 53, "Subsection"],
+Cell[27182, 819, 1036, 30, 45, "Input"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[28255, 854, 56, 1, 53, "Subsection"],
+Cell[28314, 857, 1209, 39, 45, "Input"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[29560, 901, 80, 1, 53, "Subsection"],
+Cell[CellGroupData[{
+Cell[29665, 906, 122, 1, 40, "Subsubsection"],
+Cell[29790, 909, 1479, 48, 75, "Input"],
+Cell[31272, 959, 1103, 34, 45, "Input"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[32412, 998, 53, 0, 40, "Subsubsection"],
+Cell[32468, 1000, 1244, 40, 45, "Input"]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[33761, 1046, 207, 5, 53, "Subsection"],
+Cell[33971, 1053, 667, 21, 45, "Input"]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[34687, 1080, 34, 0, 110, "Section"],
+Cell[CellGroupData[{
+Cell[34746, 1084, 83, 1, 53, "Subsection"],
+Cell[34832, 1087, 1860, 58, 75, "Input"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[36729, 1150, 68, 1, 53, "Subsection"],
+Cell[36800, 1153, 1839, 57, 75, "Input"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[38676, 1215, 102, 2, 53, "Subsection"],
+Cell[38781, 1219, 1425, 45, 75, "Input"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[40243, 1269, 90, 1, 53, "Subsection"],
+Cell[40336, 1272, 2026, 62, 75, "Input"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[42399, 1339, 53, 1, 53, "Subsection"],
+Cell[42455, 1342, 2833, 87, 103, "Input"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[45325, 1434, 218, 6, 78, "Subsection"],
+Cell[45546, 1442, 2422, 70, 132, "Input"]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[48017, 1518, 47, 0, 110, "Section"],
+Cell[48067, 1520, 381, 8, 68, "Text"],
+Cell[48451, 1530, 782, 19, 75, "Input"],
+Cell[49236, 1551, 472, 12, 75, "Input"],
+Cell[49711, 1565, 3872, 110, 218, "Input"],
+Cell[53586, 1677, 1894, 61, 132, "Input"],
+Cell[55483, 1740, 3646, 108, 161, "Input"],
+Cell[59132, 1850, 209, 5, 75, "Input"],
+Cell[59344, 1857, 1252, 34, 276, "Input"],
+Cell[60599, 1893, 203, 6, 75, "Input"],
+Cell[60805, 1901, 1955, 56, 276, "Input"],
+Cell[62763, 1959, 978, 28, 75, "Input"],
+Cell[63744, 1989, 290, 6, 45, "Input"],
+Cell[64037, 1997, 2050, 60, 103, "Input"],
+Cell[66090, 2059, 398, 9, 45, "Input"],
+Cell[66491, 2070, 1109, 30, 75, "Input"]
+}, Open  ]]
+}, Open  ]]
+}
+]
+*)
+

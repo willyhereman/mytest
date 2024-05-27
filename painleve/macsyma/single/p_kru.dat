@@ -1,0 +1,9 @@
+
+/* the Kruskal ODE  (email of June 9, 1994): */
+
+/* Run this case for either alpha=0 or alpha=1 */
+
+beta:1; 
+
+eq: f*fx[4](x)-4*fx[3](x)*fx[1](x)+3*(fx[2](x))^2-x*f^2;
+

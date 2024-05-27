@@ -1,0 +1,21 @@
+
+/* sp_bous.dat */
+
+/* Boussinesq Equation */
+
+eq[1]: ftx[1,2,0](t,x)+2*f[1]*ftx[1,0,2](t,x)+2*ftx[1,0,1](t,x)^2+(1/3)*
+       ftx[1,0,4](t,x)$ 
+
+noeqs: 1$
+nofun: 1$
+
+/* For Kruskal Simplification the file needs following 2 lines */
+
+do_simplification: true$
+prefer_variable: x$
+
+debugfullinfo: false$
+
+betalist: []$
+
+/* sp_bous.dat */

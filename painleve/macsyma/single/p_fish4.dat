@@ -1,0 +1,14 @@
+
+/* Data for the Painleve test of a FISHER equation of degree 4: */
+/* u_t - u_xx + u*(u-1) = 0  */
+/* in travelling frame of reference z = x - c*t, and rename z to x */
+
+/*
+do_simplification: false;
+prefer_variable:x;
+*/
+
+eq: (1-f)^4*f-c*fx[1](x)+fx[2](x); 
+
+/* where c is the wave velocity (constant) */
+

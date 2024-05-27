@@ -1,0 +1,214 @@
+
+(D13)     CSM$USERS:[WHEREMAN.PROGRAMS.NPAINLEVE.SINGLE]P_FISHER.OUT;2
+
+
+(C14) batch("np_exec.max")$
+
+
+(C15) /* ************************************************************************* */
+/*                           Batch file NP_EXEC.MAX                          */
+/* ************************************************************************* */
+
+exec_painleve (eq, alpha, do_resonances, max_resonance, do_simplification)$
+
+  SUBSTITUTE  X ----> G + X0
+
+----------------------------------------------------------------
+
+                                               2
+PAINLEVE ANALYSIS OF EQUATION,  F    + C F  - F  + F  = 0
+                                 G G      G
+
+----------------------------------------------------------------
+
+                  ALPHA
+  SUBSTITUTE  U  G       FOR f IN ORIGINAL EQUATION.
+               0
+
+  MINIMUM POWERS OF g ARE  [2 ALPHA, ALPHA - 2]
+
+                       2 ALPHA         2
+    * COEFFICIENT OF  G         IS  - U
+                                       0
+
+                       ALPHA - 2
+    * COEFFICIENT OF  G           IS  U  (ALPHA - 1) ALPHA
+                                       0
+
+    NOTE : THIS TERM VANISHES FOR   [ALPHA = 0, ALPHA = 1] ,
+
+    VERIFY IF ANY OF THESE VALUES FOR ALPHA LEADS TO DOMINANT
+
+    BEHAVIOR,
+
+    IF IT DOES THEN RUN THE PROGRAM AGAIN WITH THIS VALUE
+
+    AS USER SUPPLIED ALPHA, CALLED BETA.
+
+----------------------------------------------------------------
+
+  FOR EXPONENTS ( 2 ALPHA ) AND ( ALPHA - 2 ) OF g,
+
+    WITH alpha =  - 2 , POWER OF g is  - 4  ----> SOLVE FOR  U
+                                                              0
+
+                           1
+       TERM  - (U  - 6) U  --  IS DOMINANT
+                 0       0  4
+                           G
+
+       IN EQUATION.
+
+----------------------------------------------------------------
+
+1 )  WITH  U  = 6  ----> FIND RESONANCES
+            0
+
+                    ALPHA         R + ALPHA
+    SUBSTITUTE  U  G       +  U  G           FOR f IN EQUATION
+                 0             R
+
+                                    R - 4
+       TERM ( (R - 6) (R + 1) ) U  G       IS DOMINANT
+                                 R
+
+       IN EQUATION.
+
+       THE ONLY NON-NEGATIVE INTEGRAL ROOT IS  [R = 6]
+
+ 
+
+    WITH MAXIMUM RESONANCE =  6  ----> CHECK RESONANCES.
+
+                              6
+                             ====
+                             \         K - 2
+    SUBSTITUTE POWER SERIES   >    U  G       FOR f IN EQUATION.
+                             /      K
+                             ====
+                             K = 0
+
+    WITH U  = 6
+          0
+
+                         1
+        * COEFFICIENT OF -- IS  - 2 (6 C + 5 U )
+                          3                   1
+                         G
+
+               6 C
+        U  = - ---
+         1      5
+
+                                      2
+                                  6 (C  + 50 U  - 25)
+                         1                    2
+        * COEFFICIENT OF -- IS  - -------------------
+                          2               25
+                         G
+
+               (C - 5) (C + 5)
+        U  = - ---------------
+         2           50
+
+                                     3
+                                 6 (C  + 250 U )
+                         1                    3
+        * COEFFICIENT OF - IS  - ---------------
+                         G             125
+
+                3
+               C
+        U  = - ---
+         3     250
+
+                                    4
+                                 7 C  + 5000 U  - 125
+                                              4
+        * COEFFICIENT OF 1 IS  - --------------------
+                                         500
+
+                  4
+               7 C  - 125
+        U  = - ----------
+         4        5000
+
+                                     5
+                                 79 C  - 1375 C + 75000 U
+                                                         5
+        * COEFFICIENT OF G IS  - -------------------------
+                                           12500
+
+                      4
+               C (79 C  - 1375)
+        U  = - ----------------
+         5          75000
+
+                                   2     2           2
+                          2       C  (6 C  - 25) (6 C  + 25)
+        * COEFFICIENT OF G  IS  - --------------------------
+                                             6250
+
+        U   IS ARBITRARY ?
+         6
+
+                                     2     2           2
+                                    C  (6 C  - 25) (6 C  + 25)
+        COMPATIBILITY CONDITION:  - --------------------------  = 0,
+                                               6250
+
+   *** CONDITION IS NOT SATISFIED. ***
+
+   *** CHECK FOR FREE PARAMETERS OR PRESENCE OF U  . ***
+                                                 0
+
+----------------------------------------------------------------
+
+
+(C16) output()$
+
+----------------------------------------------------------------
+
+AT THE END OF THE COMPUTATIONS THE FOLLOWING ARE AVAILABLE:
+
+* U VALUE(S)
+
+  (type uval[j,k,l] where 1 <= j <=  1 and 0 <= k <=  [6]
+
+  and 1 <= l <=  [1] )
+
+  j stands for j_th alpha,k stands for u[k],l stands for
+
+  l_th solution set for u[0] 
+
+* ALPHA VALUE(S)
+
+  (type alpha[j] where 1 <= j <=  1 )
+
+  j stands for j_th alpha
+
+* COMPATIBILITY CONDITION(S)
+
+  (type compcond[j,k] where 1 <= j <=  1 and 1 <= k <=  [1] )
+
+  j stands for j_th alpha,k stands for k_th solution set for u[0]
+
+* RESONANCE(S)
+
+  (type res[j,k] where 1 <= j <=  1 and 1 <= k <=  [1] )
+
+  j stands for j_th alpha,k stands for k_th solution set for u[0]
+
+----------------------------------------------------------------
+
+TO SEE THIS MENU AGAIN JUST TYPE < output() >
+
+----------------------------------------------------------------
+
+
+
+(C17) /* ************************** END of NP_EXEC.MAX ************************** */
+
+
+
+(C18) closefile();

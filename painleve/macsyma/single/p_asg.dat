@@ -1,0 +1,25 @@
+
+/* Data file for the Painleve test of the alternate sine-Gordon equation */
+
+/* ************************************************************************* */
+/*                           Batch file P_ASG.DAT                            */
+/* ************************************************************************* */
+
+/* */
+do_simplification: True;
+prefer_variable:x;
+/* */
+
+/*
+giving_uzero : false ;
+solving_uzero : false ;
+*/
+
+/* The sine-Gordon equation :  u_tx - sin(u) = 0 */
+/* Replace f = exp(iu) */
+
+eq : -2*ftx[1,0](t,x)^2-2*ftx[0,1](t,x)^2+
+     2*f*ftx[2,0](t,x)+2*f*ftx[0,2](t,x)-f^3+f; 
+
+/* **************************** END of P_ASG.DAT ************************* */
+

@@ -1,0 +1,17 @@
+
+/* Data for the Painleve test of 1 dim dipole equation: */
+
+/*
+do_simplification: false;
+prefer_variable:x;
+*/
+
+/*
+depends([f,h],x);
+fake:diff(f,x)^2-(2/mm)*(ee-mm*gg*f-bb*(1/f^2)); 
+f: h^2;
+eqnew: factor(ev(ev(fake,diff)));
+*/
+
+eq: 2*mm*f^6*fx[1](x)^2+gg*mm*f^6-ee*f^4+bb;
+

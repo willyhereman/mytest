@@ -1,0 +1,136 @@
+(d19) 	  /usr/people/whereman/programs/upainleve/upainsing/p_tony.out
+
+(c20) batch("np_exec.max");
+
+(c21) /* ************************************************************************* */
+/*                           Batch file NP_EXEC.MAX                          */
+/* ************************************************************************* */
+
+exec_painleve (eq, alpha, do_resonances, max_resonance, do_simplification)$
+THERE ARE NO PARAMETERS IN THE EQUATION.
+You are using the simplification suggested by Kruskal.
+You selected G(T,X,...) = X - H(T,...).
+----------------------------------------------------------------
+									   2
+PAINLEVE ANALYSIS OF EQUATION,  f	   + 5 f f      + 10 f  f    + 10 f  f
+				 x x x x x	  x x x	      x	 x x	      x
+
+								       + f   = 0
+									  t
+  WITHOUT ANY PARAMETERS.
+----------------------------------------------------------------
+		  alpha
+  SUBSTITUTE  u  g       FOR f IN ORIGINAL EQUATION.
+	       0
+  MINIMUM POWERS OF g ARE  [3 alpha - 1, 2 alpha - 3, alpha - 5]
+		       3 alpha - 1	    3
+    * COEFFICIENT OF  g		    IS  10 u  alpha
+					    0
+     NOTE : THIS TERM VANISHES FOR  alpha = 0 ,
+     VERIFY IF  alpha = 0  LEADS TO DOMINANT BEHAVIOR,
+     IF IT DOES THEN RUN THE PROGRAM AGAIN WITH THIS USER 
+     SUPPLIED VALUE OF ALPHA.
+     HENCE, PUT BETA =  0 .
+		       2 alpha - 3	   2
+    * COEFFICIENT OF  g		    IS  5 u  (alpha - 1) alpha (3 alpha - 2)
+					   0
+					     2
+    NOTE : THIS TERM VANISHES FOR   [alpha = -, alpha = 0, alpha = 1] ,
+					     3
+    VERIFY IF ANY OF THESE VALUES FOR ALPHA LEADS TO DOMINANT
+    BEHAVIOR,
+    IF IT DOES THEN RUN THE PROGRAM AGAIN WITH THIS VALUE
+    AS USER SUPPLIED ALPHA, CALLED BETA.
+		       alpha - 5
+    * COEFFICIENT OF  g	          IS  u  (alpha - 4) (alpha - 3) (alpha - 2)
+				       0
+
+							       (alpha - 1) alpha
+    NOTE : THIS TERM VANISHES FOR   [alpha = 0, alpha = 1, alpha = 2, 
+
+							 alpha = 3, alpha = 4] ,
+    VERIFY IF ANY OF THESE VALUES FOR ALPHA LEADS TO DOMINANT
+    BEHAVIOR,
+    IF IT DOES THEN RUN THE PROGRAM AGAIN WITH THIS VALUE
+    AS USER SUPPLIED ALPHA, CALLED BETA.
+----------------------------------------------------------------
+  FOR EXPONENTS ( 3 alpha - 1 ) AND ( 2 alpha - 3 ) OF g,
+    WITH alpha =  - 2 , POWER OF g is  - 7  ----> SOLVE FOR  u
+							      0
+			     2 1
+       TERM  - 20 u  (u  + 6)  --  IS DOMINANT
+		   0   0        7
+			       g
+       IN EQUATION.
+----------------------------------------------------------------
+1 )  WITH  u  = - 6  ----> FIND RESONANCES
+	    0
+		    alpha	  r + alpha
+    SUBSTITUTE  u  g	   +  u  g	     FOR f IN EQUATION
+		 0	       r
+						      r - 7
+       TERM ( (r - 8) (r - 7) (r - 6) r (r + 1) ) u  g	     IS DOMINANT
+						   r
+       IN EQUATION.
+       THE 4 NON-NEGATIVE INTEGRAL ROOTS ARE  [r = 0, r = 6, r = 7, r = 8] .
+ 
+       ANALYSIS OF THE POLYNOMIAL IN R WAS COMPLETE.
+    WITH MAXIMUM RESONANCE =  8  ----> CHECK RESONANCES.
+			      8
+			     ====
+			     \	    k - 2
+    SUBSTITUTE POWER SERIES   >	   g	  u   FOR f IN EQUATION.
+			     /		   k
+			     ====
+			     k = 0
+    WITH u  = - 6
+	  0
+			 1
+        * COEFFICIENT OF -- IS  - 420 u
+			  6	       1
+			 g
+        u  = 0
+	 1
+			 1
+        * COEFFICIENT OF -- IS  - 720 u
+			  5	       2
+			 g
+        u  = 0
+	 2
+			 1
+        * COEFFICIENT OF -- IS  - 720 u
+			  4	       3
+			 g
+        u  = 0
+	 3
+			 1
+        * COEFFICIENT OF -- IS  - 12 (h  + 40 u )
+			  3	       t       4
+			 g
+	       h
+		t
+        u  = - --
+	 4     40
+			 1
+        * COEFFICIENT OF -- IS  - 180 u
+			  2	       5
+			 g
+        u  = 0
+	 5
+			 1
+        * COEFFICIENT OF - IS  0
+			 g
+        u  IS ARBITRARY !
+	 6
+       COMPATIBILITY CONDITION IS SATISFIED !
+        * COEFFICIENT OF 1 IS  0
+        u  IS ARBITRARY !
+	 7
+       COMPATIBILITY CONDITION IS SATISFIED !
+        * COEFFICIENT OF g IS  0
+        u  IS ARBITRARY !
+	 8
+       COMPATIBILITY CONDITION IS SATISFIED !
+PART fell off end.
+Returned to Macsyma Toplevel.
+(c22) QUIT();

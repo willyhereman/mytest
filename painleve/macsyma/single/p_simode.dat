@@ -1,0 +1,12 @@
+
+/* Data for the Painleve test of a simple ODE: */
+
+/* u_xx - u^3 = 0  */
+
+/*
+do_simplification: false;
+prefer_variable:x;
+*/
+
+eq: fx[2](x)-f^3; 
+

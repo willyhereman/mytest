@@ -1,0 +1,21 @@
+
+/* sp_ex.dat */
+
+/* The EXAMPLE-1 System: (from Dr. Hereman's hand written sheet) */
+
+eq[1]: bb*ftx[1,0,2](t,x)-aa*f[1]-ftx[1,1,0](t,x)+f[1]^2*f[2]$
+eq[2]: bb*ftx[2,0,2](t,x)+aa*f[1]-ftx[2,1,0](t,x)-f[1]^2*f[2]$
+
+noeqs: 2$
+nofun: 2$
+
+/* For Kruskal Simplification the file needs following 2 lines */
+
+do_simplification: true$
+prefer_variable: x$
+
+debugfullinfo: false$
+
+betalist: []$ 
+
+/* sp_ex.dat */

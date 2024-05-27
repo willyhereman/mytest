@@ -1,0 +1,325 @@
+
+(D15)     CSM$USERS:[WHEREMAN.PROGRAMS.NPAINLEVE.SINGLE]P_SWKDV.OUT;8
+
+
+(C16) batch("np_exec.max");
+
+
+(C17) /* ************************************************************************* */
+/*                           Batch file NP_EXEC.MAX                          */
+/* ************************************************************************* */
+
+exec_painleve (eq, alpha, do_resonances, max_resonance, do_simplification)$
+
+You are using the simplification suggested by KRUSKAL
+
+You selected G(T,X,...) = X - H(T,...)
+
+----------------------------------------------------------------
+
+PAINLEVE ANALYSIS OF EQUATION,  B F  F    - F    + A F    F  + F        - F    
+                                   T  X X    X X      T X  X    T X X X    T X
+
+                                                                             = 0
+
+----------------------------------------------------------------
+
+                  ALPHA
+  SUBSTITUTE  U  G       FOR f IN ORIGINAL EQUATION.
+               0
+
+  MINIMUM POWERS OF g ARE  [2 ALPHA - 3, ALPHA - 4]
+
+                       2 ALPHA - 3         2                  2
+    * COEFFICIENT OF  G             IS  - U  (ALPHA - 1) ALPHA  (B + A) H
+                                           0                             T
+
+    NOTE : THIS TERM VANISHES FOR   [ALPHA = 0, ALPHA = 1] ,
+
+    VERIFY IF ANY OF THESE VALUES FOR ALPHA LEADS TO DOMINANT
+
+    BEHAVIOR,
+
+    IF IT DOES THEN RUN THE PROGRAM AGAIN WITH THIS VALUE
+
+    AS USER SUPPLIED ALPHA, CALLED BETA.
+
+                       ALPHA - 4
+    * COEFFICIENT OF  G           IS  - U  (ALPHA - 3) (ALPHA - 2) (ALPHA - 1)
+                                         0
+
+                                                                        ALPHA H
+                                                                               T
+
+    NOTE : THIS TERM VANISHES FOR   [ALPHA = 0, ALPHA = 1, ALPHA = 2, ALPHA = 3]
+
+                                                                               ,
+
+    VERIFY IF ANY OF THESE VALUES FOR ALPHA LEADS TO DOMINANT
+
+    BEHAVIOR,
+
+    IF IT DOES THEN RUN THE PROGRAM AGAIN WITH THIS VALUE
+
+    AS USER SUPPLIED ALPHA, CALLED BETA.
+
+----------------------------------------------------------------
+
+  FOR EXPONENTS ( 2 ALPHA - 3 ) AND ( ALPHA - 4 ) OF g,
+
+    WITH alpha =  - 1 , POWER OF g is  - 5  ----> SOLVE FOR  U
+                                                              0
+
+                                        1
+       TERM  2 U  (U  B + U  A - 12) H  --  IS DOMINANT
+                0   0      0          T  5
+                                        G
+
+       IN EQUATION.
+
+----------------------------------------------------------------
+
+                 12
+1 )  WITH  U  = -----  ----> FIND RESONANCES
+            0   B + A
+
+                    ALPHA         R + ALPHA
+    SUBSTITUTE  U  G       +  U  G           FOR f IN EQUATION
+                 0             R
+
+                                                         R - 5
+       TERM ( - H  (R - 6) (R - 4) (R - 1) (R + 1) ) U  G       IS DOMINANT
+                 T                                    R
+
+       IN EQUATION.
+
+       THE 3 NON-NEGATIVE INTEGRAL ROOTS ARE  [R = 1, R = 4, R = 6]
+
+ 
+
+    WITH MAXIMUM RESONANCE =  6  ----> CHECK RESONANCES.
+
+                              6
+                             ====
+                             \      K - 1
+    SUBSTITUTE POWER SERIES   >    G      U   FOR f IN EQUATION.
+                             /             K
+                             ====
+                             K = 0
+
+               12
+    WITH U  = -----
+          0   B + A
+
+                         1
+        * COEFFICIENT OF -- IS  0
+                          4
+                         G
+
+        U  IS ARBITRARY !
+         1
+
+       COMPATIBILITY CONDITION IS SATISFIED !
+
+                                  24 (U  B H  + U  A H  - H  - U   B + 1)
+                                       2    T    2    T    T    1
+                         1                                       T
+        * COEFFICIENT OF -- IS  - ---------------------------------------
+                          3                        B + A
+                         G
+
+             H  + U   B - 1
+              T    1
+                    T
+        U  = --------------
+         2     (B + A) H
+                        T
+
+                         1                   2
+        * COEFFICIENT OF -- IS  - 12 (2 U   B  H    - U   A B H    - 2 B H
+                          2              1      T T    1       T T        T T
+                         G                T             T
+
+                  2     3                3         2     3            2
+ + A H    + 2 U  B  (H )  + 4 U  A B (H )  + 2 U  A  (H )  - 2 U     B  H
+      T T      3      T        3       T        3      T        1        T
+                                                                 T T
+
+                         2     2
+ + U     A B H )/((B + A)  (H ) )
+    1         T              T
+     T T
+
+               (2 B - A) (U   B H    - H    - U     B H )
+                           1     T T    T T    1       T
+                            T                   T T
+        U  = - ------------------------------------------
+         3                           2     3
+                            2 (B + A)  (H )
+                                         T
+
+                         1
+        * COEFFICIENT OF - IS  - 12 (B - A) (2 B - A)
+                         G
+
+                                              2           2
+ (U   B H  H      - H  H      - 3 U   B (H   )  + 3 (H   )  + 3 U     B H  H
+   1     T  T T T    T  T T T      1      T T         T T        1       T  T T
+    T                               T                             T T
+
+                 2          3     4
+ - U       B (H ) )/((B + A)  (H ) )
+    1          T                T
+     T T T
+
+        U   IS ARBITRARY ?
+         4
+
+        COMPATIBILITY CONDITION:  - 12 (B - A) (2 B - A)
+
+                                              2           2
+ (U   B H  H      - H  H      - 3 U   B (H   )  + 3 (H   )  + 3 U     B H  H
+   1     T  T T T    T  T T T      1      T T         T T        1       T  T T
+    T                               T                             T T
+
+                 2          3     4
+ - U       B (H ) )/((B + A)  (H ) )  = 0,
+    1          T                T
+     T T T
+
+   *** CONDITION IS NOT SATISFIED. ***
+
+   *** CHECK FOR FREE PARAMETERS OR PRESENCE OF U  . ***
+                                                 0
+
+                                     2                            2    2
+        * COEFFICIENT OF 1 IS  (U   B  H  H    - B H  H    - (U  )  A B  H
+                                 1      T  T T      T  T T     1          T T
+                                  T                             T
+
+                                    2     4                 4          2     4
+ + 2 U   A B H    - A H    + 24 U  B  (H )  + 48 U  A B (H )  + 24 U  A  (H )
+      1       T T      T T       5      T         5       T         5      T
+       T
+
+           2     3           2     3          2     2                2
+ + 30 U   B  (H )  - 30 U   A  (H )  - U     B  (H )  + U   U     A B  H
+       4       T         4       T      1         T      1   1          T
+        T                 T              T T              T   T T
+
+                         2     3
+ - U     A B H )/((B + A)  (H ) )
+    1         T              T
+     T T
+
+                     2                            2    2
+        U  = - (U   B  H  H    - B H  H    - (U  )  A B  H    + 2 U   A B H
+         5       1      T  T T      T  T T     1          T T      1       T T
+                  T                             T                   T
+
+                    2     3           2     3          2     2
+ - A H    + 30 U   B  (H )  - 30 U   A  (H )  - U     B  (H )
+      T T       4       T         4       T      1         T
+                 T                 T              T T
+
+                2                               2     4
+ + U   U     A B  H  - U     A B H )/(24 (B + A)  (H ) )
+    1   1          T    1         T                 T
+     T   T T             T T
+
+        * COEFFICIENT OF G IS  - (B - A) (2 B - A)
+
+       2  2       2                 2         2                3
+ ((U  )  B  (H   )  - 2 U   B (H   )  + (H   )  - 30 U   B (H )  H
+    1         T T        1      T T       T T         4      T    T T
+     T                    T                            T
+
+                3                     2
+ - 30 U   A (H )  H    - 2 U   U     B  H  H    + 2 U     B H  H
+       4      T    T T      1   1        T  T T      1       T  T T
+        T                    T   T T                  T T
+
+                  4                  4          2  2     2          3     5
+ + 30 U     B (H )  + 30 U     A (H )  + (U    )  B  (H ) )/((B + A)  (H ) )
+       4        T         4        T       1           T                T
+        T T                T T              T T
+
+        U   IS ARBITRARY ?
+         6
+
+        COMPATIBILITY CONDITION:  - (B - A) (2 B - A)
+
+       2  2       2                 2         2                3
+ ((U  )  B  (H   )  - 2 U   B (H   )  + (H   )  - 30 U   B (H )  H
+    1         T T        1      T T       T T         4      T    T T
+     T                    T                            T
+
+                3                     2
+ - 30 U   A (H )  H    - 2 U   U     B  H  H    + 2 U     B H  H
+       4      T    T T      1   1        T  T T      1       T  T T
+        T                    T   T T                  T T
+
+                  4                  4          2  2     2          3     5
+ + 30 U     B (H )  + 30 U     A (H )  + (U    )  B  (H ) )/((B + A)  (H ) ) 
+       4        T         4        T       1           T                T
+        T T                T T              T T
+
+ = 0,
+
+   *** CONDITION IS NOT SATISFIED. ***
+
+   *** CHECK FOR FREE PARAMETERS OR PRESENCE OF U  . ***
+                                                 0
+
+----------------------------------------------------------------
+
+
+(C18) output()$
+
+----------------------------------------------------------------
+
+AT THE END OF THE COMPUTATIONS THE FOLLOWING ARE AVAILABLE:
+
+* U VALUE(S)
+
+  (type uval[j,k,l] where 1 <= j <=  1 and 0 <= k <=  [6]
+
+  and 1 <= l <=  [1] )
+
+  j stands for j_th alpha,k stands for u[k],l stands for
+
+  l_th solution set for u[0] 
+
+* ALPHA VALUE(S)
+
+  (type alpha[j] where 1 <= j <=  1 )
+
+  j stands for j_th alpha
+
+* COMPATIBILITY CONDITION(S)
+
+  (type compcond[j,k] where 1 <= j <=  1 and 1 <= k <=  [1] )
+
+  j stands for j_th alpha,k stands for k_th solution set for u[0]
+
+* RESONANCE(S)
+
+  (type res[j,k] where 1 <= j <=  1 and 1 <= k <=  [1] )
+
+  j stands for j_th alpha,k stands for k_th solution set for u[0]
+
+----------------------------------------------------------------
+
+TO SEE THIS MENU AGAIN JUST TYPE < output() >
+
+----------------------------------------------------------------
+
+
+
+(C19) /* ************************** END of NP_EXEC.MAX ************************** */
+
+
+(D19)                                 DONE
+
+
+(C20) closefile();

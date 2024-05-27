@@ -1,0 +1,3549 @@
+(************** Content-type: application/mathematica **************
+                     CreatedBy='Mathematica 5.0'
+
+                    Mathematica-Compatible Notebook
+
+This notebook can be used with any Mathematica-compatible
+application, such as Mathematica, MathReader or Publicon. The data
+for the notebook starts with the line containing stars above.
+
+To get the notebook into a Mathematica-compatible application, do
+one of the following:
+
+* Save the data starting with the line of stars above into a file
+  with a name ending in .nb, then open the file inside the
+  application;
+
+* Copy the data starting with the line of stars above to the
+  clipboard, then use the Paste menu command inside the application.
+
+Data for notebooks contains only printable 7-bit ASCII and can be
+sent directly in email or through ftp in text mode.  Newlines can be
+CR, LF or CRLF (Unix, Macintosh or MS-DOS style).
+
+NOTE: If you modify the data for this notebook not in a Mathematica-
+compatible application, you must delete the line below containing
+the word CacheID, otherwise Mathematica-compatible applications may
+try to use invalid cache data.
+
+For more information on notebooks and Mathematica-compatible 
+applications, contact Wolfram Research:
+  web: http://www.wolfram.com
+  email: info@wolfram.com
+  phone: +1-217-398-0700 (U.S.)
+
+Notebook reader applications are available free of charge from 
+Wolfram Research.
+*******************************************************************)
+
+(*CacheID: 232*)
+
+
+(*NotebookFileLineBreakTest
+NotebookFileLineBreakTest*)
+(*NotebookOptionsPosition[    127046,       3247]*)
+(*NotebookOutlinePosition[    127746,       3271]*)
+(*  CellTagsIndexPosition[    127702,       3267]*)
+(*WindowFrame->Normal*)
+
+
+
+Notebook[{
+Cell[BoxData[
+    \(\(\(\[IndentingNewLine]\)\( (*\ 
+      Last\ updated\ by\ Hereman\ on\ January\ 25, \ 
+      2009. \ Example\ with\ variable\ coefficients\ *) \)\)\)], "Input"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(SetDirectory["\<d:\\demopainlevetest\>"]\)], "Input"],
+
+Cell[BoxData[
+    \("d:\\demopainlevetest"\)], "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(Get["\<PainleveTestV2.m\>"]\)], "Input",
+  CellChangeTimes -> {{3.439651035281348*^9, 3.4396510594997883`*^9}, \
+{3.4397440330215244`*^9, 3.4397440335840173`*^9}}],
+
+Cell[BoxData[
+    \("Package PainleveTest.m was successfully loaded."\)], "Print"],
+
+Cell[BoxData[
+    \("Last updated by Hereman on Sunday, January 25, 2009."\)], "Print"],
+
+Cell[BoxData[
+    \("Previously updated by Baldwin on Friday, January 2, 2009."\)], "Print"],
+
+Cell[BoxData[
+    \("Version 2 first released: February 1, 2006."\)], "Print"]
+}, Open  ]],
+
+Cell[BoxData[
+    \( (*\ Equation\ with\ variable\ coefficients, \ 
+      PainleveTest\ carried\ out\ without\ Kruskal' 
+        s\ \(\(simplification\)\(:\)\)\ *) \)], "Input"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(PainleveTest[{D[u[x, t], \ t] + 
+            6*u[x, t]^2*D[u[x, t], x] - \((ff[t]*x + gg[t])\)*
+              D[u[x, t], \ x] - D[u[x, t], \ {x, 3}] - hh[t]*u[x, t] \[Equal] 
+          0}, \ \[IndentingNewLine]u[x, t], \ {x, t}\ , \ 
+      Verbose\  \[Rule] \ 
+        True\ \  (*\(,\)\(ConstantsOfIntegrationVerbose\  \[Rule] \ 
+          3\)\ *) ]\)], "Input",
+  CellChangeTimes -> {{3.439651086280696*^9, 3.4396511240458374`*^9}, \
+3.4396512149665484`*^9, {3.4396513296838303`*^9, 3.4396513315431814`*^9}}],
+
+Cell[BoxData[
+    \("The Painleve test is carried out for the following system: "\)], \
+"Print"],
+
+Cell[BoxData[
+    InterpretationBox[GridBox[{
+          {
+            RowBox[{
+              RowBox[{
+                InterpretationBox[
+                  RowBox[{"u", "\[InvisibleSpace]", 
+                    InterpretationBox[
+                      SubscriptBox["\[Null]", 
+                        InterpretationBox["t",
+                          SequenceForm[ t],
+                          Editable->False]],
+                      Subscript[ 
+                        SequenceForm[ t]],
+                      Editable->False]}],
+                  SequenceForm[ u, 
+                    Subscript[ 
+                      SequenceForm[ t]]],
+                  Editable->False], "-", 
+                RowBox[{"x", " ", \(ff[t]\), " ", 
+                  RowBox[{"(", 
+                    InterpretationBox[
+                      RowBox[{"u", "\[InvisibleSpace]", 
+                        InterpretationBox[
+                          SubscriptBox["\[Null]", 
+                            InterpretationBox["x",
+                              SequenceForm[ x],
+                              Editable->False]],
+                          Subscript[ 
+                            SequenceForm[ x]],
+                          Editable->False]}],
+                      SequenceForm[ u, 
+                        Subscript[ 
+                          SequenceForm[ x]]],
+                      Editable->False], ")"}]}], "-", 
+                RowBox[{\(gg[t]\), " ", 
+                  RowBox[{"(", 
+                    InterpretationBox[
+                      RowBox[{"u", "\[InvisibleSpace]", 
+                        InterpretationBox[
+                          SubscriptBox["\[Null]", 
+                            InterpretationBox["x",
+                              SequenceForm[ x],
+                              Editable->False]],
+                          Subscript[ 
+                            SequenceForm[ x]],
+                          Editable->False]}],
+                      SequenceForm[ u, 
+                        Subscript[ 
+                          SequenceForm[ x]]],
+                      Editable->False], ")"}]}], "-", 
+                InterpretationBox[
+                  RowBox[{"u", "\[InvisibleSpace]", 
+                    InterpretationBox[
+                      SubscriptBox["\[Null]", 
+                        
+                        InterpretationBox[\(x\[InvisibleSpace]x\
+\[InvisibleSpace]x\),
+                          SequenceForm[ x, x, x],
+                          Editable->False]],
+                      Subscript[ 
+                        SequenceForm[ x, x, x]],
+                      Editable->False]}],
+                  SequenceForm[ u, 
+                    Subscript[ 
+                      SequenceForm[ x, x, x]]],
+                  Editable->False], "-", \(hh[t]\ u[x, t]\), "+", 
+                RowBox[{"6", " ", 
+                  RowBox[{"(", 
+                    InterpretationBox[
+                      RowBox[{"u", "\[InvisibleSpace]", 
+                        InterpretationBox[
+                          SubscriptBox["\[Null]", 
+                            InterpretationBox["x",
+                              SequenceForm[ x],
+                              Editable->False]],
+                          Subscript[ 
+                            SequenceForm[ x]],
+                          Editable->False]}],
+                      SequenceForm[ u, 
+                        Subscript[ 
+                          SequenceForm[ x]]],
+                      Editable->False], ")"}], " ", \(u[x, t]\^2\)}]}], 
+              "\[Equal]", "0"}]}
+          },
+        RowSpacings->1,
+        ColumnSpacings->3,
+        RowAlignments->Baseline,
+        ColumnAlignments->{Left}],
+      TableForm[ {
+        Equal[ 
+          Plus[ 
+            SequenceForm[ u, 
+              Subscript[ 
+                SequenceForm[ t]]], 
+            Times[ -1, x, 
+              ff[ t], 
+              SequenceForm[ u, 
+                Subscript[ 
+                  SequenceForm[ x]]]], 
+            Times[ -1, 
+              gg[ t], 
+              SequenceForm[ u, 
+                Subscript[ 
+                  SequenceForm[ x]]]], 
+            Times[ -1, 
+              SequenceForm[ u, 
+                Subscript[ 
+                  SequenceForm[ x, x, x]]]], 
+            Times[ -1, 
+              hh[ t], 
+              u[ x, t]], 
+            Times[ 6, 
+              SequenceForm[ u, 
+                Subscript[ 
+                  SequenceForm[ x]]], 
+              Power[ 
+                u[ x, t], 2]]], 0]}]]], "Print"],
+
+Cell[BoxData[
+    \("**************************************************************"\)], \
+"Print"],
+
+Cell[BoxData[
+    \("Computation of THE DOMINANT BEHAVIORS."\)], "Print"],
+
+Cell[BoxData[
+    \("The dominant behaviors (including minimal degrees in g) are: "\)], \
+"Print"],
+
+Cell[BoxData[
+    \({{alpha[1] \[Rule] \(-1\), alphaMin[1] \[Rule] \(-4\)}}\)], "Print"],
+
+Cell[BoxData[
+    \("The system (within initialConstantsOfIntegration) (determining the \
+first constant of integration) for the dominant behavior, {alpha[1] -> -1, \
+alphaMin[1] -> -4} , is: "\)], "Print"],
+
+Cell[BoxData[
+    RowBox[{"{", 
+      RowBox[{
+        RowBox[{
+          RowBox[{\(-6\), " ", \(\(u[1, 0]\)[x, t]\^3\), " ", 
+            RowBox[{
+              SuperscriptBox["g", 
+                TagBox[\((1, 0)\),
+                  Derivative],
+                MultilineFunction->None], "[", \(x, t\), "]"}]}], "+", 
+          RowBox[{"6", " ", \(\(u[1, 0]\)[x, t]\), " ", 
+            SuperscriptBox[
+              RowBox[{
+                SuperscriptBox["g", 
+                  TagBox[\((1, 0)\),
+                    Derivative],
+                  MultilineFunction->None], "[", \(x, t\), "]"}], "3"]}]}], 
+        "\[Equal]", "0"}], "}"}]], "Print"],
+
+Cell[BoxData[
+    \("The solutions for u[i,0] are: "\)], "Print"],
+
+Cell[BoxData[
+    RowBox[{"{", 
+      RowBox[{
+        RowBox[{"{", 
+          RowBox[{\(\(u[1, 0]\)[x, t]\), "\[Rule]", 
+            RowBox[{"-", 
+              RowBox[{
+                SuperscriptBox["g", 
+                  TagBox[\((1, 0)\),
+                    Derivative],
+                  MultilineFunction->None], "[", \(x, t\), "]"}]}]}], "}"}], 
+        ",", 
+        RowBox[{"{", 
+          RowBox[{\(\(u[1, 0]\)[x, t]\), "\[Rule]", 
+            RowBox[{
+              SuperscriptBox["g", 
+                TagBox[\((1, 0)\),
+                  Derivative],
+                MultilineFunction->None], "[", \(x, t\), "]"}]}], "}"}]}], 
+      "}"}]], "Print"],
+
+Cell[BoxData[
+    \("FIRST SUMMARY: Dominant behaviors and first constants of integration \
+(u[i,0]): "\)], "Print"],
+
+Cell[BoxData[
+    RowBox[{"{", 
+      RowBox[{
+        RowBox[{"{", 
+          
+          RowBox[{\({alpha[1] \[Rule] \(-1\), alphaMin[1] \[Rule] \(-4\)}\), 
+            ",", 
+            RowBox[{"{", 
+              RowBox[{\(\(u[1, 0]\)[x, t]\), "\[Rule]", 
+                RowBox[{"-", 
+                  RowBox[{"(", 
+                    InterpretationBox[
+                      RowBox[{"g", "\[InvisibleSpace]", 
+                        InterpretationBox[
+                          SubscriptBox["\[Null]", 
+                            InterpretationBox["x",
+                              SequenceForm[ x],
+                              Editable->False]],
+                          Subscript[ 
+                            SequenceForm[ x]],
+                          Editable->False]}],
+                      SequenceForm[ g, 
+                        Subscript[ 
+                          SequenceForm[ x]]],
+                      Editable->False], ")"}]}]}], "}"}]}], "}"}], ",", 
+        RowBox[{"{", 
+          
+          RowBox[{\({alpha[1] \[Rule] \(-1\), alphaMin[1] \[Rule] \(-4\)}\), 
+            ",", 
+            RowBox[{"{", 
+              RowBox[{\(\(u[1, 0]\)[x, t]\), "\[Rule]", 
+                InterpretationBox[
+                  RowBox[{"g", "\[InvisibleSpace]", 
+                    InterpretationBox[
+                      SubscriptBox["\[Null]", 
+                        InterpretationBox["x",
+                          SequenceForm[ x],
+                          Editable->False]],
+                      Subscript[ 
+                        SequenceForm[ x]],
+                      Editable->False]}],
+                  SequenceForm[ g, 
+                    Subscript[ 
+                      SequenceForm[ x]]],
+                  Editable->False]}], "}"}]}], "}"}]}], "}"}]], "Print"],
+
+Cell[BoxData[
+    \("*************************************************************"\)], \
+"Print"],
+
+Cell[BoxData[
+    \("Computation of THE RESONANCES for VARIOUS DOMINANT BEHAVIORS"\)], \
+"Print"],
+
+Cell[BoxData[
+    \("(one at the time)."\)], "Print"],
+
+Cell[BoxData[
+    \("**************************************************************"\)], \
+"Print"],
+
+Cell[BoxData[
+    \("START OF A NEW BRANCH OF THE COMPUTATIONS."\)], "Print"],
+
+Cell[BoxData[
+    \("The system (entering the function resonances`GenerateSystem) is: "\)], \
+"Print"],
+
+Cell[BoxData[
+    RowBox[{"{", 
+      RowBox[{\(\(-hh[t]\)\ u[x, t]\), "+", 
+        RowBox[{
+          SuperscriptBox["u", 
+            TagBox[\((0, 1)\),
+              Derivative],
+            MultilineFunction->None], "[", \(x, t\), "]"}], "-", 
+        RowBox[{"x", " ", \(ff[t]\), " ", 
+          RowBox[{
+            SuperscriptBox["u", 
+              TagBox[\((1, 0)\),
+                Derivative],
+              MultilineFunction->None], "[", \(x, t\), "]"}]}], "-", 
+        RowBox[{\(gg[t]\), " ", 
+          RowBox[{
+            SuperscriptBox["u", 
+              TagBox[\((1, 0)\),
+                Derivative],
+              MultilineFunction->None], "[", \(x, t\), "]"}]}], "+", 
+        RowBox[{"6", " ", \(u[x, t]\^2\), " ", 
+          RowBox[{
+            SuperscriptBox["u", 
+              TagBox[\((1, 0)\),
+                Derivative],
+              MultilineFunction->None], "[", \(x, t\), "]"}]}], "-", 
+        RowBox[{
+          SuperscriptBox["u", 
+            TagBox[\((3, 0)\),
+              Derivative],
+            MultilineFunction->None], "[", \(x, t\), "]"}]}], "}"}]], "Print"],
+
+Cell[BoxData[
+    \("with dominant behavior (leading orders): "\)], "Print"],
+
+Cell[BoxData[
+    \({alpha[1] \[Rule] \(-1\), alphaMin[1] \[Rule] \(-4\)}\)], "Print"],
+
+Cell[BoxData[
+    \("and corresponding coefficients: "\)], "Print"],
+
+Cell[BoxData[
+    RowBox[{"{", 
+      RowBox[{\(\(u[1, 0]\)[x, t]\), "\[Rule]", 
+        RowBox[{"-", 
+          RowBox[{
+            SuperscriptBox["g", 
+              TagBox[\((1, 0)\),
+                Derivative],
+              MultilineFunction->None], "[", \(x, t\), "]"}]}]}], 
+      "}"}]], "Print"],
+
+Cell[BoxData[
+    \("The characteristic equation for the resonances is: "\)], "Print"],
+
+Cell[BoxData[
+    RowBox[{
+      RowBox[{\(-\((\(-4\) + r)\)\), " ", \((\(-3\) + r)\), " ", \((1 + r)\), 
+        " ", 
+        SuperscriptBox[
+          RowBox[{
+            SuperscriptBox["g", 
+              TagBox[\((1, 0)\),
+                Derivative],
+              MultilineFunction->None], "[", \(x, t\), "]"}], "3"]}], 
+      "\[Equal]", "0"}]], "Print"],
+
+Cell[BoxData[
+    \("The solutions (resonances r) of the characteristic equation are: "\)], \
+"Print"],
+
+Cell[BoxData[
+    \({r \[Rule] \(-1\), r \[Rule] 3, r \[Rule] 4}\)], "Print"],
+
+Cell[BoxData[
+    \("Computation of THE RESONANCES for VARIOUS DOMINANT BEHAVIORS"\)], \
+"Print"],
+
+Cell[BoxData[
+    \("(one at the time)."\)], "Print"],
+
+Cell[BoxData[
+    \("**************************************************************"\)], \
+"Print"],
+
+Cell[BoxData[
+    \("START OF A NEW BRANCH OF THE COMPUTATIONS."\)], "Print"],
+
+Cell[BoxData[
+    \("The system (entering the function resonances`GenerateSystem) is: "\)], \
+"Print"],
+
+Cell[BoxData[
+    RowBox[{"{", 
+      RowBox[{\(\(-hh[t]\)\ u[x, t]\), "+", 
+        RowBox[{
+          SuperscriptBox["u", 
+            TagBox[\((0, 1)\),
+              Derivative],
+            MultilineFunction->None], "[", \(x, t\), "]"}], "-", 
+        RowBox[{"x", " ", \(ff[t]\), " ", 
+          RowBox[{
+            SuperscriptBox["u", 
+              TagBox[\((1, 0)\),
+                Derivative],
+              MultilineFunction->None], "[", \(x, t\), "]"}]}], "-", 
+        RowBox[{\(gg[t]\), " ", 
+          RowBox[{
+            SuperscriptBox["u", 
+              TagBox[\((1, 0)\),
+                Derivative],
+              MultilineFunction->None], "[", \(x, t\), "]"}]}], "+", 
+        RowBox[{"6", " ", \(u[x, t]\^2\), " ", 
+          RowBox[{
+            SuperscriptBox["u", 
+              TagBox[\((1, 0)\),
+                Derivative],
+              MultilineFunction->None], "[", \(x, t\), "]"}]}], "-", 
+        RowBox[{
+          SuperscriptBox["u", 
+            TagBox[\((3, 0)\),
+              Derivative],
+            MultilineFunction->None], "[", \(x, t\), "]"}]}], "}"}]], "Print"],
+
+Cell[BoxData[
+    \("with dominant behavior (leading orders): "\)], "Print"],
+
+Cell[BoxData[
+    \({alpha[1] \[Rule] \(-1\), alphaMin[1] \[Rule] \(-4\)}\)], "Print"],
+
+Cell[BoxData[
+    \("and corresponding coefficients: "\)], "Print"],
+
+Cell[BoxData[
+    RowBox[{"{", 
+      RowBox[{\(\(u[1, 0]\)[x, t]\), "\[Rule]", 
+        RowBox[{
+          SuperscriptBox["g", 
+            TagBox[\((1, 0)\),
+              Derivative],
+            MultilineFunction->None], "[", \(x, t\), "]"}]}], "}"}]], "Print"],
+
+Cell[BoxData[
+    \("The characteristic equation for the resonances is: "\)], "Print"],
+
+Cell[BoxData[
+    RowBox[{
+      RowBox[{\(-\((\(-4\) + r)\)\), " ", \((\(-3\) + r)\), " ", \((1 + r)\), 
+        " ", 
+        SuperscriptBox[
+          RowBox[{
+            SuperscriptBox["g", 
+              TagBox[\((1, 0)\),
+                Derivative],
+              MultilineFunction->None], "[", \(x, t\), "]"}], "3"]}], 
+      "\[Equal]", "0"}]], "Print"],
+
+Cell[BoxData[
+    \("The solutions (resonances r) of the characteristic equation are: "\)], \
+"Print"],
+
+Cell[BoxData[
+    \({r \[Rule] \(-1\), r \[Rule] 3, r \[Rule] 4}\)], "Print"],
+
+Cell[BoxData[
+    \("SECOND SUMMARY: leading order behaviors and corresponding resonances: \
+"\)], "Print"],
+
+Cell[BoxData[
+    RowBox[{"{", 
+      RowBox[{
+        RowBox[{"{", 
+          
+          RowBox[{\({alpha[1] \[Rule] \(-1\), alphaMin[1] \[Rule] \(-4\)}\), 
+            ",", 
+            RowBox[{"{", 
+              RowBox[{\(\(u[1, 0]\)[x, t]\), "\[Rule]", 
+                RowBox[{"-", 
+                  RowBox[{"(", 
+                    InterpretationBox[
+                      RowBox[{"g", "\[InvisibleSpace]", 
+                        InterpretationBox[
+                          SubscriptBox["\[Null]", 
+                            InterpretationBox["x",
+                              SequenceForm[ x],
+                              Editable->False]],
+                          Subscript[ 
+                            SequenceForm[ x]],
+                          Editable->False]}],
+                      SequenceForm[ g, 
+                        Subscript[ 
+                          SequenceForm[ x]]],
+                      Editable->False], ")"}]}]}], "}"}], 
+            ",", \({r \[Rule] \(-1\), r \[Rule] 3, r \[Rule] 4}\)}], "}"}], 
+        ",", 
+        RowBox[{"{", 
+          
+          RowBox[{\({alpha[1] \[Rule] \(-1\), alphaMin[1] \[Rule] \(-4\)}\), 
+            ",", 
+            RowBox[{"{", 
+              RowBox[{\(\(u[1, 0]\)[x, t]\), "\[Rule]", 
+                InterpretationBox[
+                  RowBox[{"g", "\[InvisibleSpace]", 
+                    InterpretationBox[
+                      SubscriptBox["\[Null]", 
+                        InterpretationBox["x",
+                          SequenceForm[ x],
+                          Editable->False]],
+                      Subscript[ 
+                        SequenceForm[ x]],
+                      Editable->False]}],
+                  SequenceForm[ g, 
+                    Subscript[ 
+                      SequenceForm[ x]]],
+                  Editable->False]}], "}"}], 
+            ",", \({r \[Rule] \(-1\), r \[Rule] 3, r \[Rule] 4}\)}], "}"}]}], 
+      "}"}]], "Print"],
+
+Cell[BoxData[
+    \("*************************************************************"\)], \
+"Print"],
+
+Cell[BoxData[
+    \("Computation of THE CONSTANTS OF INTEGRATION and COMPATIBILITY \
+CONDITIONS (if applicable) for the various dominant behaviors"\)], "Print"],
+
+Cell[BoxData[
+    \("(one at the time)."\)], "Print"],
+
+Cell[BoxData[
+    \("**************************************************************"\)], \
+"Print"],
+
+Cell[BoxData[
+    \("START OF A NEW BRANCH OF THE COMPUTATIONS."\)], "Print"],
+
+Cell[BoxData[
+    \("The system (entering the function constantsOfIntegration) is: "\)], \
+"Print"],
+
+Cell[BoxData[
+    RowBox[{"{", 
+      RowBox[{\(\(-hh[t]\)\ u[x, t]\), "+", 
+        RowBox[{
+          SuperscriptBox["u", 
+            TagBox[\((0, 1)\),
+              Derivative],
+            MultilineFunction->None], "[", \(x, t\), "]"}], "-", 
+        RowBox[{"x", " ", \(ff[t]\), " ", 
+          RowBox[{
+            SuperscriptBox["u", 
+              TagBox[\((1, 0)\),
+                Derivative],
+              MultilineFunction->None], "[", \(x, t\), "]"}]}], "-", 
+        RowBox[{\(gg[t]\), " ", 
+          RowBox[{
+            SuperscriptBox["u", 
+              TagBox[\((1, 0)\),
+                Derivative],
+              MultilineFunction->None], "[", \(x, t\), "]"}]}], "+", 
+        RowBox[{"6", " ", \(u[x, t]\^2\), " ", 
+          RowBox[{
+            SuperscriptBox["u", 
+              TagBox[\((1, 0)\),
+                Derivative],
+              MultilineFunction->None], "[", \(x, t\), "]"}]}], "-", 
+        RowBox[{
+          SuperscriptBox["u", 
+            TagBox[\((3, 0)\),
+              Derivative],
+            MultilineFunction->None], "[", \(x, t\), "]"}]}], "}"}]], "Print"],
+
+Cell[BoxData[
+    \("Working with leading order behavior and resonances: "\)], "Print"],
+
+Cell[BoxData[
+    RowBox[{"{", 
+      RowBox[{\({alpha[1] \[Rule] \(-1\), alphaMin[1] \[Rule] \(-4\)}\), ",", 
+        
+        RowBox[{"{", 
+          RowBox[{\(\(u[1, 0]\)[x, t]\), "\[Rule]", 
+            RowBox[{"-", 
+              RowBox[{
+                SuperscriptBox["g", 
+                  TagBox[\((1, 0)\),
+                    Derivative],
+                  MultilineFunction->None], "[", \(x, t\), "]"}]}]}], "}"}], 
+        ",", \({r \[Rule] \(-1\), r \[Rule] 3, r \[Rule] 4}\)}], 
+      "}"}]], "Print"],
+
+Cell[BoxData[
+    InterpretationBox[\("Determining the integration constants AT LEVEL "\
+\[InvisibleSpace]1\[InvisibleSpace]"."\),
+      SequenceForm[ 
+      "Determining the integration constants AT LEVEL ", 1, "."],
+      Editable->False]], "Print"],
+
+Cell[BoxData[
+    \("Solving the system (within constantsOfIntegration`Solve)."\)], "Print"],
+
+Cell[BoxData[
+    \("The solutions for \!\(u\_\(i,1\)\) are: "\)], "Print"],
+
+Cell[BoxData[
+    RowBox[{"{", 
+      RowBox[{\(\(u[1, 1]\)[x, t]\), "\[Rule]", 
+        RowBox[{"{", 
+          FractionBox[
+            InterpretationBox[
+              RowBox[{"g", "\[InvisibleSpace]", 
+                InterpretationBox[
+                  SubscriptBox["\[Null]", 
+                    InterpretationBox[\(x\[InvisibleSpace]x\),
+                      SequenceForm[ x, x],
+                      Editable->False]],
+                  Subscript[ 
+                    SequenceForm[ x, x]],
+                  Editable->False]}],
+              SequenceForm[ g, 
+                Subscript[ 
+                  SequenceForm[ x, x]]],
+              Editable->False], 
+            RowBox[{"2", " ", 
+              RowBox[{"(", 
+                InterpretationBox[
+                  RowBox[{"g", "\[InvisibleSpace]", 
+                    InterpretationBox[
+                      SubscriptBox["\[Null]", 
+                        InterpretationBox["x",
+                          SequenceForm[ x],
+                          Editable->False]],
+                      Subscript[ 
+                        SequenceForm[ x]],
+                      Editable->False]}],
+                  SequenceForm[ g, 
+                    Subscript[ 
+                      SequenceForm[ x]]],
+                  Editable->False], ")"}]}]], "}"}]}], "}"}]], "Print"],
+
+Cell[BoxData[
+    \("Working with leading order behavior and resonances: "\)], "Print"],
+
+Cell[BoxData[
+    RowBox[{"{", 
+      RowBox[{\({alpha[1] \[Rule] \(-1\), alphaMin[1] \[Rule] \(-4\)}\), ",", 
+        
+        RowBox[{"{", 
+          RowBox[{\(\(u[1, 0]\)[x, t]\), "\[Rule]", 
+            RowBox[{"-", 
+              RowBox[{
+                SuperscriptBox["g", 
+                  TagBox[\((1, 0)\),
+                    Derivative],
+                  MultilineFunction->None], "[", \(x, t\), "]"}]}]}], "}"}], 
+        ",", \({r \[Rule] \(-1\), r \[Rule] 3, r \[Rule] 4}\)}], 
+      "}"}]], "Print"],
+
+Cell[BoxData[
+    InterpretationBox[\("Determining the integration constants AT LEVEL "\
+\[InvisibleSpace]2\[InvisibleSpace]"."\),
+      SequenceForm[ 
+      "Determining the integration constants AT LEVEL ", 2, "."],
+      Editable->False]], "Print"],
+
+Cell[BoxData[
+    \("Solving the system (within constantsOfIntegration`Solve)."\)], "Print"],
+
+Cell[BoxData[
+    \("The solutions for \!\(u\_\(i,2\)\) are: "\)], "Print"],
+
+Cell[BoxData[
+    RowBox[{"{", 
+      RowBox[{\(\(u[1, 2]\)[x, t]\), "\[Rule]", 
+        RowBox[{"{", 
+          RowBox[{"-", 
+            FractionBox[
+              RowBox[{
+                RowBox[{\(-2\), " ", 
+                  RowBox[{"(", 
+                    InterpretationBox[
+                      RowBox[{"g", "\[InvisibleSpace]", 
+                        InterpretationBox[
+                          SubscriptBox["\[Null]", 
+                            InterpretationBox["t",
+                              SequenceForm[ t],
+                              Editable->False]],
+                          Subscript[ 
+                            SequenceForm[ t]],
+                          Editable->False]}],
+                      SequenceForm[ g, 
+                        Subscript[ 
+                          SequenceForm[ t]]],
+                      Editable->False], ")"}], " ", 
+                  RowBox[{"(", 
+                    InterpretationBox[
+                      RowBox[{"g", "\[InvisibleSpace]", 
+                        InterpretationBox[
+                          SubscriptBox["\[Null]", 
+                            InterpretationBox["x",
+                              SequenceForm[ x],
+                              Editable->False]],
+                          Subscript[ 
+                            SequenceForm[ x]],
+                          Editable->False]}],
+                      SequenceForm[ g, 
+                        Subscript[ 
+                          SequenceForm[ x]]],
+                      Editable->False], ")"}]}], "+", 
+                RowBox[{"2", " ", "x", " ", \(ff[t]\), " ", 
+                  SuperscriptBox[
+                    RowBox[{"(", 
+                      InterpretationBox[
+                        RowBox[{"g", "\[InvisibleSpace]", 
+                          InterpretationBox[
+                            SubscriptBox["\[Null]", 
+                              InterpretationBox["x",
+                                SequenceForm[ x],
+                                Editable->False]],
+                            Subscript[ 
+                              SequenceForm[ x]],
+                            Editable->False]}],
+                        SequenceForm[ g, 
+                          Subscript[ 
+                            SequenceForm[ x]]],
+                        Editable->False], ")"}], "2"]}], "+", 
+                RowBox[{"2", " ", \(gg[t]\), " ", 
+                  SuperscriptBox[
+                    RowBox[{"(", 
+                      InterpretationBox[
+                        RowBox[{"g", "\[InvisibleSpace]", 
+                          InterpretationBox[
+                            SubscriptBox["\[Null]", 
+                              InterpretationBox["x",
+                                SequenceForm[ x],
+                                Editable->False]],
+                            Subscript[ 
+                              SequenceForm[ x]],
+                            Editable->False]}],
+                        SequenceForm[ g, 
+                          Subscript[ 
+                            SequenceForm[ x]]],
+                        Editable->False], ")"}], "2"]}], "-", 
+                RowBox[{"3", " ", 
+                  SuperscriptBox[
+                    RowBox[{"(", 
+                      InterpretationBox[
+                        RowBox[{"g", "\[InvisibleSpace]", 
+                          InterpretationBox[
+                            SubscriptBox["\[Null]", 
+                              InterpretationBox[\(x\[InvisibleSpace]x\),
+                                SequenceForm[ x, x],
+                                Editable->False]],
+                            Subscript[ 
+                              SequenceForm[ x, x]],
+                            Editable->False]}],
+                        SequenceForm[ g, 
+                          Subscript[ 
+                            SequenceForm[ x, x]]],
+                        Editable->False], ")"}], "2"]}], "+", 
+                RowBox[{"2", " ", 
+                  RowBox[{"(", 
+                    InterpretationBox[
+                      RowBox[{"g", "\[InvisibleSpace]", 
+                        InterpretationBox[
+                          SubscriptBox["\[Null]", 
+                            InterpretationBox["x",
+                              SequenceForm[ x],
+                              Editable->False]],
+                          Subscript[ 
+                            SequenceForm[ x]],
+                          Editable->False]}],
+                      SequenceForm[ g, 
+                        Subscript[ 
+                          SequenceForm[ x]]],
+                      Editable->False], ")"}], " ", 
+                  RowBox[{"(", 
+                    InterpretationBox[
+                      RowBox[{"g", "\[InvisibleSpace]", 
+                        InterpretationBox[
+                          SubscriptBox["\[Null]", 
+                            
+                            InterpretationBox[\(x\[InvisibleSpace]x\
+\[InvisibleSpace]x\),
+                              SequenceForm[ x, x, x],
+                              Editable->False]],
+                          Subscript[ 
+                            SequenceForm[ x, x, x]],
+                          Editable->False]}],
+                      SequenceForm[ g, 
+                        Subscript[ 
+                          SequenceForm[ x, x, x]]],
+                      Editable->False], ")"}]}]}], 
+              RowBox[{"12", " ", 
+                SuperscriptBox[
+                  RowBox[{"(", 
+                    InterpretationBox[
+                      RowBox[{"g", "\[InvisibleSpace]", 
+                        InterpretationBox[
+                          SubscriptBox["\[Null]", 
+                            InterpretationBox["x",
+                              SequenceForm[ x],
+                              Editable->False]],
+                          Subscript[ 
+                            SequenceForm[ x]],
+                          Editable->False]}],
+                      SequenceForm[ g, 
+                        Subscript[ 
+                          SequenceForm[ x]]],
+                      Editable->False], ")"}], "3"]}]]}], "}"}]}], 
+      "}"}]], "Print"],
+
+Cell[BoxData[
+    \("Working with leading order behavior and resonances: "\)], "Print"],
+
+Cell[BoxData[
+    RowBox[{"{", 
+      RowBox[{\({alpha[1] \[Rule] \(-1\), alphaMin[1] \[Rule] \(-4\)}\), ",", 
+        
+        RowBox[{"{", 
+          RowBox[{\(\(u[1, 0]\)[x, t]\), "\[Rule]", 
+            RowBox[{"-", 
+              RowBox[{
+                SuperscriptBox["g", 
+                  TagBox[\((1, 0)\),
+                    Derivative],
+                  MultilineFunction->None], "[", \(x, t\), "]"}]}]}], "}"}], 
+        ",", \({r \[Rule] \(-1\), r \[Rule] 3, r \[Rule] 4}\)}], 
+      "}"}]], "Print"],
+
+Cell[BoxData[
+    InterpretationBox[\("Determining the integration constants AT LEVEL "\
+\[InvisibleSpace]3\[InvisibleSpace]"."\),
+      SequenceForm[ 
+      "Determining the integration constants AT LEVEL ", 3, "."],
+      Editable->False]], "Print"],
+
+Cell[BoxData[
+    \("Solving the system (within \
+constantsOfIntegration`NthResonance`Solve)."\)], "Print"],
+
+Cell[BoxData[
+    \("The solutions for \!\(u\_\(i,3\)\) are: "\)], "Print"],
+
+Cell[BoxData[
+    \({\(u[1, 3]\)[x, t] \[Rule] \(u[1, 3]\)[x, t]}\)], "Print"],
+
+Cell[BoxData[
+    \("The compatibility condition AT LEVEL 3 is:"\)], "Message"],
+
+Cell[BoxData[
+    RowBox[{"{", 
+      RowBox[{\(-\((ff[t] - hh[t])\)\), " ", 
+        RowBox[{"(", 
+          InterpretationBox[
+            RowBox[{"g", "\[InvisibleSpace]", 
+              InterpretationBox[
+                SubscriptBox["\[Null]", 
+                  InterpretationBox["x",
+                    SequenceForm[ x],
+                    Editable->False]],
+                Subscript[ 
+                  SequenceForm[ x]],
+                Editable->False]}],
+            SequenceForm[ g, 
+              Subscript[ 
+                SequenceForm[ x]]],
+            Editable->False], ")"}]}], "}"}]], "Message"],
+
+Cell[BoxData[
+    \(" == 0"\)], "Message"],
+
+Cell[BoxData[
+    \("Working with leading order behavior and resonances: "\)], "Print"],
+
+Cell[BoxData[
+    RowBox[{"{", 
+      RowBox[{\({alpha[1] \[Rule] \(-1\), alphaMin[1] \[Rule] \(-4\)}\), ",", 
+        
+        RowBox[{"{", 
+          RowBox[{\(\(u[1, 0]\)[x, t]\), "\[Rule]", 
+            RowBox[{"-", 
+              RowBox[{
+                SuperscriptBox["g", 
+                  TagBox[\((1, 0)\),
+                    Derivative],
+                  MultilineFunction->None], "[", \(x, t\), "]"}]}]}], "}"}], 
+        ",", \({r \[Rule] \(-1\), r \[Rule] 3, r \[Rule] 4}\)}], 
+      "}"}]], "Print"],
+
+Cell[BoxData[
+    InterpretationBox[\("Determining the integration constants AT LEVEL "\
+\[InvisibleSpace]4\[InvisibleSpace]"."\),
+      SequenceForm[ 
+      "Determining the integration constants AT LEVEL ", 4, "."],
+      Editable->False]], "Print"],
+
+Cell[BoxData[
+    \("Solving the system (within \
+constantsOfIntegration`NthResonance`Solve)."\)], "Print"],
+
+Cell[BoxData[
+    \("The solutions for \!\(u\_\(i,4\)\) are: "\)], "Print"],
+
+Cell[BoxData[
+    \({\(u[1, 4]\)[x, t] \[Rule] \(u[1, 4]\)[x, t]}\)], "Print"],
+
+Cell[BoxData[
+    \("The compatibility condition AT LEVEL 4 is:"\)], "Message"],
+
+Cell[BoxData[
+    RowBox[{"{", 
+      FractionBox[
+        RowBox[{\((ff[t] - hh[t])\), " ", 
+          RowBox[{"(", 
+            InterpretationBox[
+              RowBox[{"g", "\[InvisibleSpace]", 
+                InterpretationBox[
+                  SubscriptBox["\[Null]", 
+                    InterpretationBox[\(x\[InvisibleSpace]x\),
+                      SequenceForm[ x, x],
+                      Editable->False]],
+                  Subscript[ 
+                    SequenceForm[ x, x]],
+                  Editable->False]}],
+              SequenceForm[ g, 
+                Subscript[ 
+                  SequenceForm[ x, x]]],
+              Editable->False], ")"}]}], 
+        RowBox[{"2", " ", 
+          RowBox[{"(", 
+            InterpretationBox[
+              RowBox[{"g", "\[InvisibleSpace]", 
+                InterpretationBox[
+                  SubscriptBox["\[Null]", 
+                    InterpretationBox["x",
+                      SequenceForm[ x],
+                      Editable->False]],
+                  Subscript[ 
+                    SequenceForm[ x]],
+                  Editable->False]}],
+              SequenceForm[ g, 
+                Subscript[ 
+                  SequenceForm[ x]]],
+              Editable->False], ")"}]}]], "}"}]], "Message"],
+
+Cell[BoxData[
+    \(" == 0"\)], "Message"],
+
+Cell[BoxData[
+    \("Computation of THE CONSTANTS OF INTEGRATION and COMPATIBILITY \
+CONDITIONS (if applicable) for the various dominant behaviors"\)], "Print"],
+
+Cell[BoxData[
+    \("(one at the time)."\)], "Print"],
+
+Cell[BoxData[
+    \("**************************************************************"\)], \
+"Print"],
+
+Cell[BoxData[
+    \("START OF A NEW BRANCH OF THE COMPUTATIONS."\)], "Print"],
+
+Cell[BoxData[
+    \("The system (entering the function constantsOfIntegration) is: "\)], \
+"Print"],
+
+Cell[BoxData[
+    RowBox[{"{", 
+      RowBox[{\(\(-hh[t]\)\ u[x, t]\), "+", 
+        RowBox[{
+          SuperscriptBox["u", 
+            TagBox[\((0, 1)\),
+              Derivative],
+            MultilineFunction->None], "[", \(x, t\), "]"}], "-", 
+        RowBox[{"x", " ", \(ff[t]\), " ", 
+          RowBox[{
+            SuperscriptBox["u", 
+              TagBox[\((1, 0)\),
+                Derivative],
+              MultilineFunction->None], "[", \(x, t\), "]"}]}], "-", 
+        RowBox[{\(gg[t]\), " ", 
+          RowBox[{
+            SuperscriptBox["u", 
+              TagBox[\((1, 0)\),
+                Derivative],
+              MultilineFunction->None], "[", \(x, t\), "]"}]}], "+", 
+        RowBox[{"6", " ", \(u[x, t]\^2\), " ", 
+          RowBox[{
+            SuperscriptBox["u", 
+              TagBox[\((1, 0)\),
+                Derivative],
+              MultilineFunction->None], "[", \(x, t\), "]"}]}], "-", 
+        RowBox[{
+          SuperscriptBox["u", 
+            TagBox[\((3, 0)\),
+              Derivative],
+            MultilineFunction->None], "[", \(x, t\), "]"}]}], "}"}]], "Print"],
+
+Cell[BoxData[
+    \("Working with leading order behavior and resonances: "\)], "Print"],
+
+Cell[BoxData[
+    RowBox[{"{", 
+      RowBox[{\({alpha[1] \[Rule] \(-1\), alphaMin[1] \[Rule] \(-4\)}\), ",", 
+        
+        RowBox[{"{", 
+          RowBox[{\(\(u[1, 0]\)[x, t]\), "\[Rule]", 
+            RowBox[{
+              SuperscriptBox["g", 
+                TagBox[\((1, 0)\),
+                  Derivative],
+                MultilineFunction->None], "[", \(x, t\), "]"}]}], "}"}], 
+        ",", \({r \[Rule] \(-1\), r \[Rule] 3, r \[Rule] 4}\)}], 
+      "}"}]], "Print"],
+
+Cell[BoxData[
+    InterpretationBox[\("Determining the integration constants AT LEVEL "\
+\[InvisibleSpace]1\[InvisibleSpace]"."\),
+      SequenceForm[ 
+      "Determining the integration constants AT LEVEL ", 1, "."],
+      Editable->False]], "Print"],
+
+Cell[BoxData[
+    \("Solving the system (within constantsOfIntegration`Solve)."\)], "Print"],
+
+Cell[BoxData[
+    \("The solutions for \!\(u\_\(i,1\)\) are: "\)], "Print"],
+
+Cell[BoxData[
+    RowBox[{"{", 
+      RowBox[{\(\(u[1, 1]\)[x, t]\), "\[Rule]", 
+        RowBox[{"{", 
+          RowBox[{"-", 
+            FractionBox[
+              InterpretationBox[
+                RowBox[{"g", "\[InvisibleSpace]", 
+                  InterpretationBox[
+                    SubscriptBox["\[Null]", 
+                      InterpretationBox[\(x\[InvisibleSpace]x\),
+                        SequenceForm[ x, x],
+                        Editable->False]],
+                    Subscript[ 
+                      SequenceForm[ x, x]],
+                    Editable->False]}],
+                SequenceForm[ g, 
+                  Subscript[ 
+                    SequenceForm[ x, x]]],
+                Editable->False], 
+              RowBox[{"2", " ", 
+                RowBox[{"(", 
+                  InterpretationBox[
+                    RowBox[{"g", "\[InvisibleSpace]", 
+                      InterpretationBox[
+                        SubscriptBox["\[Null]", 
+                          InterpretationBox["x",
+                            SequenceForm[ x],
+                            Editable->False]],
+                        Subscript[ 
+                          SequenceForm[ x]],
+                        Editable->False]}],
+                    SequenceForm[ g, 
+                      Subscript[ 
+                        SequenceForm[ x]]],
+                    Editable->False], ")"}]}]]}], "}"}]}], "}"}]], "Print"],
+
+Cell[BoxData[
+    \("Working with leading order behavior and resonances: "\)], "Print"],
+
+Cell[BoxData[
+    RowBox[{"{", 
+      RowBox[{\({alpha[1] \[Rule] \(-1\), alphaMin[1] \[Rule] \(-4\)}\), ",", 
+        
+        RowBox[{"{", 
+          RowBox[{\(\(u[1, 0]\)[x, t]\), "\[Rule]", 
+            RowBox[{
+              SuperscriptBox["g", 
+                TagBox[\((1, 0)\),
+                  Derivative],
+                MultilineFunction->None], "[", \(x, t\), "]"}]}], "}"}], 
+        ",", \({r \[Rule] \(-1\), r \[Rule] 3, r \[Rule] 4}\)}], 
+      "}"}]], "Print"],
+
+Cell[BoxData[
+    InterpretationBox[\("Determining the integration constants AT LEVEL "\
+\[InvisibleSpace]2\[InvisibleSpace]"."\),
+      SequenceForm[ 
+      "Determining the integration constants AT LEVEL ", 2, "."],
+      Editable->False]], "Print"],
+
+Cell[BoxData[
+    \("Solving the system (within constantsOfIntegration`Solve)."\)], "Print"],
+
+Cell[BoxData[
+    \("The solutions for \!\(u\_\(i,2\)\) are: "\)], "Print"],
+
+Cell[BoxData[
+    RowBox[{"{", 
+      RowBox[{\(\(u[1, 2]\)[x, t]\), "\[Rule]", 
+        RowBox[{"{", 
+          FractionBox[
+            RowBox[{
+              RowBox[{\(-2\), " ", 
+                RowBox[{"(", 
+                  InterpretationBox[
+                    RowBox[{"g", "\[InvisibleSpace]", 
+                      InterpretationBox[
+                        SubscriptBox["\[Null]", 
+                          InterpretationBox["t",
+                            SequenceForm[ t],
+                            Editable->False]],
+                        Subscript[ 
+                          SequenceForm[ t]],
+                        Editable->False]}],
+                    SequenceForm[ g, 
+                      Subscript[ 
+                        SequenceForm[ t]]],
+                    Editable->False], ")"}], " ", 
+                RowBox[{"(", 
+                  InterpretationBox[
+                    RowBox[{"g", "\[InvisibleSpace]", 
+                      InterpretationBox[
+                        SubscriptBox["\[Null]", 
+                          InterpretationBox["x",
+                            SequenceForm[ x],
+                            Editable->False]],
+                        Subscript[ 
+                          SequenceForm[ x]],
+                        Editable->False]}],
+                    SequenceForm[ g, 
+                      Subscript[ 
+                        SequenceForm[ x]]],
+                    Editable->False], ")"}]}], "+", 
+              RowBox[{"2", " ", "x", " ", \(ff[t]\), " ", 
+                SuperscriptBox[
+                  RowBox[{"(", 
+                    InterpretationBox[
+                      RowBox[{"g", "\[InvisibleSpace]", 
+                        InterpretationBox[
+                          SubscriptBox["\[Null]", 
+                            InterpretationBox["x",
+                              SequenceForm[ x],
+                              Editable->False]],
+                          Subscript[ 
+                            SequenceForm[ x]],
+                          Editable->False]}],
+                      SequenceForm[ g, 
+                        Subscript[ 
+                          SequenceForm[ x]]],
+                      Editable->False], ")"}], "2"]}], "+", 
+              RowBox[{"2", " ", \(gg[t]\), " ", 
+                SuperscriptBox[
+                  RowBox[{"(", 
+                    InterpretationBox[
+                      RowBox[{"g", "\[InvisibleSpace]", 
+                        InterpretationBox[
+                          SubscriptBox["\[Null]", 
+                            InterpretationBox["x",
+                              SequenceForm[ x],
+                              Editable->False]],
+                          Subscript[ 
+                            SequenceForm[ x]],
+                          Editable->False]}],
+                      SequenceForm[ g, 
+                        Subscript[ 
+                          SequenceForm[ x]]],
+                      Editable->False], ")"}], "2"]}], "-", 
+              RowBox[{"3", " ", 
+                SuperscriptBox[
+                  RowBox[{"(", 
+                    InterpretationBox[
+                      RowBox[{"g", "\[InvisibleSpace]", 
+                        InterpretationBox[
+                          SubscriptBox["\[Null]", 
+                            InterpretationBox[\(x\[InvisibleSpace]x\),
+                              SequenceForm[ x, x],
+                              Editable->False]],
+                          Subscript[ 
+                            SequenceForm[ x, x]],
+                          Editable->False]}],
+                      SequenceForm[ g, 
+                        Subscript[ 
+                          SequenceForm[ x, x]]],
+                      Editable->False], ")"}], "2"]}], "+", 
+              RowBox[{"2", " ", 
+                RowBox[{"(", 
+                  InterpretationBox[
+                    RowBox[{"g", "\[InvisibleSpace]", 
+                      InterpretationBox[
+                        SubscriptBox["\[Null]", 
+                          InterpretationBox["x",
+                            SequenceForm[ x],
+                            Editable->False]],
+                        Subscript[ 
+                          SequenceForm[ x]],
+                        Editable->False]}],
+                    SequenceForm[ g, 
+                      Subscript[ 
+                        SequenceForm[ x]]],
+                    Editable->False], ")"}], " ", 
+                RowBox[{"(", 
+                  InterpretationBox[
+                    RowBox[{"g", "\[InvisibleSpace]", 
+                      InterpretationBox[
+                        SubscriptBox["\[Null]", 
+                          
+                          InterpretationBox[\(x\[InvisibleSpace]x\
+\[InvisibleSpace]x\),
+                            SequenceForm[ x, x, x],
+                            Editable->False]],
+                        Subscript[ 
+                          SequenceForm[ x, x, x]],
+                        Editable->False]}],
+                    SequenceForm[ g, 
+                      Subscript[ 
+                        SequenceForm[ x, x, x]]],
+                    Editable->False], ")"}]}]}], 
+            RowBox[{"12", " ", 
+              SuperscriptBox[
+                RowBox[{"(", 
+                  InterpretationBox[
+                    RowBox[{"g", "\[InvisibleSpace]", 
+                      InterpretationBox[
+                        SubscriptBox["\[Null]", 
+                          InterpretationBox["x",
+                            SequenceForm[ x],
+                            Editable->False]],
+                        Subscript[ 
+                          SequenceForm[ x]],
+                        Editable->False]}],
+                    SequenceForm[ g, 
+                      Subscript[ 
+                        SequenceForm[ x]]],
+                    Editable->False], ")"}], "3"]}]], "}"}]}], "}"}]], "Print"],
+
+Cell[BoxData[
+    \("Working with leading order behavior and resonances: "\)], "Print"],
+
+Cell[BoxData[
+    RowBox[{"{", 
+      RowBox[{\({alpha[1] \[Rule] \(-1\), alphaMin[1] \[Rule] \(-4\)}\), ",", 
+        
+        RowBox[{"{", 
+          RowBox[{\(\(u[1, 0]\)[x, t]\), "\[Rule]", 
+            RowBox[{
+              SuperscriptBox["g", 
+                TagBox[\((1, 0)\),
+                  Derivative],
+                MultilineFunction->None], "[", \(x, t\), "]"}]}], "}"}], 
+        ",", \({r \[Rule] \(-1\), r \[Rule] 3, r \[Rule] 4}\)}], 
+      "}"}]], "Print"],
+
+Cell[BoxData[
+    InterpretationBox[\("Determining the integration constants AT LEVEL "\
+\[InvisibleSpace]3\[InvisibleSpace]"."\),
+      SequenceForm[ 
+      "Determining the integration constants AT LEVEL ", 3, "."],
+      Editable->False]], "Print"],
+
+Cell[BoxData[
+    \("Solving the system (within \
+constantsOfIntegration`NthResonance`Solve)."\)], "Print"],
+
+Cell[BoxData[
+    \("The solutions for \!\(u\_\(i,3\)\) are: "\)], "Print"],
+
+Cell[BoxData[
+    \({\(u[1, 3]\)[x, t] \[Rule] \(u[1, 3]\)[x, t]}\)], "Print"],
+
+Cell[BoxData[
+    \("The compatibility condition AT LEVEL 3 is:"\)], "Message"],
+
+Cell[BoxData[
+    RowBox[{"{", 
+      RowBox[{\((ff[t] - hh[t])\), " ", 
+        RowBox[{"(", 
+          InterpretationBox[
+            RowBox[{"g", "\[InvisibleSpace]", 
+              InterpretationBox[
+                SubscriptBox["\[Null]", 
+                  InterpretationBox["x",
+                    SequenceForm[ x],
+                    Editable->False]],
+                Subscript[ 
+                  SequenceForm[ x]],
+                Editable->False]}],
+            SequenceForm[ g, 
+              Subscript[ 
+                SequenceForm[ x]]],
+            Editable->False], ")"}]}], "}"}]], "Message"],
+
+Cell[BoxData[
+    \(" == 0"\)], "Message"],
+
+Cell[BoxData[
+    \("Working with leading order behavior and resonances: "\)], "Print"],
+
+Cell[BoxData[
+    RowBox[{"{", 
+      RowBox[{\({alpha[1] \[Rule] \(-1\), alphaMin[1] \[Rule] \(-4\)}\), ",", 
+        
+        RowBox[{"{", 
+          RowBox[{\(\(u[1, 0]\)[x, t]\), "\[Rule]", 
+            RowBox[{
+              SuperscriptBox["g", 
+                TagBox[\((1, 0)\),
+                  Derivative],
+                MultilineFunction->None], "[", \(x, t\), "]"}]}], "}"}], 
+        ",", \({r \[Rule] \(-1\), r \[Rule] 3, r \[Rule] 4}\)}], 
+      "}"}]], "Print"],
+
+Cell[BoxData[
+    InterpretationBox[\("Determining the integration constants AT LEVEL "\
+\[InvisibleSpace]4\[InvisibleSpace]"."\),
+      SequenceForm[ 
+      "Determining the integration constants AT LEVEL ", 4, "."],
+      Editable->False]], "Print"],
+
+Cell[BoxData[
+    \("Solving the system (within \
+constantsOfIntegration`NthResonance`Solve)."\)], "Print"],
+
+Cell[BoxData[
+    \("The solutions for \!\(u\_\(i,4\)\) are: "\)], "Print"],
+
+Cell[BoxData[
+    \({\(u[1, 4]\)[x, t] \[Rule] \(u[1, 4]\)[x, t]}\)], "Print"],
+
+Cell[BoxData[
+    \("The compatibility condition AT LEVEL 4 is:"\)], "Message"],
+
+Cell[BoxData[
+    RowBox[{"{", 
+      RowBox[{"-", 
+        FractionBox[
+          RowBox[{\((ff[t] - hh[t])\), " ", 
+            RowBox[{"(", 
+              InterpretationBox[
+                RowBox[{"g", "\[InvisibleSpace]", 
+                  InterpretationBox[
+                    SubscriptBox["\[Null]", 
+                      InterpretationBox[\(x\[InvisibleSpace]x\),
+                        SequenceForm[ x, x],
+                        Editable->False]],
+                    Subscript[ 
+                      SequenceForm[ x, x]],
+                    Editable->False]}],
+                SequenceForm[ g, 
+                  Subscript[ 
+                    SequenceForm[ x, x]]],
+                Editable->False], ")"}]}], 
+          RowBox[{"2", " ", 
+            RowBox[{"(", 
+              InterpretationBox[
+                RowBox[{"g", "\[InvisibleSpace]", 
+                  InterpretationBox[
+                    SubscriptBox["\[Null]", 
+                      InterpretationBox["x",
+                        SequenceForm[ x],
+                        Editable->False]],
+                    Subscript[ 
+                      SequenceForm[ x]],
+                    Editable->False]}],
+                SequenceForm[ g, 
+                  Subscript[ 
+                    SequenceForm[ x]]],
+                Editable->False], ")"}]}]]}], "}"}]], "Message"],
+
+Cell[BoxData[
+    \(" == 0"\)], "Message"],
+
+Cell[BoxData[
+    \("*************************************************************"\)], \
+"Print"],
+
+Cell[BoxData[
+    \("FINAL SUMMARY: dominant behaviors, resonances, constants of \
+integration, and (if applicable) compatibility conditions: "\)], "Print"],
+
+Cell[BoxData[
+    \("Each sublist will have a list of alphas (and alphaMins),  followed by \
+a list with resonances. In turn, followed by  a nested list of coefficients \
+u[i,k]. The final list  contains the compatibility condition(s).  That list  \
+will be empty ({}) if there are no compatibility conditions. "\)], "Print"],
+
+Cell[BoxData[
+    RowBox[{"{", 
+      RowBox[{
+        RowBox[{"{", 
+          
+          RowBox[{\({alpha[1] \[Rule] \(-1\), alphaMin[1] \[Rule] \(-4\)}\), 
+            ",", \({r \[Rule] \(-1\), r \[Rule] 3, r \[Rule] 4}\), ",", 
+            RowBox[{"{", 
+              RowBox[{
+                RowBox[{"{", 
+                  RowBox[{
+                    RowBox[{\(u[1, 0]\), "\[Rule]", 
+                      RowBox[{"-", 
+                        RowBox[{"(", 
+                          InterpretationBox[
+                            RowBox[{"g", "\[InvisibleSpace]", 
+                              InterpretationBox[
+                                SubscriptBox["\[Null]", 
+                                  InterpretationBox["x",
+                                    SequenceForm[ x],
+                                    Editable->False]],
+                                Subscript[ 
+                                  SequenceForm[ x]],
+                                Editable->False]}],
+                            SequenceForm[ g, 
+                              Subscript[ 
+                                SequenceForm[ x]]],
+                            Editable->False], ")"}]}]}], ",", 
+                    RowBox[{\(u[1, 1]\), "\[Rule]", 
+                      FractionBox[
+                        InterpretationBox[
+                          RowBox[{"g", "\[InvisibleSpace]", 
+                            InterpretationBox[
+                              SubscriptBox["\[Null]", 
+                                InterpretationBox[\(x\[InvisibleSpace]x\),
+                                  SequenceForm[ x, x],
+                                  Editable->False]],
+                              Subscript[ 
+                                SequenceForm[ x, x]],
+                              Editable->False]}],
+                          SequenceForm[ g, 
+                            Subscript[ 
+                              SequenceForm[ x, x]]],
+                          Editable->False], 
+                        RowBox[{"2", " ", 
+                          RowBox[{"(", 
+                            InterpretationBox[
+                              RowBox[{"g", "\[InvisibleSpace]", 
+                                InterpretationBox[
+                                  SubscriptBox["\[Null]", 
+                                    InterpretationBox["x",
+                                      SequenceForm[ x],
+                                      Editable->False]],
+                                  Subscript[ 
+                                    SequenceForm[ x]],
+                                  Editable->False]}],
+                              SequenceForm[ g, 
+                                Subscript[ 
+                                  SequenceForm[ x]]],
+                              Editable->False], ")"}]}]]}], ",", 
+                    RowBox[{\(u[1, 2]\), "\[Rule]", 
+                      RowBox[{"-", 
+                        FractionBox[
+                          RowBox[{
+                            RowBox[{\(-2\), " ", 
+                              RowBox[{"(", 
+                                InterpretationBox[
+                                  RowBox[{"g", "\[InvisibleSpace]", 
+                                    InterpretationBox[
+                                      SubscriptBox["\[Null]", 
+                                        InterpretationBox["t",
+                                        SequenceForm[ t],
+                                        Editable->False]],
+                                      Subscript[ 
+                                        SequenceForm[ t]],
+                                      Editable->False]}],
+                                  SequenceForm[ g, 
+                                    Subscript[ 
+                                      SequenceForm[ t]]],
+                                  Editable->False], ")"}], " ", 
+                              RowBox[{"(", 
+                                InterpretationBox[
+                                  RowBox[{"g", "\[InvisibleSpace]", 
+                                    InterpretationBox[
+                                      SubscriptBox["\[Null]", 
+                                        InterpretationBox["x",
+                                        SequenceForm[ x],
+                                        Editable->False]],
+                                      Subscript[ 
+                                        SequenceForm[ x]],
+                                      Editable->False]}],
+                                  SequenceForm[ g, 
+                                    Subscript[ 
+                                      SequenceForm[ x]]],
+                                  Editable->False], ")"}]}], "+", 
+                            RowBox[{"2", " ", "x", " ", \(ff[t]\), " ", 
+                              SuperscriptBox[
+                                RowBox[{"(", 
+                                  InterpretationBox[
+                                    RowBox[{"g", "\[InvisibleSpace]", 
+                                      InterpretationBox[
+                                        SubscriptBox["\[Null]", 
+                                        InterpretationBox["x",
+                                        SequenceForm[ x],
+                                        Editable->False]],
+                                        Subscript[ 
+                                        SequenceForm[ x]],
+                                        Editable->False]}],
+                                    SequenceForm[ g, 
+                                      Subscript[ 
+                                        SequenceForm[ x]]],
+                                    Editable->False], ")"}], "2"]}], "+", 
+                            RowBox[{"2", " ", \(gg[t]\), " ", 
+                              SuperscriptBox[
+                                RowBox[{"(", 
+                                  InterpretationBox[
+                                    RowBox[{"g", "\[InvisibleSpace]", 
+                                      InterpretationBox[
+                                        SubscriptBox["\[Null]", 
+                                        InterpretationBox["x",
+                                        SequenceForm[ x],
+                                        Editable->False]],
+                                        Subscript[ 
+                                        SequenceForm[ x]],
+                                        Editable->False]}],
+                                    SequenceForm[ g, 
+                                      Subscript[ 
+                                        SequenceForm[ x]]],
+                                    Editable->False], ")"}], "2"]}], "-", 
+                            RowBox[{"3", " ", 
+                              SuperscriptBox[
+                                RowBox[{"(", 
+                                  InterpretationBox[
+                                    RowBox[{"g", "\[InvisibleSpace]", 
+                                      InterpretationBox[
+                                        SubscriptBox["\[Null]", 
+                                        
+                                        InterpretationBox[\(x\[InvisibleSpace]\
+x\),
+                                        SequenceForm[ x, x],
+                                        Editable->False]],
+                                        Subscript[ 
+                                        SequenceForm[ x, x]],
+                                        Editable->False]}],
+                                    SequenceForm[ g, 
+                                      Subscript[ 
+                                        SequenceForm[ x, x]]],
+                                    Editable->False], ")"}], "2"]}], "+", 
+                            RowBox[{"2", " ", 
+                              RowBox[{"(", 
+                                InterpretationBox[
+                                  RowBox[{"g", "\[InvisibleSpace]", 
+                                    InterpretationBox[
+                                      SubscriptBox["\[Null]", 
+                                        InterpretationBox["x",
+                                        SequenceForm[ x],
+                                        Editable->False]],
+                                      Subscript[ 
+                                        SequenceForm[ x]],
+                                      Editable->False]}],
+                                  SequenceForm[ g, 
+                                    Subscript[ 
+                                      SequenceForm[ x]]],
+                                  Editable->False], ")"}], " ", 
+                              RowBox[{"(", 
+                                InterpretationBox[
+                                  RowBox[{"g", "\[InvisibleSpace]", 
+                                    InterpretationBox[
+                                      SubscriptBox["\[Null]", 
+                                        
+                                        InterpretationBox[\(x\[InvisibleSpace]\
+x\[InvisibleSpace]x\),
+                                        SequenceForm[ x, x, x],
+                                        Editable->False]],
+                                      Subscript[ 
+                                        SequenceForm[ x, x, x]],
+                                      Editable->False]}],
+                                  SequenceForm[ g, 
+                                    Subscript[ 
+                                      SequenceForm[ x, x, x]]],
+                                  Editable->False], ")"}]}]}], 
+                          RowBox[{"12", " ", 
+                            SuperscriptBox[
+                              RowBox[{"(", 
+                                InterpretationBox[
+                                  RowBox[{"g", "\[InvisibleSpace]", 
+                                    InterpretationBox[
+                                      SubscriptBox["\[Null]", 
+                                        InterpretationBox["x",
+                                        SequenceForm[ x],
+                                        Editable->False]],
+                                      Subscript[ 
+                                        SequenceForm[ x]],
+                                      Editable->False]}],
+                                  SequenceForm[ g, 
+                                    Subscript[ 
+                                      SequenceForm[ x]]],
+                                  Editable->False], ")"}], "3"]}]]}]}], 
+                    ",", \(u[1, 3] \[Rule] \(C[1]\)[x, t]\), 
+                    ",", \(u[1, 4] \[Rule] \(C[2]\)[x, t]\)}], "}"}], ",", 
+                RowBox[{"{", 
+                  RowBox[{
+                    RowBox[{
+                      RowBox[{\(-\((ff[t] - hh[t])\)\), " ", 
+                        RowBox[{"(", 
+                          InterpretationBox[
+                            RowBox[{"g", "\[InvisibleSpace]", 
+                              InterpretationBox[
+                                SubscriptBox["\[Null]", 
+                                  InterpretationBox["x",
+                                    SequenceForm[ x],
+                                    Editable->False]],
+                                Subscript[ 
+                                  SequenceForm[ x]],
+                                Editable->False]}],
+                            SequenceForm[ g, 
+                              Subscript[ 
+                                SequenceForm[ x]]],
+                            Editable->False], ")"}]}], "\[Equal]", "0"}], ",",
+                     
+                    RowBox[{
+                      FractionBox[
+                        RowBox[{\((ff[t] - hh[t])\), " ", 
+                          RowBox[{"(", 
+                            InterpretationBox[
+                              RowBox[{"g", "\[InvisibleSpace]", 
+                                InterpretationBox[
+                                  SubscriptBox["\[Null]", 
+                                    
+                                    InterpretationBox[\(x\[InvisibleSpace]x\),
+                                      
+                                      SequenceForm[ x, x],
+                                      Editable->False]],
+                                  Subscript[ 
+                                    SequenceForm[ x, x]],
+                                  Editable->False]}],
+                              SequenceForm[ g, 
+                                Subscript[ 
+                                  SequenceForm[ x, x]]],
+                              Editable->False], ")"}]}], 
+                        RowBox[{"2", " ", 
+                          RowBox[{"(", 
+                            InterpretationBox[
+                              RowBox[{"g", "\[InvisibleSpace]", 
+                                InterpretationBox[
+                                  SubscriptBox["\[Null]", 
+                                    InterpretationBox["x",
+                                      SequenceForm[ x],
+                                      Editable->False]],
+                                  Subscript[ 
+                                    SequenceForm[ x]],
+                                  Editable->False]}],
+                              SequenceForm[ g, 
+                                Subscript[ 
+                                  SequenceForm[ x]]],
+                              Editable->False], ")"}]}]], "\[Equal]", "0"}]}],
+                   "}"}]}], "}"}]}], "}"}], ",", 
+        RowBox[{"{", 
+          
+          RowBox[{\({alpha[1] \[Rule] \(-1\), alphaMin[1] \[Rule] \(-4\)}\), 
+            ",", \({r \[Rule] \(-1\), r \[Rule] 3, r \[Rule] 4}\), ",", 
+            RowBox[{"{", 
+              RowBox[{
+                RowBox[{"{", 
+                  RowBox[{
+                    RowBox[{\(u[1, 0]\), "\[Rule]", 
+                      InterpretationBox[
+                        RowBox[{"g", "\[InvisibleSpace]", 
+                          InterpretationBox[
+                            SubscriptBox["\[Null]", 
+                              InterpretationBox["x",
+                                SequenceForm[ x],
+                                Editable->False]],
+                            Subscript[ 
+                              SequenceForm[ x]],
+                            Editable->False]}],
+                        SequenceForm[ g, 
+                          Subscript[ 
+                            SequenceForm[ x]]],
+                        Editable->False]}], ",", 
+                    RowBox[{\(u[1, 1]\), "\[Rule]", 
+                      RowBox[{"-", 
+                        FractionBox[
+                          InterpretationBox[
+                            RowBox[{"g", "\[InvisibleSpace]", 
+                              InterpretationBox[
+                                SubscriptBox["\[Null]", 
+                                  InterpretationBox[\(x\[InvisibleSpace]x\),
+                                    SequenceForm[ x, x],
+                                    Editable->False]],
+                                Subscript[ 
+                                  SequenceForm[ x, x]],
+                                Editable->False]}],
+                            SequenceForm[ g, 
+                              Subscript[ 
+                                SequenceForm[ x, x]]],
+                            Editable->False], 
+                          RowBox[{"2", " ", 
+                            RowBox[{"(", 
+                              InterpretationBox[
+                                RowBox[{"g", "\[InvisibleSpace]", 
+                                  InterpretationBox[
+                                    SubscriptBox["\[Null]", 
+                                      InterpretationBox["x",
+                                        SequenceForm[ x],
+                                        Editable->False]],
+                                    Subscript[ 
+                                      SequenceForm[ x]],
+                                    Editable->False]}],
+                                SequenceForm[ g, 
+                                  Subscript[ 
+                                    SequenceForm[ x]]],
+                                Editable->False], ")"}]}]]}]}], ",", 
+                    RowBox[{\(u[1, 2]\), "\[Rule]", 
+                      FractionBox[
+                        RowBox[{
+                          RowBox[{\(-2\), " ", 
+                            RowBox[{"(", 
+                              InterpretationBox[
+                                RowBox[{"g", "\[InvisibleSpace]", 
+                                  InterpretationBox[
+                                    SubscriptBox["\[Null]", 
+                                      InterpretationBox["t",
+                                        SequenceForm[ t],
+                                        Editable->False]],
+                                    Subscript[ 
+                                      SequenceForm[ t]],
+                                    Editable->False]}],
+                                SequenceForm[ g, 
+                                  Subscript[ 
+                                    SequenceForm[ t]]],
+                                Editable->False], ")"}], " ", 
+                            RowBox[{"(", 
+                              InterpretationBox[
+                                RowBox[{"g", "\[InvisibleSpace]", 
+                                  InterpretationBox[
+                                    SubscriptBox["\[Null]", 
+                                      InterpretationBox["x",
+                                        SequenceForm[ x],
+                                        Editable->False]],
+                                    Subscript[ 
+                                      SequenceForm[ x]],
+                                    Editable->False]}],
+                                SequenceForm[ g, 
+                                  Subscript[ 
+                                    SequenceForm[ x]]],
+                                Editable->False], ")"}]}], "+", 
+                          RowBox[{"2", " ", "x", " ", \(ff[t]\), " ", 
+                            SuperscriptBox[
+                              RowBox[{"(", 
+                                InterpretationBox[
+                                  RowBox[{"g", "\[InvisibleSpace]", 
+                                    InterpretationBox[
+                                      SubscriptBox["\[Null]", 
+                                        InterpretationBox["x",
+                                        SequenceForm[ x],
+                                        Editable->False]],
+                                      Subscript[ 
+                                        SequenceForm[ x]],
+                                      Editable->False]}],
+                                  SequenceForm[ g, 
+                                    Subscript[ 
+                                      SequenceForm[ x]]],
+                                  Editable->False], ")"}], "2"]}], "+", 
+                          RowBox[{"2", " ", \(gg[t]\), " ", 
+                            SuperscriptBox[
+                              RowBox[{"(", 
+                                InterpretationBox[
+                                  RowBox[{"g", "\[InvisibleSpace]", 
+                                    InterpretationBox[
+                                      SubscriptBox["\[Null]", 
+                                        InterpretationBox["x",
+                                        SequenceForm[ x],
+                                        Editable->False]],
+                                      Subscript[ 
+                                        SequenceForm[ x]],
+                                      Editable->False]}],
+                                  SequenceForm[ g, 
+                                    Subscript[ 
+                                      SequenceForm[ x]]],
+                                  Editable->False], ")"}], "2"]}], "-", 
+                          RowBox[{"3", " ", 
+                            SuperscriptBox[
+                              RowBox[{"(", 
+                                InterpretationBox[
+                                  RowBox[{"g", "\[InvisibleSpace]", 
+                                    InterpretationBox[
+                                      SubscriptBox["\[Null]", 
+                                        
+                                        InterpretationBox[\(x\[InvisibleSpace]\
+x\),
+                                        SequenceForm[ x, x],
+                                        Editable->False]],
+                                      Subscript[ 
+                                        SequenceForm[ x, x]],
+                                      Editable->False]}],
+                                  SequenceForm[ g, 
+                                    Subscript[ 
+                                      SequenceForm[ x, x]]],
+                                  Editable->False], ")"}], "2"]}], "+", 
+                          RowBox[{"2", " ", 
+                            RowBox[{"(", 
+                              InterpretationBox[
+                                RowBox[{"g", "\[InvisibleSpace]", 
+                                  InterpretationBox[
+                                    SubscriptBox["\[Null]", 
+                                      InterpretationBox["x",
+                                        SequenceForm[ x],
+                                        Editable->False]],
+                                    Subscript[ 
+                                      SequenceForm[ x]],
+                                    Editable->False]}],
+                                SequenceForm[ g, 
+                                  Subscript[ 
+                                    SequenceForm[ x]]],
+                                Editable->False], ")"}], " ", 
+                            RowBox[{"(", 
+                              InterpretationBox[
+                                RowBox[{"g", "\[InvisibleSpace]", 
+                                  InterpretationBox[
+                                    SubscriptBox["\[Null]", 
+                                      
+                                      InterpretationBox[\(x\[InvisibleSpace]x\
+\[InvisibleSpace]x\),
+                                        SequenceForm[ x, x, x],
+                                        Editable->False]],
+                                    Subscript[ 
+                                      SequenceForm[ x, x, x]],
+                                    Editable->False]}],
+                                SequenceForm[ g, 
+                                  Subscript[ 
+                                    SequenceForm[ x, x, x]]],
+                                Editable->False], ")"}]}]}], 
+                        RowBox[{"12", " ", 
+                          SuperscriptBox[
+                            RowBox[{"(", 
+                              InterpretationBox[
+                                RowBox[{"g", "\[InvisibleSpace]", 
+                                  InterpretationBox[
+                                    SubscriptBox["\[Null]", 
+                                      InterpretationBox["x",
+                                        SequenceForm[ x],
+                                        Editable->False]],
+                                    Subscript[ 
+                                      SequenceForm[ x]],
+                                    Editable->False]}],
+                                SequenceForm[ g, 
+                                  Subscript[ 
+                                    SequenceForm[ x]]],
+                                Editable->False], ")"}], "3"]}]]}], 
+                    ",", \(u[1, 3] \[Rule] \(C[1]\)[x, t]\), 
+                    ",", \(u[1, 4] \[Rule] \(C[2]\)[x, t]\)}], "}"}], ",", 
+                RowBox[{"{", 
+                  RowBox[{
+                    RowBox[{
+                      RowBox[{\((ff[t] - hh[t])\), " ", 
+                        RowBox[{"(", 
+                          InterpretationBox[
+                            RowBox[{"g", "\[InvisibleSpace]", 
+                              InterpretationBox[
+                                SubscriptBox["\[Null]", 
+                                  InterpretationBox["x",
+                                    SequenceForm[ x],
+                                    Editable->False]],
+                                Subscript[ 
+                                  SequenceForm[ x]],
+                                Editable->False]}],
+                            SequenceForm[ g, 
+                              Subscript[ 
+                                SequenceForm[ x]]],
+                            Editable->False], ")"}]}], "\[Equal]", "0"}], ",",
+                     
+                    RowBox[{
+                      RowBox[{"-", 
+                        FractionBox[
+                          RowBox[{\((ff[t] - hh[t])\), " ", 
+                            RowBox[{"(", 
+                              InterpretationBox[
+                                RowBox[{"g", "\[InvisibleSpace]", 
+                                  InterpretationBox[
+                                    SubscriptBox["\[Null]", 
+                                      
+                                      InterpretationBox[\(x\[InvisibleSpace]x\
+\),
+                                        SequenceForm[ x, x],
+                                        Editable->False]],
+                                    Subscript[ 
+                                      SequenceForm[ x, x]],
+                                    Editable->False]}],
+                                SequenceForm[ g, 
+                                  Subscript[ 
+                                    SequenceForm[ x, x]]],
+                                Editable->False], ")"}]}], 
+                          RowBox[{"2", " ", 
+                            RowBox[{"(", 
+                              InterpretationBox[
+                                RowBox[{"g", "\[InvisibleSpace]", 
+                                  InterpretationBox[
+                                    SubscriptBox["\[Null]", 
+                                      InterpretationBox["x",
+                                        SequenceForm[ x],
+                                        Editable->False]],
+                                    Subscript[ 
+                                      SequenceForm[ x]],
+                                    Editable->False]}],
+                                SequenceForm[ g, 
+                                  Subscript[ 
+                                    SequenceForm[ x]]],
+                                Editable->False], ")"}]}]]}], "\[Equal]", 
+                      "0"}]}], "}"}]}], "}"}]}], "}"}]}], "}"}]], "Print"],
+
+Cell[BoxData[
+    \("End of FINAL SUMMARY."\)], "Print"],
+
+Cell[BoxData[
+    \("*************************************************************"\)], \
+"Print"],
+
+Cell[BoxData[
+    RowBox[{"{", 
+      RowBox[{
+        RowBox[{"{", 
+          
+          RowBox[{\({alpha[1] \[Rule] \(-1\)}\), 
+            ",", \({r \[Rule] \(-1\), r \[Rule] 3, r \[Rule] 4}\), ",", 
+            RowBox[{"{", 
+              RowBox[{
+                RowBox[{"{", 
+                  RowBox[{
+                    RowBox[{\(u[1, 0]\), "\[Rule]", 
+                      RowBox[{"-", 
+                        RowBox[{
+                          SuperscriptBox["g", 
+                            TagBox[\((1, 0)\),
+                              Derivative],
+                            MultilineFunction->None], "[", \(x, t\), 
+                          "]"}]}]}], ",", 
+                    RowBox[{\(u[1, 1]\), "\[Rule]", 
+                      FractionBox[
+                        RowBox[{
+                          SuperscriptBox["g", 
+                            TagBox[\((2, 0)\),
+                              Derivative],
+                            MultilineFunction->None], "[", \(x, t\), "]"}], 
+                        RowBox[{"2", " ", 
+                          RowBox[{
+                            SuperscriptBox["g", 
+                              TagBox[\((1, 0)\),
+                                Derivative],
+                              MultilineFunction->None], "[", \(x, t\), 
+                            "]"}]}]]}], ",", 
+                    RowBox[{\(u[1, 2]\), "\[Rule]", 
+                      RowBox[{"-", 
+                        FractionBox[
+                          RowBox[{
+                            RowBox[{\(-2\), " ", 
+                              RowBox[{
+                                SuperscriptBox["g", 
+                                  TagBox[\((0, 1)\),
+                                    Derivative],
+                                  MultilineFunction->None], "[", \(x, t\), 
+                                "]"}], " ", 
+                              RowBox[{
+                                SuperscriptBox["g", 
+                                  TagBox[\((1, 0)\),
+                                    Derivative],
+                                  MultilineFunction->None], "[", \(x, t\), 
+                                "]"}]}], "+", 
+                            RowBox[{"2", " ", "x", " ", \(ff[t]\), " ", 
+                              SuperscriptBox[
+                                RowBox[{
+                                  SuperscriptBox["g", 
+                                    TagBox[\((1, 0)\),
+                                      Derivative],
+                                    MultilineFunction->None], "[", \(x, t\), 
+                                  "]"}], "2"]}], "+", 
+                            RowBox[{"2", " ", \(gg[t]\), " ", 
+                              SuperscriptBox[
+                                RowBox[{
+                                  SuperscriptBox["g", 
+                                    TagBox[\((1, 0)\),
+                                      Derivative],
+                                    MultilineFunction->None], "[", \(x, t\), 
+                                  "]"}], "2"]}], "-", 
+                            RowBox[{"3", " ", 
+                              SuperscriptBox[
+                                RowBox[{
+                                  SuperscriptBox["g", 
+                                    TagBox[\((2, 0)\),
+                                      Derivative],
+                                    MultilineFunction->None], "[", \(x, t\), 
+                                  "]"}], "2"]}], "+", 
+                            RowBox[{"2", " ", 
+                              RowBox[{
+                                SuperscriptBox["g", 
+                                  TagBox[\((1, 0)\),
+                                    Derivative],
+                                  MultilineFunction->None], "[", \(x, t\), 
+                                "]"}], " ", 
+                              RowBox[{
+                                SuperscriptBox["g", 
+                                  TagBox[\((3, 0)\),
+                                    Derivative],
+                                  MultilineFunction->None], "[", \(x, t\), 
+                                "]"}]}]}], 
+                          RowBox[{"12", " ", 
+                            SuperscriptBox[
+                              RowBox[{
+                                SuperscriptBox["g", 
+                                  TagBox[\((1, 0)\),
+                                    Derivative],
+                                  MultilineFunction->None], "[", \(x, t\), 
+                                "]"}], "3"]}]]}]}], 
+                    ",", \(u[1, 3] \[Rule] \(C[1]\)[x, t]\), 
+                    ",", \(u[1, 4] \[Rule] \(C[2]\)[x, t]\)}], "}"}], ",", 
+                RowBox[{"{", 
+                  RowBox[{
+                    RowBox[{
+                      RowBox[{\(-\((ff[t] - hh[t])\)\), " ", 
+                        RowBox[{
+                          SuperscriptBox["g", 
+                            TagBox[\((1, 0)\),
+                              Derivative],
+                            MultilineFunction->None], "[", \(x, t\), "]"}]}], 
+                      "\[Equal]", "0"}], ",", 
+                    RowBox[{
+                      FractionBox[
+                        RowBox[{\((ff[t] - hh[t])\), " ", 
+                          RowBox[{
+                            SuperscriptBox["g", 
+                              TagBox[\((2, 0)\),
+                                Derivative],
+                              MultilineFunction->None], "[", \(x, t\), 
+                            "]"}]}], 
+                        RowBox[{"2", " ", 
+                          RowBox[{
+                            SuperscriptBox["g", 
+                              TagBox[\((1, 0)\),
+                                Derivative],
+                              MultilineFunction->None], "[", \(x, t\), 
+                            "]"}]}]], "\[Equal]", "0"}]}], "}"}]}], "}"}]}], 
+          "}"}], ",", 
+        RowBox[{"{", 
+          
+          RowBox[{\({alpha[1] \[Rule] \(-1\)}\), 
+            ",", \({r \[Rule] \(-1\), r \[Rule] 3, r \[Rule] 4}\), ",", 
+            RowBox[{"{", 
+              RowBox[{
+                RowBox[{"{", 
+                  RowBox[{
+                    RowBox[{\(u[1, 0]\), "\[Rule]", 
+                      RowBox[{
+                        SuperscriptBox["g", 
+                          TagBox[\((1, 0)\),
+                            Derivative],
+                          MultilineFunction->None], "[", \(x, t\), "]"}]}], 
+                    ",", 
+                    RowBox[{\(u[1, 1]\), "\[Rule]", 
+                      RowBox[{"-", 
+                        FractionBox[
+                          RowBox[{
+                            SuperscriptBox["g", 
+                              TagBox[\((2, 0)\),
+                                Derivative],
+                              MultilineFunction->None], "[", \(x, t\), "]"}], 
+                          
+                          RowBox[{"2", " ", 
+                            RowBox[{
+                              SuperscriptBox["g", 
+                                TagBox[\((1, 0)\),
+                                  Derivative],
+                                MultilineFunction->None], "[", \(x, t\), 
+                              "]"}]}]]}]}], ",", 
+                    RowBox[{\(u[1, 2]\), "\[Rule]", 
+                      FractionBox[
+                        RowBox[{
+                          RowBox[{\(-2\), " ", 
+                            RowBox[{
+                              SuperscriptBox["g", 
+                                TagBox[\((0, 1)\),
+                                  Derivative],
+                                MultilineFunction->None], "[", \(x, t\), 
+                              "]"}], " ", 
+                            RowBox[{
+                              SuperscriptBox["g", 
+                                TagBox[\((1, 0)\),
+                                  Derivative],
+                                MultilineFunction->None], "[", \(x, t\), 
+                              "]"}]}], "+", 
+                          RowBox[{"2", " ", "x", " ", \(ff[t]\), " ", 
+                            SuperscriptBox[
+                              RowBox[{
+                                SuperscriptBox["g", 
+                                  TagBox[\((1, 0)\),
+                                    Derivative],
+                                  MultilineFunction->None], "[", \(x, t\), 
+                                "]"}], "2"]}], "+", 
+                          RowBox[{"2", " ", \(gg[t]\), " ", 
+                            SuperscriptBox[
+                              RowBox[{
+                                SuperscriptBox["g", 
+                                  TagBox[\((1, 0)\),
+                                    Derivative],
+                                  MultilineFunction->None], "[", \(x, t\), 
+                                "]"}], "2"]}], "-", 
+                          RowBox[{"3", " ", 
+                            SuperscriptBox[
+                              RowBox[{
+                                SuperscriptBox["g", 
+                                  TagBox[\((2, 0)\),
+                                    Derivative],
+                                  MultilineFunction->None], "[", \(x, t\), 
+                                "]"}], "2"]}], "+", 
+                          RowBox[{"2", " ", 
+                            RowBox[{
+                              SuperscriptBox["g", 
+                                TagBox[\((1, 0)\),
+                                  Derivative],
+                                MultilineFunction->None], "[", \(x, t\), 
+                              "]"}], " ", 
+                            RowBox[{
+                              SuperscriptBox["g", 
+                                TagBox[\((3, 0)\),
+                                  Derivative],
+                                MultilineFunction->None], "[", \(x, t\), 
+                              "]"}]}]}], 
+                        RowBox[{"12", " ", 
+                          SuperscriptBox[
+                            RowBox[{
+                              SuperscriptBox["g", 
+                                TagBox[\((1, 0)\),
+                                  Derivative],
+                                MultilineFunction->None], "[", \(x, t\), 
+                              "]"}], "3"]}]]}], 
+                    ",", \(u[1, 3] \[Rule] \(C[1]\)[x, t]\), 
+                    ",", \(u[1, 4] \[Rule] \(C[2]\)[x, t]\)}], "}"}], ",", 
+                RowBox[{"{", 
+                  RowBox[{
+                    RowBox[{
+                      RowBox[{\((ff[t] - hh[t])\), " ", 
+                        RowBox[{
+                          SuperscriptBox["g", 
+                            TagBox[\((1, 0)\),
+                              Derivative],
+                            MultilineFunction->None], "[", \(x, t\), "]"}]}], 
+                      "\[Equal]", "0"}], ",", 
+                    RowBox[{
+                      RowBox[{"-", 
+                        FractionBox[
+                          RowBox[{\((ff[t] - hh[t])\), " ", 
+                            RowBox[{
+                              SuperscriptBox["g", 
+                                TagBox[\((2, 0)\),
+                                  Derivative],
+                                MultilineFunction->None], "[", \(x, t\), 
+                              "]"}]}], 
+                          RowBox[{"2", " ", 
+                            RowBox[{
+                              SuperscriptBox["g", 
+                                TagBox[\((1, 0)\),
+                                  Derivative],
+                                MultilineFunction->None], "[", \(x, t\), 
+                              "]"}]}]]}], "\[Equal]", "0"}]}], "}"}]}], 
+              "}"}]}], "}"}]}], "}"}]], "Output"]
+}, Open  ]],
+
+Cell[BoxData[
+    \( (*\ Same\ example, \ 
+      PainleveTest\ carried\ out\ with\ Kruskal' 
+        s\ simplification\ *) \)], "Input"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+    \(PainleveTest[{D[u[x, t], \ t] + 
+            6*u[x, t]^2*D[u[x, t], x] - \((ff[t]*x + gg[t])\)*
+              D[u[x, t], \ x] - D[u[x, t], \ {x, 3}] - hh[t]*u[x, t] \[Equal] 
+          0}, \ \[IndentingNewLine]u[x, t], \ {x, t}\ , \ 
+      Verbose\  \[Rule] \ 
+        True\ \  (*\(,\)\(ConstantsOfIntegrationVerbose\  \[Rule] \ 
+          3\)\ *) , \ KruskalSimplification\  \[Rule] \ x\ ]\)], "Input",
+  CellChangeTimes -> {{3.4396510999680204`*^9, 3.4396511127647314`*^9}, \
+{3.439651440307414*^9, 3.4396514622915077`*^9}}],
+
+Cell[BoxData[
+    \("The Painleve test is carried out for the following system: "\)], \
+"Print"],
+
+Cell[BoxData[
+    InterpretationBox[GridBox[{
+          {
+            RowBox[{
+              RowBox[{
+                InterpretationBox[
+                  RowBox[{"u", "\[InvisibleSpace]", 
+                    InterpretationBox[
+                      SubscriptBox["\[Null]", 
+                        InterpretationBox["t",
+                          SequenceForm[ t],
+                          Editable->False]],
+                      Subscript[ 
+                        SequenceForm[ t]],
+                      Editable->False]}],
+                  SequenceForm[ u, 
+                    Subscript[ 
+                      SequenceForm[ t]]],
+                  Editable->False], "-", 
+                RowBox[{"x", " ", \(ff[t]\), " ", 
+                  RowBox[{"(", 
+                    InterpretationBox[
+                      RowBox[{"u", "\[InvisibleSpace]", 
+                        InterpretationBox[
+                          SubscriptBox["\[Null]", 
+                            InterpretationBox["x",
+                              SequenceForm[ x],
+                              Editable->False]],
+                          Subscript[ 
+                            SequenceForm[ x]],
+                          Editable->False]}],
+                      SequenceForm[ u, 
+                        Subscript[ 
+                          SequenceForm[ x]]],
+                      Editable->False], ")"}]}], "-", 
+                RowBox[{\(gg[t]\), " ", 
+                  RowBox[{"(", 
+                    InterpretationBox[
+                      RowBox[{"u", "\[InvisibleSpace]", 
+                        InterpretationBox[
+                          SubscriptBox["\[Null]", 
+                            InterpretationBox["x",
+                              SequenceForm[ x],
+                              Editable->False]],
+                          Subscript[ 
+                            SequenceForm[ x]],
+                          Editable->False]}],
+                      SequenceForm[ u, 
+                        Subscript[ 
+                          SequenceForm[ x]]],
+                      Editable->False], ")"}]}], "-", 
+                InterpretationBox[
+                  RowBox[{"u", "\[InvisibleSpace]", 
+                    InterpretationBox[
+                      SubscriptBox["\[Null]", 
+                        
+                        InterpretationBox[\(x\[InvisibleSpace]x\
+\[InvisibleSpace]x\),
+                          SequenceForm[ x, x, x],
+                          Editable->False]],
+                      Subscript[ 
+                        SequenceForm[ x, x, x]],
+                      Editable->False]}],
+                  SequenceForm[ u, 
+                    Subscript[ 
+                      SequenceForm[ x, x, x]]],
+                  Editable->False], "-", \(hh[t]\ u[x, t]\), "+", 
+                RowBox[{"6", " ", 
+                  RowBox[{"(", 
+                    InterpretationBox[
+                      RowBox[{"u", "\[InvisibleSpace]", 
+                        InterpretationBox[
+                          SubscriptBox["\[Null]", 
+                            InterpretationBox["x",
+                              SequenceForm[ x],
+                              Editable->False]],
+                          Subscript[ 
+                            SequenceForm[ x]],
+                          Editable->False]}],
+                      SequenceForm[ u, 
+                        Subscript[ 
+                          SequenceForm[ x]]],
+                      Editable->False], ")"}], " ", \(u[x, t]\^2\)}]}], 
+              "\[Equal]", "0"}]}
+          },
+        RowSpacings->1,
+        ColumnSpacings->3,
+        RowAlignments->Baseline,
+        ColumnAlignments->{Left}],
+      TableForm[ {
+        Equal[ 
+          Plus[ 
+            SequenceForm[ u, 
+              Subscript[ 
+                SequenceForm[ t]]], 
+            Times[ -1, x, 
+              ff[ t], 
+              SequenceForm[ u, 
+                Subscript[ 
+                  SequenceForm[ x]]]], 
+            Times[ -1, 
+              gg[ t], 
+              SequenceForm[ u, 
+                Subscript[ 
+                  SequenceForm[ x]]]], 
+            Times[ -1, 
+              SequenceForm[ u, 
+                Subscript[ 
+                  SequenceForm[ x, x, x]]]], 
+            Times[ -1, 
+              hh[ t], 
+              u[ x, t]], 
+            Times[ 6, 
+              SequenceForm[ u, 
+                Subscript[ 
+                  SequenceForm[ x]]], 
+              Power[ 
+                u[ x, t], 2]]], 0]}]]], "Print"],
+
+Cell[BoxData[
+    InterpretationBox[\("With the KruskalSimplification, the characteristic \
+manifold is "\[InvisibleSpace]g[x, 
+          t]\[InvisibleSpace]" = "\[InvisibleSpace]\(x - h[t]\)\),
+      SequenceForm[ 
+      "With the KruskalSimplification, the characteristic manifold is ", 
+        g[ x, t], " = ", 
+        Plus[ x, 
+          Times[ -1, 
+            h[ t]]]],
+      Editable->False]], "Print"],
+
+Cell[BoxData[
+    InterpretationBox[\("Since the KruskalSimplification is being used, any "\
+\[InvisibleSpace]x\[InvisibleSpace]" explicitly appearing in the coefficients \
+of any equation is replaced with "\[InvisibleSpace]\(g[x, t] + 
+          h[t]\)\[InvisibleSpace]" to give: "\),
+      SequenceForm[ 
+      "Since the KruskalSimplification is being used, any ", x, 
+        " explicitly appearing in the coefficients of any equation is \
+replaced with ", 
+        Plus[ 
+          g[ x, t], 
+          h[ t]], " to give: "],
+      Editable->False]], "Print"],
+
+Cell[BoxData[
+    InterpretationBox[GridBox[{
+          {
+            RowBox[{
+              RowBox[{
+                InterpretationBox[
+                  RowBox[{"u", "\[InvisibleSpace]", 
+                    InterpretationBox[
+                      SubscriptBox["\[Null]", 
+                        InterpretationBox["t",
+                          SequenceForm[ t],
+                          Editable->False]],
+                      Subscript[ 
+                        SequenceForm[ t]],
+                      Editable->False]}],
+                  SequenceForm[ u, 
+                    Subscript[ 
+                      SequenceForm[ t]]],
+                  Editable->False], "-", 
+                RowBox[{\(ff[t]\), " ", \(g[x, t]\), " ", 
+                  RowBox[{"(", 
+                    InterpretationBox[
+                      RowBox[{"u", "\[InvisibleSpace]", 
+                        InterpretationBox[
+                          SubscriptBox["\[Null]", 
+                            InterpretationBox["x",
+                              SequenceForm[ x],
+                              Editable->False]],
+                          Subscript[ 
+                            SequenceForm[ x]],
+                          Editable->False]}],
+                      SequenceForm[ u, 
+                        Subscript[ 
+                          SequenceForm[ x]]],
+                      Editable->False], ")"}]}], "-", 
+                RowBox[{\(gg[t]\), " ", 
+                  RowBox[{"(", 
+                    InterpretationBox[
+                      RowBox[{"u", "\[InvisibleSpace]", 
+                        InterpretationBox[
+                          SubscriptBox["\[Null]", 
+                            InterpretationBox["x",
+                              SequenceForm[ x],
+                              Editable->False]],
+                          Subscript[ 
+                            SequenceForm[ x]],
+                          Editable->False]}],
+                      SequenceForm[ u, 
+                        Subscript[ 
+                          SequenceForm[ x]]],
+                      Editable->False], ")"}]}], "-", 
+                RowBox[{\(ff[t]\), " ", \(h[t]\), " ", 
+                  RowBox[{"(", 
+                    InterpretationBox[
+                      RowBox[{"u", "\[InvisibleSpace]", 
+                        InterpretationBox[
+                          SubscriptBox["\[Null]", 
+                            InterpretationBox["x",
+                              SequenceForm[ x],
+                              Editable->False]],
+                          Subscript[ 
+                            SequenceForm[ x]],
+                          Editable->False]}],
+                      SequenceForm[ u, 
+                        Subscript[ 
+                          SequenceForm[ x]]],
+                      Editable->False], ")"}]}], "-", 
+                InterpretationBox[
+                  RowBox[{"u", "\[InvisibleSpace]", 
+                    InterpretationBox[
+                      SubscriptBox["\[Null]", 
+                        
+                        InterpretationBox[\(x\[InvisibleSpace]x\
+\[InvisibleSpace]x\),
+                          SequenceForm[ x, x, x],
+                          Editable->False]],
+                      Subscript[ 
+                        SequenceForm[ x, x, x]],
+                      Editable->False]}],
+                  SequenceForm[ u, 
+                    Subscript[ 
+                      SequenceForm[ x, x, x]]],
+                  Editable->False], "-", \(hh[t]\ u[x, t]\), "+", 
+                RowBox[{"6", " ", 
+                  RowBox[{"(", 
+                    InterpretationBox[
+                      RowBox[{"u", "\[InvisibleSpace]", 
+                        InterpretationBox[
+                          SubscriptBox["\[Null]", 
+                            InterpretationBox["x",
+                              SequenceForm[ x],
+                              Editable->False]],
+                          Subscript[ 
+                            SequenceForm[ x]],
+                          Editable->False]}],
+                      SequenceForm[ u, 
+                        Subscript[ 
+                          SequenceForm[ x]]],
+                      Editable->False], ")"}], " ", \(u[x, t]\^2\)}]}], 
+              "\[Equal]", "0"}]}
+          },
+        RowSpacings->1,
+        ColumnSpacings->3,
+        RowAlignments->Baseline,
+        ColumnAlignments->{Left}],
+      TableForm[ {
+        Equal[ 
+          Plus[ 
+            SequenceForm[ u, 
+              Subscript[ 
+                SequenceForm[ t]]], 
+            Times[ -1, 
+              ff[ t], 
+              g[ x, t], 
+              SequenceForm[ u, 
+                Subscript[ 
+                  SequenceForm[ x]]]], 
+            Times[ -1, 
+              gg[ t], 
+              SequenceForm[ u, 
+                Subscript[ 
+                  SequenceForm[ x]]]], 
+            Times[ -1, 
+              ff[ t], 
+              h[ t], 
+              SequenceForm[ u, 
+                Subscript[ 
+                  SequenceForm[ x]]]], 
+            Times[ -1, 
+              SequenceForm[ u, 
+                Subscript[ 
+                  SequenceForm[ x, x, x]]]], 
+            Times[ -1, 
+              hh[ t], 
+              u[ x, t]], 
+            Times[ 6, 
+              SequenceForm[ u, 
+                Subscript[ 
+                  SequenceForm[ x]]], 
+              Power[ 
+                u[ x, t], 2]]], 0]}]]], "Print"],
+
+Cell[BoxData[
+    \("**************************************************************"\)], \
+"Print"],
+
+Cell[BoxData[
+    \("Computation of THE DOMINANT BEHAVIORS."\)], "Print"],
+
+Cell[BoxData[
+    \("The dominant behaviors (including minimal degrees in g) are: "\)], \
+"Print"],
+
+Cell[BoxData[
+    \({{alpha[1] \[Rule] \(-1\), alphaMin[1] \[Rule] \(-4\)}}\)], "Print"],
+
+Cell[BoxData[
+    \("The system (within initialConstantsOfIntegration) (determining the \
+first constant of integration) for the dominant behavior, {alpha[1] -> -1, \
+alphaMin[1] -> -4} , is: "\)], "Print"],
+
+Cell[BoxData[
+    \({6\ \(u[1, 0]\)[t] - 6\ \(u[1, 0]\)[t]\^3 \[Equal] 0}\)], "Print"],
+
+Cell[BoxData[
+    \("The solutions for u[i,0] are: "\)], "Print"],
+
+Cell[BoxData[
+    \({{\(u[1, 0]\)[t] \[Rule] \(-1\)}, {\(u[1, 0]\)[t] \[Rule] 
+          1}}\)], "Print"],
+
+Cell[BoxData[
+    \("FIRST SUMMARY: Dominant behaviors and first constants of integration \
+(u[i,0]): "\)], "Print"],
+
+Cell[BoxData[
+    \({{{alpha[1] \[Rule] \(-1\), 
+          alphaMin[1] \[Rule] \(-4\)}, {\(u[1, 0]\)[
+              t] \[Rule] \(-1\)}}, {{alpha[1] \[Rule] \(-1\), 
+          alphaMin[1] \[Rule] \(-4\)}, {\(u[1, 0]\)[t] \[Rule] 
+            1}}}\)], "Print"],
+
+Cell[BoxData[
+    \("*************************************************************"\)], \
+"Print"],
+
+Cell[BoxData[
+    \("Computation of THE RESONANCES for VARIOUS DOMINANT BEHAVIORS"\)], \
+"Print"],
+
+Cell[BoxData[
+    \("(one at the time)."\)], "Print"],
+
+Cell[BoxData[
+    \("**************************************************************"\)], \
+"Print"],
+
+Cell[BoxData[
+    \("START OF A NEW BRANCH OF THE COMPUTATIONS."\)], "Print"],
+
+Cell[BoxData[
+    \("The system (entering the function resonances`GenerateSystem) is: "\)], \
+"Print"],
+
+Cell[BoxData[
+    RowBox[{"{", 
+      RowBox[{\(\(-hh[t]\)\ u[x, t]\), "+", 
+        RowBox[{
+          SuperscriptBox["u", 
+            TagBox[\((0, 1)\),
+              Derivative],
+            MultilineFunction->None], "[", \(x, t\), "]"}], "-", 
+        RowBox[{\(ff[t]\), " ", \(g[x, t]\), " ", 
+          RowBox[{
+            SuperscriptBox["u", 
+              TagBox[\((1, 0)\),
+                Derivative],
+              MultilineFunction->None], "[", \(x, t\), "]"}]}], "-", 
+        RowBox[{\(gg[t]\), " ", 
+          RowBox[{
+            SuperscriptBox["u", 
+              TagBox[\((1, 0)\),
+                Derivative],
+              MultilineFunction->None], "[", \(x, t\), "]"}]}], "-", 
+        RowBox[{\(ff[t]\), " ", \(h[t]\), " ", 
+          RowBox[{
+            SuperscriptBox["u", 
+              TagBox[\((1, 0)\),
+                Derivative],
+              MultilineFunction->None], "[", \(x, t\), "]"}]}], "+", 
+        RowBox[{"6", " ", \(u[x, t]\^2\), " ", 
+          RowBox[{
+            SuperscriptBox["u", 
+              TagBox[\((1, 0)\),
+                Derivative],
+              MultilineFunction->None], "[", \(x, t\), "]"}]}], "-", 
+        RowBox[{
+          SuperscriptBox["u", 
+            TagBox[\((3, 0)\),
+              Derivative],
+            MultilineFunction->None], "[", \(x, t\), "]"}]}], "}"}]], "Print"],
+
+Cell[BoxData[
+    \("with dominant behavior (leading orders): "\)], "Print"],
+
+Cell[BoxData[
+    \({alpha[1] \[Rule] \(-1\), alphaMin[1] \[Rule] \(-4\)}\)], "Print"],
+
+Cell[BoxData[
+    \("and corresponding coefficients: "\)], "Print"],
+
+Cell[BoxData[
+    \({\(u[1, 0]\)[t] \[Rule] \(-1\)}\)], "Print"],
+
+Cell[BoxData[
+    \("The characteristic equation for the resonances is: "\)], "Print"],
+
+Cell[BoxData[
+    \(\(-\((\(-4\) + r)\)\)\ \((\(-3\) + r)\)\ \((1 + r)\) \[Equal] 
+      0\)], "Print"],
+
+Cell[BoxData[
+    \("The solutions (resonances r) of the characteristic equation are: "\)], \
+"Print"],
+
+Cell[BoxData[
+    \({r \[Rule] \(-1\), r \[Rule] 3, r \[Rule] 4}\)], "Print"],
+
+Cell[BoxData[
+    \("Computation of THE RESONANCES for VARIOUS DOMINANT BEHAVIORS"\)], \
+"Print"],
+
+Cell[BoxData[
+    \("(one at the time)."\)], "Print"],
+
+Cell[BoxData[
+    \("**************************************************************"\)], \
+"Print"],
+
+Cell[BoxData[
+    \("START OF A NEW BRANCH OF THE COMPUTATIONS."\)], "Print"],
+
+Cell[BoxData[
+    \("The system (entering the function resonances`GenerateSystem) is: "\)], \
+"Print"],
+
+Cell[BoxData[
+    RowBox[{"{", 
+      RowBox[{\(\(-hh[t]\)\ u[x, t]\), "+", 
+        RowBox[{
+          SuperscriptBox["u", 
+            TagBox[\((0, 1)\),
+              Derivative],
+            MultilineFunction->None], "[", \(x, t\), "]"}], "-", 
+        RowBox[{\(ff[t]\), " ", \(g[x, t]\), " ", 
+          RowBox[{
+            SuperscriptBox["u", 
+              TagBox[\((1, 0)\),
+                Derivative],
+              MultilineFunction->None], "[", \(x, t\), "]"}]}], "-", 
+        RowBox[{\(gg[t]\), " ", 
+          RowBox[{
+            SuperscriptBox["u", 
+              TagBox[\((1, 0)\),
+                Derivative],
+              MultilineFunction->None], "[", \(x, t\), "]"}]}], "-", 
+        RowBox[{\(ff[t]\), " ", \(h[t]\), " ", 
+          RowBox[{
+            SuperscriptBox["u", 
+              TagBox[\((1, 0)\),
+                Derivative],
+              MultilineFunction->None], "[", \(x, t\), "]"}]}], "+", 
+        RowBox[{"6", " ", \(u[x, t]\^2\), " ", 
+          RowBox[{
+            SuperscriptBox["u", 
+              TagBox[\((1, 0)\),
+                Derivative],
+              MultilineFunction->None], "[", \(x, t\), "]"}]}], "-", 
+        RowBox[{
+          SuperscriptBox["u", 
+            TagBox[\((3, 0)\),
+              Derivative],
+            MultilineFunction->None], "[", \(x, t\), "]"}]}], "}"}]], "Print"],
+
+Cell[BoxData[
+    \("with dominant behavior (leading orders): "\)], "Print"],
+
+Cell[BoxData[
+    \({alpha[1] \[Rule] \(-1\), alphaMin[1] \[Rule] \(-4\)}\)], "Print"],
+
+Cell[BoxData[
+    \("and corresponding coefficients: "\)], "Print"],
+
+Cell[BoxData[
+    \({\(u[1, 0]\)[t] \[Rule] 1}\)], "Print"],
+
+Cell[BoxData[
+    \("The characteristic equation for the resonances is: "\)], "Print"],
+
+Cell[BoxData[
+    \(\(-\((\(-4\) + r)\)\)\ \((\(-3\) + r)\)\ \((1 + r)\) \[Equal] 
+      0\)], "Print"],
+
+Cell[BoxData[
+    \("The solutions (resonances r) of the characteristic equation are: "\)], \
+"Print"],
+
+Cell[BoxData[
+    \({r \[Rule] \(-1\), r \[Rule] 3, r \[Rule] 4}\)], "Print"],
+
+Cell[BoxData[
+    \("SECOND SUMMARY: leading order behaviors and corresponding resonances: \
+"\)], "Print"],
+
+Cell[BoxData[
+    \({{{alpha[1] \[Rule] \(-1\), 
+          alphaMin[1] \[Rule] \(-4\)}, {\(u[1, 0]\)[
+              t] \[Rule] \(-1\)}, {r \[Rule] \(-1\), r \[Rule] 3, 
+          r \[Rule] 4}}, {{alpha[1] \[Rule] \(-1\), 
+          alphaMin[1] \[Rule] \(-4\)}, {\(u[1, 0]\)[t] \[Rule] 
+            1}, {r \[Rule] \(-1\), r \[Rule] 3, r \[Rule] 4}}}\)], "Print"],
+
+Cell[BoxData[
+    \("*************************************************************"\)], \
+"Print"],
+
+Cell[BoxData[
+    \("Computation of THE CONSTANTS OF INTEGRATION and COMPATIBILITY \
+CONDITIONS (if applicable) for the various dominant behaviors"\)], "Print"],
+
+Cell[BoxData[
+    \("(one at the time)."\)], "Print"],
+
+Cell[BoxData[
+    \("**************************************************************"\)], \
+"Print"],
+
+Cell[BoxData[
+    \("START OF A NEW BRANCH OF THE COMPUTATIONS."\)], "Print"],
+
+Cell[BoxData[
+    \("The system (entering the function constantsOfIntegration) is: "\)], \
+"Print"],
+
+Cell[BoxData[
+    RowBox[{"{", 
+      RowBox[{\(\(-hh[t]\)\ u[x, t]\), "+", 
+        RowBox[{
+          SuperscriptBox["u", 
+            TagBox[\((0, 1)\),
+              Derivative],
+            MultilineFunction->None], "[", \(x, t\), "]"}], "-", 
+        RowBox[{\(ff[t]\), " ", \(g[x, t]\), " ", 
+          RowBox[{
+            SuperscriptBox["u", 
+              TagBox[\((1, 0)\),
+                Derivative],
+              MultilineFunction->None], "[", \(x, t\), "]"}]}], "-", 
+        RowBox[{\(gg[t]\), " ", 
+          RowBox[{
+            SuperscriptBox["u", 
+              TagBox[\((1, 0)\),
+                Derivative],
+              MultilineFunction->None], "[", \(x, t\), "]"}]}], "-", 
+        RowBox[{\(ff[t]\), " ", \(h[t]\), " ", 
+          RowBox[{
+            SuperscriptBox["u", 
+              TagBox[\((1, 0)\),
+                Derivative],
+              MultilineFunction->None], "[", \(x, t\), "]"}]}], "+", 
+        RowBox[{"6", " ", \(u[x, t]\^2\), " ", 
+          RowBox[{
+            SuperscriptBox["u", 
+              TagBox[\((1, 0)\),
+                Derivative],
+              MultilineFunction->None], "[", \(x, t\), "]"}]}], "-", 
+        RowBox[{
+          SuperscriptBox["u", 
+            TagBox[\((3, 0)\),
+              Derivative],
+            MultilineFunction->None], "[", \(x, t\), "]"}]}], "}"}]], "Print"],
+
+Cell[BoxData[
+    \("Working with leading order behavior and resonances: "\)], "Print"],
+
+Cell[BoxData[
+    \({{alpha[1] \[Rule] \(-1\), 
+        alphaMin[1] \[Rule] \(-4\)}, {\(u[1, 0]\)[
+            t] \[Rule] \(-1\)}, {r \[Rule] \(-1\), r \[Rule] 3, 
+        r \[Rule] 4}}\)], "Print"],
+
+Cell[BoxData[
+    InterpretationBox[\("Determining the integration constants AT LEVEL "\
+\[InvisibleSpace]1\[InvisibleSpace]"."\),
+      SequenceForm[ 
+      "Determining the integration constants AT LEVEL ", 1, "."],
+      Editable->False]], "Print"],
+
+Cell[BoxData[
+    \("Solving the system (within constantsOfIntegration`Solve)."\)], "Print"],
+
+Cell[BoxData[
+    \("The solutions for \!\(u\_\(i,1\)\) are: "\)], "Print"],
+
+Cell[BoxData[
+    \({\(u[1, 1]\)[t] \[Rule] {0}}\)], "Print"],
+
+Cell[BoxData[
+    \("Working with leading order behavior and resonances: "\)], "Print"],
+
+Cell[BoxData[
+    \({{alpha[1] \[Rule] \(-1\), 
+        alphaMin[1] \[Rule] \(-4\)}, {\(u[1, 0]\)[
+            t] \[Rule] \(-1\)}, {r \[Rule] \(-1\), r \[Rule] 3, 
+        r \[Rule] 4}}\)], "Print"],
+
+Cell[BoxData[
+    InterpretationBox[\("Determining the integration constants AT LEVEL "\
+\[InvisibleSpace]2\[InvisibleSpace]"."\),
+      SequenceForm[ 
+      "Determining the integration constants AT LEVEL ", 2, "."],
+      Editable->False]], "Print"],
+
+Cell[BoxData[
+    \("Solving the system (within constantsOfIntegration`Solve)."\)], "Print"],
+
+Cell[BoxData[
+    \("The solutions for \!\(u\_\(i,2\)\) are: "\)], "Print"],
+
+Cell[BoxData[
+    RowBox[{"{", 
+      RowBox[{\(\(u[1, 2]\)[t]\), "\[Rule]", 
+        RowBox[{"{", 
+          RowBox[{\(1\/6\), " ", 
+            RowBox[{"(", 
+              RowBox[{\(-gg[t]\), "-", \(ff[t]\ h[t]\), "-", 
+                InterpretationBox[
+                  RowBox[{"h", "\[InvisibleSpace]", 
+                    InterpretationBox[
+                      SubscriptBox["\[Null]", 
+                        InterpretationBox["t",
+                          SequenceForm[ t],
+                          Editable->False]],
+                      Subscript[ 
+                        SequenceForm[ t]],
+                      Editable->False]}],
+                  SequenceForm[ h, 
+                    Subscript[ 
+                      SequenceForm[ t]]],
+                  Editable->False]}], ")"}]}], "}"}]}], "}"}]], "Print"],
+
+Cell[BoxData[
+    \("Working with leading order behavior and resonances: "\)], "Print"],
+
+Cell[BoxData[
+    \({{alpha[1] \[Rule] \(-1\), 
+        alphaMin[1] \[Rule] \(-4\)}, {\(u[1, 0]\)[
+            t] \[Rule] \(-1\)}, {r \[Rule] \(-1\), r \[Rule] 3, 
+        r \[Rule] 4}}\)], "Print"],
+
+Cell[BoxData[
+    InterpretationBox[\("Determining the integration constants AT LEVEL "\
+\[InvisibleSpace]3\[InvisibleSpace]"."\),
+      SequenceForm[ 
+      "Determining the integration constants AT LEVEL ", 3, "."],
+      Editable->False]], "Print"],
+
+Cell[BoxData[
+    \("Solving the system (within \
+constantsOfIntegration`NthResonance`Solve)."\)], "Print"],
+
+Cell[BoxData[
+    \("The solutions for \!\(u\_\(i,3\)\) are: "\)], "Print"],
+
+Cell[BoxData[
+    \({\(u[1, 3]\)[t] \[Rule] \(u[1, 3]\)[t]}\)], "Print"],
+
+Cell[BoxData[
+    \("The compatibility condition AT LEVEL 3 is:"\)], "Message"],
+
+Cell[BoxData[
+    \({\(-ff[t]\) + hh[t]}\)], "Message"],
+
+Cell[BoxData[
+    \(" == 0"\)], "Message"],
+
+Cell[BoxData[
+    \("Working with leading order behavior and resonances: "\)], "Print"],
+
+Cell[BoxData[
+    \({{alpha[1] \[Rule] \(-1\), 
+        alphaMin[1] \[Rule] \(-4\)}, {\(u[1, 0]\)[
+            t] \[Rule] \(-1\)}, {r \[Rule] \(-1\), r \[Rule] 3, 
+        r \[Rule] 4}}\)], "Print"],
+
+Cell[BoxData[
+    InterpretationBox[\("Determining the integration constants AT LEVEL "\
+\[InvisibleSpace]4\[InvisibleSpace]"."\),
+      SequenceForm[ 
+      "Determining the integration constants AT LEVEL ", 4, "."],
+      Editable->False]], "Print"],
+
+Cell[BoxData[
+    \("Solving the system (within \
+constantsOfIntegration`NthResonance`Solve)."\)], "Print"],
+
+Cell[BoxData[
+    \("The solutions for \!\(u\_\(i,4\)\) are: "\)], "Print"],
+
+Cell[BoxData[
+    \({\(u[1, 4]\)[t] \[Rule] \(u[1, 4]\)[t]}\)], "Print"],
+
+Cell[BoxData[
+    \("Computation of THE CONSTANTS OF INTEGRATION and COMPATIBILITY \
+CONDITIONS (if applicable) for the various dominant behaviors"\)], "Print"],
+
+Cell[BoxData[
+    \("(one at the time)."\)], "Print"],
+
+Cell[BoxData[
+    \("**************************************************************"\)], \
+"Print"],
+
+Cell[BoxData[
+    \("START OF A NEW BRANCH OF THE COMPUTATIONS."\)], "Print"],
+
+Cell[BoxData[
+    \("The system (entering the function constantsOfIntegration) is: "\)], \
+"Print"],
+
+Cell[BoxData[
+    RowBox[{"{", 
+      RowBox[{\(\(-hh[t]\)\ u[x, t]\), "+", 
+        RowBox[{
+          SuperscriptBox["u", 
+            TagBox[\((0, 1)\),
+              Derivative],
+            MultilineFunction->None], "[", \(x, t\), "]"}], "-", 
+        RowBox[{\(ff[t]\), " ", \(g[x, t]\), " ", 
+          RowBox[{
+            SuperscriptBox["u", 
+              TagBox[\((1, 0)\),
+                Derivative],
+              MultilineFunction->None], "[", \(x, t\), "]"}]}], "-", 
+        RowBox[{\(gg[t]\), " ", 
+          RowBox[{
+            SuperscriptBox["u", 
+              TagBox[\((1, 0)\),
+                Derivative],
+              MultilineFunction->None], "[", \(x, t\), "]"}]}], "-", 
+        RowBox[{\(ff[t]\), " ", \(h[t]\), " ", 
+          RowBox[{
+            SuperscriptBox["u", 
+              TagBox[\((1, 0)\),
+                Derivative],
+              MultilineFunction->None], "[", \(x, t\), "]"}]}], "+", 
+        RowBox[{"6", " ", \(u[x, t]\^2\), " ", 
+          RowBox[{
+            SuperscriptBox["u", 
+              TagBox[\((1, 0)\),
+                Derivative],
+              MultilineFunction->None], "[", \(x, t\), "]"}]}], "-", 
+        RowBox[{
+          SuperscriptBox["u", 
+            TagBox[\((3, 0)\),
+              Derivative],
+            MultilineFunction->None], "[", \(x, t\), "]"}]}], "}"}]], "Print"],
+
+Cell[BoxData[
+    \("Working with leading order behavior and resonances: "\)], "Print"],
+
+Cell[BoxData[
+    \({{alpha[1] \[Rule] \(-1\), 
+        alphaMin[1] \[Rule] \(-4\)}, {\(u[1, 0]\)[t] \[Rule] 
+          1}, {r \[Rule] \(-1\), r \[Rule] 3, r \[Rule] 4}}\)], "Print"],
+
+Cell[BoxData[
+    InterpretationBox[\("Determining the integration constants AT LEVEL "\
+\[InvisibleSpace]1\[InvisibleSpace]"."\),
+      SequenceForm[ 
+      "Determining the integration constants AT LEVEL ", 1, "."],
+      Editable->False]], "Print"],
+
+Cell[BoxData[
+    \("Solving the system (within constantsOfIntegration`Solve)."\)], "Print"],
+
+Cell[BoxData[
+    \("The solutions for \!\(u\_\(i,1\)\) are: "\)], "Print"],
+
+Cell[BoxData[
+    \({\(u[1, 1]\)[t] \[Rule] {0}}\)], "Print"],
+
+Cell[BoxData[
+    \("Working with leading order behavior and resonances: "\)], "Print"],
+
+Cell[BoxData[
+    \({{alpha[1] \[Rule] \(-1\), 
+        alphaMin[1] \[Rule] \(-4\)}, {\(u[1, 0]\)[t] \[Rule] 
+          1}, {r \[Rule] \(-1\), r \[Rule] 3, r \[Rule] 4}}\)], "Print"],
+
+Cell[BoxData[
+    InterpretationBox[\("Determining the integration constants AT LEVEL "\
+\[InvisibleSpace]2\[InvisibleSpace]"."\),
+      SequenceForm[ 
+      "Determining the integration constants AT LEVEL ", 2, "."],
+      Editable->False]], "Print"],
+
+Cell[BoxData[
+    \("Solving the system (within constantsOfIntegration`Solve)."\)], "Print"],
+
+Cell[BoxData[
+    \("The solutions for \!\(u\_\(i,2\)\) are: "\)], "Print"],
+
+Cell[BoxData[
+    RowBox[{"{", 
+      RowBox[{\(\(u[1, 2]\)[t]\), "\[Rule]", 
+        RowBox[{"{", 
+          RowBox[{\(1\/6\), " ", 
+            RowBox[{"(", 
+              RowBox[{\(gg[t]\), "+", \(ff[t]\ h[t]\), "+", 
+                InterpretationBox[
+                  RowBox[{"h", "\[InvisibleSpace]", 
+                    InterpretationBox[
+                      SubscriptBox["\[Null]", 
+                        InterpretationBox["t",
+                          SequenceForm[ t],
+                          Editable->False]],
+                      Subscript[ 
+                        SequenceForm[ t]],
+                      Editable->False]}],
+                  SequenceForm[ h, 
+                    Subscript[ 
+                      SequenceForm[ t]]],
+                  Editable->False]}], ")"}]}], "}"}]}], "}"}]], "Print"],
+
+Cell[BoxData[
+    \("Working with leading order behavior and resonances: "\)], "Print"],
+
+Cell[BoxData[
+    \({{alpha[1] \[Rule] \(-1\), 
+        alphaMin[1] \[Rule] \(-4\)}, {\(u[1, 0]\)[t] \[Rule] 
+          1}, {r \[Rule] \(-1\), r \[Rule] 3, r \[Rule] 4}}\)], "Print"],
+
+Cell[BoxData[
+    InterpretationBox[\("Determining the integration constants AT LEVEL "\
+\[InvisibleSpace]3\[InvisibleSpace]"."\),
+      SequenceForm[ 
+      "Determining the integration constants AT LEVEL ", 3, "."],
+      Editable->False]], "Print"],
+
+Cell[BoxData[
+    \("Solving the system (within \
+constantsOfIntegration`NthResonance`Solve)."\)], "Print"],
+
+Cell[BoxData[
+    \("The solutions for \!\(u\_\(i,3\)\) are: "\)], "Print"],
+
+Cell[BoxData[
+    \({\(u[1, 3]\)[t] \[Rule] \(u[1, 3]\)[t]}\)], "Print"],
+
+Cell[BoxData[
+    \("The compatibility condition AT LEVEL 3 is:"\)], "Message"],
+
+Cell[BoxData[
+    \({ff[t] - hh[t]}\)], "Message"],
+
+Cell[BoxData[
+    \(" == 0"\)], "Message"],
+
+Cell[BoxData[
+    \("Working with leading order behavior and resonances: "\)], "Print"],
+
+Cell[BoxData[
+    \({{alpha[1] \[Rule] \(-1\), 
+        alphaMin[1] \[Rule] \(-4\)}, {\(u[1, 0]\)[t] \[Rule] 
+          1}, {r \[Rule] \(-1\), r \[Rule] 3, r \[Rule] 4}}\)], "Print"],
+
+Cell[BoxData[
+    InterpretationBox[\("Determining the integration constants AT LEVEL "\
+\[InvisibleSpace]4\[InvisibleSpace]"."\),
+      SequenceForm[ 
+      "Determining the integration constants AT LEVEL ", 4, "."],
+      Editable->False]], "Print"],
+
+Cell[BoxData[
+    \("Solving the system (within \
+constantsOfIntegration`NthResonance`Solve)."\)], "Print"],
+
+Cell[BoxData[
+    \("The solutions for \!\(u\_\(i,4\)\) are: "\)], "Print"],
+
+Cell[BoxData[
+    \({\(u[1, 4]\)[t] \[Rule] \(u[1, 4]\)[t]}\)], "Print"],
+
+Cell[BoxData[
+    \("*************************************************************"\)], \
+"Print"],
+
+Cell[BoxData[
+    \("FINAL SUMMARY: dominant behaviors, resonances, constants of \
+integration, and (if applicable) compatibility conditions: "\)], "Print"],
+
+Cell[BoxData[
+    \("Each sublist will have a list of alphas (and alphaMins),  followed by \
+a list with resonances. In turn, followed by  a nested list of coefficients \
+u[i,k]. The final list  contains the compatibility condition(s).  That list  \
+will be empty ({}) if there are no compatibility conditions. "\)], "Print"],
+
+Cell[BoxData[
+    RowBox[{"{", 
+      RowBox[{
+        RowBox[{"{", 
+          
+          RowBox[{\({alpha[1] \[Rule] \(-1\), alphaMin[1] \[Rule] \(-4\)}\), 
+            ",", \({r \[Rule] \(-1\), r \[Rule] 3, r \[Rule] 4}\), ",", 
+            RowBox[{"{", 
+              RowBox[{
+                RowBox[{"{", 
+                  
+                  RowBox[{\(u[1, 0] \[Rule] \(-1\)\), 
+                    ",", \(u[1, 1] \[Rule] 0\), ",", 
+                    RowBox[{\(u[1, 2]\), "\[Rule]", 
+                      RowBox[{\(1\/6\), " ", 
+                        RowBox[{"(", 
+                          RowBox[{\(-gg[t]\), "-", \(ff[t]\ h[t]\), "-", 
+                            InterpretationBox[
+                              RowBox[{"h", "\[InvisibleSpace]", 
+                                InterpretationBox[
+                                  SubscriptBox["\[Null]", 
+                                    InterpretationBox["t",
+                                      SequenceForm[ t],
+                                      Editable->False]],
+                                  Subscript[ 
+                                    SequenceForm[ t]],
+                                  Editable->False]}],
+                              SequenceForm[ h, 
+                                Subscript[ 
+                                  SequenceForm[ t]]],
+                              Editable->False]}], ")"}]}]}], 
+                    ",", \(u[1, 3] \[Rule] \(C[1]\)[t]\), 
+                    ",", \(u[1, 4] \[Rule] \(C[2]\)[t]\)}], "}"}], 
+                ",", \({\(-ff[t]\) + hh[t] \[Equal] 0}\)}], "}"}]}], "}"}], 
+        ",", 
+        RowBox[{"{", 
+          
+          RowBox[{\({alpha[1] \[Rule] \(-1\), alphaMin[1] \[Rule] \(-4\)}\), 
+            ",", \({r \[Rule] \(-1\), r \[Rule] 3, r \[Rule] 4}\), ",", 
+            RowBox[{"{", 
+              RowBox[{
+                RowBox[{"{", 
+                  
+                  RowBox[{\(u[1, 0] \[Rule] 1\), ",", \(u[1, 1] \[Rule] 0\), 
+                    ",", 
+                    RowBox[{\(u[1, 2]\), "\[Rule]", 
+                      RowBox[{\(1\/6\), " ", 
+                        RowBox[{"(", 
+                          RowBox[{\(gg[t]\), "+", \(ff[t]\ h[t]\), "+", 
+                            InterpretationBox[
+                              RowBox[{"h", "\[InvisibleSpace]", 
+                                InterpretationBox[
+                                  SubscriptBox["\[Null]", 
+                                    InterpretationBox["t",
+                                      SequenceForm[ t],
+                                      Editable->False]],
+                                  Subscript[ 
+                                    SequenceForm[ t]],
+                                  Editable->False]}],
+                              SequenceForm[ h, 
+                                Subscript[ 
+                                  SequenceForm[ t]]],
+                              Editable->False]}], ")"}]}]}], 
+                    ",", \(u[1, 3] \[Rule] \(C[1]\)[t]\), 
+                    ",", \(u[1, 4] \[Rule] \(C[2]\)[t]\)}], "}"}], 
+                ",", \({ff[t] - hh[t] \[Equal] 0}\)}], "}"}]}], "}"}]}], 
+      "}"}]], "Print"],
+
+Cell[BoxData[
+    \("End of FINAL SUMMARY."\)], "Print"],
+
+Cell[BoxData[
+    \("*************************************************************"\)], \
+"Print"],
+
+Cell[BoxData[
+    RowBox[{"{", 
+      RowBox[{
+        RowBox[{"{", 
+          
+          RowBox[{\({alpha[1] \[Rule] \(-1\)}\), 
+            ",", \({r \[Rule] \(-1\), r \[Rule] 3, r \[Rule] 4}\), ",", 
+            RowBox[{"{", 
+              RowBox[{
+                RowBox[{"{", 
+                  
+                  RowBox[{\(u[1, 0] \[Rule] \(-1\)\), 
+                    ",", \(u[1, 1] \[Rule] 0\), ",", 
+                    RowBox[{\(u[1, 2]\), "\[Rule]", 
+                      RowBox[{\(1\/6\), " ", 
+                        RowBox[{"(", 
+                          RowBox[{\(-gg[t]\), "-", \(ff[t]\ h[t]\), "-", 
+                            RowBox[{
+                              SuperscriptBox["h", "\[Prime]",
+                                MultilineFunction->None], "[", "t", "]"}]}], 
+                          ")"}]}]}], ",", \(u[1, 3] \[Rule] \(C[1]\)[t]\), 
+                    ",", \(u[1, 4] \[Rule] \(C[2]\)[t]\)}], "}"}], 
+                ",", \({\(-ff[t]\) + hh[t] \[Equal] 0}\)}], "}"}]}], "}"}], 
+        ",", 
+        RowBox[{"{", 
+          
+          RowBox[{\({alpha[1] \[Rule] \(-1\)}\), 
+            ",", \({r \[Rule] \(-1\), r \[Rule] 3, r \[Rule] 4}\), ",", 
+            RowBox[{"{", 
+              RowBox[{
+                RowBox[{"{", 
+                  
+                  RowBox[{\(u[1, 0] \[Rule] 1\), ",", \(u[1, 1] \[Rule] 0\), 
+                    ",", 
+                    RowBox[{\(u[1, 2]\), "\[Rule]", 
+                      RowBox[{\(1\/6\), " ", 
+                        RowBox[{"(", 
+                          RowBox[{\(gg[t]\), "+", \(ff[t]\ h[t]\), "+", 
+                            RowBox[{
+                              SuperscriptBox["h", "\[Prime]",
+                                MultilineFunction->None], "[", "t", "]"}]}], 
+                          ")"}]}]}], ",", \(u[1, 3] \[Rule] \(C[1]\)[t]\), 
+                    ",", \(u[1, 4] \[Rule] \(C[2]\)[t]\)}], "}"}], 
+                ",", \({ff[t] - hh[t] \[Equal] 0}\)}], "}"}]}], "}"}]}], 
+      "}"}]], "Output"]
+}, Open  ]]
+},
+FrontEndVersion->"5.0 for Microsoft Windows",
+ScreenRectangle->{{0, 1280}, {0, 941}},
+WindowSize->{1272, 750},
+WindowMargins->{{-2, Automatic}, {Automatic, 7}},
+Magnification->1.25,
+StyleDefinitions -> "Default.nb"
+]
+
+(*******************************************************************
+Cached data follows.  If you edit this Notebook file directly, not
+using Mathematica, you must remove the line containing CacheID at
+the top of  the file.  The cache data will then be recreated when
+you save this file from within Mathematica.
+*******************************************************************)
+
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+
+(*NotebookFileOutline
+Notebook[{
+Cell[1754, 51, 180, 3, 56, "Input"],
+
+Cell[CellGroupData[{
+Cell[1959, 58, 73, 1, 35, "Input"],
+Cell[2035, 61, 56, 1, 35, "Output"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[2128, 67, 183, 3, 35, "Input"],
+Cell[2314, 72, 82, 1, 30, "Print"],
+Cell[2399, 75, 87, 1, 30, "Print"],
+Cell[2489, 78, 92, 1, 30, "Print"],
+Cell[2584, 81, 78, 1, 30, "Print"]
+}, Open  ]],
+Cell[2677, 85, 177, 3, 35, "Input"],
+
+Cell[CellGroupData[{
+Cell[2879, 92, 529, 9, 77, "Input"],
+Cell[3411, 103, 96, 2, 30, "Print"],
+Cell[3510, 107, 4553, 117, 30, "Print"],
+Cell[8066, 226, 99, 2, 30, "Print"],
+Cell[8168, 230, 73, 1, 30, "Print"],
+Cell[8244, 233, 98, 2, 30, "Print"],
+Cell[8345, 237, 88, 1, 30, "Print"],
+Cell[8436, 240, 206, 3, 51, "Print"],
+Cell[8645, 245, 656, 17, 31, "Print"],
+Cell[9304, 264, 65, 1, 30, "Print"],
+Cell[9372, 267, 665, 19, 30, "Print"],
+Cell[10040, 288, 116, 2, 30, "Print"],
+Cell[10159, 292, 1808, 44, 30, "Print"],
+Cell[11970, 338, 98, 2, 30, "Print"],
+Cell[12071, 342, 97, 2, 30, "Print"],
+Cell[12171, 346, 53, 1, 30, "Print"],
+Cell[12227, 349, 99, 2, 30, "Print"],
+Cell[12329, 353, 77, 1, 30, "Print"],
+Cell[12409, 356, 102, 2, 30, "Print"],
+Cell[12514, 360, 1109, 30, 30, "Print"],
+Cell[13626, 392, 76, 1, 30, "Print"],
+Cell[13705, 395, 86, 1, 30, "Print"],
+Cell[13794, 398, 67, 1, 30, "Print"],
+Cell[13864, 401, 306, 9, 30, "Print"],
+Cell[14173, 412, 86, 1, 30, "Print"],
+Cell[14262, 415, 363, 10, 31, "Print"],
+Cell[14628, 427, 102, 2, 30, "Print"],
+Cell[14733, 431, 77, 1, 30, "Print"],
+Cell[14813, 434, 97, 2, 30, "Print"],
+Cell[14913, 438, 53, 1, 30, "Print"],
+Cell[14969, 441, 99, 2, 30, "Print"],
+Cell[15071, 445, 77, 1, 30, "Print"],
+Cell[15151, 448, 102, 2, 30, "Print"],
+Cell[15256, 452, 1109, 30, 30, "Print"],
+Cell[16368, 484, 76, 1, 30, "Print"],
+Cell[16447, 487, 86, 1, 30, "Print"],
+Cell[16536, 490, 67, 1, 30, "Print"],
+Cell[16606, 493, 265, 7, 30, "Print"],
+Cell[16874, 502, 86, 1, 30, "Print"],
+Cell[16963, 505, 363, 10, 31, "Print"],
+Cell[17329, 517, 102, 2, 30, "Print"],
+Cell[17434, 521, 77, 1, 30, "Print"],
+Cell[17514, 524, 107, 2, 30, "Print"],
+Cell[17624, 528, 1960, 48, 51, "Print"],
+Cell[19587, 578, 98, 2, 30, "Print"],
+Cell[19688, 582, 160, 2, 30, "Print"],
+Cell[19851, 586, 53, 1, 30, "Print"],
+Cell[19907, 589, 99, 2, 30, "Print"],
+Cell[20009, 593, 77, 1, 30, "Print"],
+Cell[20089, 596, 99, 2, 30, "Print"],
+Cell[20191, 600, 1109, 30, 30, "Print"],
+Cell[21303, 632, 87, 1, 30, "Print"],
+Cell[21393, 635, 517, 13, 30, "Print"],
+Cell[21913, 650, 251, 5, 30, "Print"],
+Cell[22167, 657, 92, 1, 30, "Print"],
+Cell[22262, 660, 75, 1, 31, "Print"],
+Cell[22340, 663, 1344, 34, 44, "Print"],
+Cell[23687, 699, 87, 1, 30, "Print"],
+Cell[23777, 702, 517, 13, 30, "Print"],
+Cell[24297, 717, 251, 5, 30, "Print"],
+Cell[24551, 724, 92, 1, 30, "Print"],
+Cell[24646, 727, 75, 1, 31, "Print"],
+Cell[24724, 730, 6239, 139, 50, "Print"],
+Cell[30966, 871, 87, 1, 30, "Print"],
+Cell[31056, 874, 517, 13, 30, "Print"],
+Cell[31576, 889, 251, 5, 30, "Print"],
+Cell[31830, 896, 107, 2, 30, "Print"],
+Cell[31940, 900, 75, 1, 31, "Print"],
+Cell[32018, 903, 78, 1, 30, "Print"],
+Cell[32099, 906, 79, 1, 29, "Message"],
+Cell[32181, 909, 618, 17, 29, "Message"],
+Cell[32802, 928, 42, 1, 29, "Message"],
+Cell[32847, 931, 87, 1, 30, "Print"],
+Cell[32937, 934, 517, 13, 30, "Print"],
+Cell[33457, 949, 251, 5, 30, "Print"],
+Cell[33711, 956, 107, 2, 30, "Print"],
+Cell[33821, 960, 75, 1, 31, "Print"],
+Cell[33899, 963, 78, 1, 30, "Print"],
+Cell[33980, 966, 79, 1, 29, "Message"],
+Cell[34062, 969, 1274, 34, 46, "Message"],
+Cell[35339, 1005, 42, 1, 29, "Message"],
+Cell[35384, 1008, 160, 2, 30, "Print"],
+Cell[35547, 1012, 53, 1, 30, "Print"],
+Cell[35603, 1015, 99, 2, 30, "Print"],
+Cell[35705, 1019, 77, 1, 30, "Print"],
+Cell[35785, 1022, 99, 2, 30, "Print"],
+Cell[35887, 1026, 1109, 30, 30, "Print"],
+Cell[36999, 1058, 87, 1, 30, "Print"],
+Cell[37089, 1061, 479, 12, 30, "Print"],
+Cell[37571, 1075, 251, 5, 30, "Print"],
+Cell[37825, 1082, 92, 1, 30, "Print"],
+Cell[37920, 1085, 75, 1, 31, "Print"],
+Cell[37998, 1088, 1432, 35, 44, "Print"],
+Cell[39433, 1125, 87, 1, 30, "Print"],
+Cell[39523, 1128, 479, 12, 30, "Print"],
+Cell[40005, 1142, 251, 5, 30, "Print"],
+Cell[40259, 1149, 92, 1, 30, "Print"],
+Cell[40354, 1152, 75, 1, 31, "Print"],
+Cell[40432, 1155, 5940, 137, 50, "Print"],
+Cell[46375, 1294, 87, 1, 30, "Print"],
+Cell[46465, 1297, 479, 12, 30, "Print"],
+Cell[46947, 1311, 251, 5, 30, "Print"],
+Cell[47201, 1318, 107, 2, 30, "Print"],
+Cell[47311, 1322, 75, 1, 31, "Print"],
+Cell[47389, 1325, 78, 1, 30, "Print"],
+Cell[47470, 1328, 79, 1, 29, "Message"],
+Cell[47552, 1331, 613, 17, 29, "Message"],
+Cell[48168, 1350, 42, 1, 29, "Message"],
+Cell[48213, 1353, 87, 1, 30, "Print"],
+Cell[48303, 1356, 479, 12, 30, "Print"],
+Cell[48785, 1370, 251, 5, 30, "Print"],
+Cell[49039, 1377, 107, 2, 30, "Print"],
+Cell[49149, 1381, 75, 1, 31, "Print"],
+Cell[49227, 1384, 78, 1, 30, "Print"],
+Cell[49308, 1387, 79, 1, 29, "Message"],
+Cell[49390, 1390, 1362, 35, 46, "Message"],
+Cell[50755, 1427, 42, 1, 29, "Message"],
+Cell[50800, 1430, 98, 2, 30, "Print"],
+Cell[50901, 1434, 156, 2, 30, "Print"],
+Cell[51060, 1438, 325, 4, 72, "Print"],
+Cell[51388, 1444, 26978, 509, 227, "Print"],
+Cell[78369, 1955, 56, 1, 30, "Print"],
+Cell[78428, 1958, 98, 2, 30, "Print"],
+Cell[78529, 1962, 11912, 245, 284, "Output"]
+}, Open  ]],
+Cell[90456, 2210, 136, 3, 35, "Input"],
+
+Cell[CellGroupData[{
+Cell[90617, 2217, 546, 9, 77, "Input"],
+Cell[91166, 2228, 96, 2, 30, "Print"],
+Cell[91265, 2232, 4553, 117, 30, "Print"],
+Cell[95821, 2351, 411, 10, 30, "Print"],
+Cell[96235, 2363, 564, 12, 51, "Print"],
+Cell[96802, 2377, 5486, 140, 30, "Print"],
+Cell[102291, 2519, 99, 2, 30, "Print"],
+Cell[102393, 2523, 73, 1, 30, "Print"],
+Cell[102469, 2526, 98, 2, 30, "Print"],
+Cell[102570, 2530, 88, 1, 30, "Print"],
+Cell[102661, 2533, 206, 3, 51, "Print"],
+Cell[102870, 2538, 86, 1, 30, "Print"],
+Cell[102959, 2541, 65, 1, 30, "Print"],
+Cell[103027, 2544, 105, 2, 30, "Print"],
+Cell[103135, 2548, 116, 2, 30, "Print"],
+Cell[103254, 2552, 258, 5, 30, "Print"],
+Cell[103515, 2559, 98, 2, 30, "Print"],
+Cell[103616, 2563, 97, 2, 30, "Print"],
+Cell[103716, 2567, 53, 1, 30, "Print"],
+Cell[103772, 2570, 99, 2, 30, "Print"],
+Cell[103874, 2574, 77, 1, 30, "Print"],
+Cell[103954, 2577, 102, 2, 30, "Print"],
+Cell[104059, 2581, 1349, 36, 30, "Print"],
+Cell[105411, 2619, 76, 1, 30, "Print"],
+Cell[105490, 2622, 86, 1, 30, "Print"],
+Cell[105579, 2625, 67, 1, 30, "Print"],
+Cell[105649, 2628, 64, 1, 30, "Print"],
+Cell[105716, 2631, 86, 1, 30, "Print"],
+Cell[105805, 2634, 103, 2, 30, "Print"],
+Cell[105911, 2638, 102, 2, 30, "Print"],
+Cell[106016, 2642, 77, 1, 30, "Print"],
+Cell[106096, 2645, 97, 2, 30, "Print"],
+Cell[106196, 2649, 53, 1, 30, "Print"],
+Cell[106252, 2652, 99, 2, 30, "Print"],
+Cell[106354, 2656, 77, 1, 30, "Print"],
+Cell[106434, 2659, 102, 2, 30, "Print"],
+Cell[106539, 2663, 1349, 36, 30, "Print"],
+Cell[107891, 2701, 76, 1, 30, "Print"],
+Cell[107970, 2704, 86, 1, 30, "Print"],
+Cell[108059, 2707, 67, 1, 30, "Print"],
+Cell[108129, 2710, 59, 1, 30, "Print"],
+Cell[108191, 2713, 86, 1, 30, "Print"],
+Cell[108280, 2716, 103, 2, 30, "Print"],
+Cell[108386, 2720, 102, 2, 30, "Print"],
+Cell[108491, 2724, 77, 1, 30, "Print"],
+Cell[108571, 2727, 107, 2, 30, "Print"],
+Cell[108681, 2731, 361, 6, 51, "Print"],
+Cell[109045, 2739, 98, 2, 30, "Print"],
+Cell[109146, 2743, 160, 2, 30, "Print"],
+Cell[109309, 2747, 53, 1, 30, "Print"],
+Cell[109365, 2750, 99, 2, 30, "Print"],
+Cell[109467, 2754, 77, 1, 30, "Print"],
+Cell[109547, 2757, 99, 2, 30, "Print"],
+Cell[109649, 2761, 1349, 36, 30, "Print"],
+Cell[111001, 2799, 87, 1, 30, "Print"],
+Cell[111091, 2802, 198, 4, 30, "Print"],
+Cell[111292, 2808, 251, 5, 30, "Print"],
+Cell[111546, 2815, 92, 1, 30, "Print"],
+Cell[111641, 2818, 75, 1, 31, "Print"],
+Cell[111719, 2821, 61, 1, 30, "Print"],
+Cell[111783, 2824, 87, 1, 30, "Print"],
+Cell[111873, 2827, 198, 4, 30, "Print"],
+Cell[112074, 2833, 251, 5, 30, "Print"],
+Cell[112328, 2840, 92, 1, 30, "Print"],
+Cell[112423, 2843, 75, 1, 31, "Print"],
+Cell[112501, 2846, 833, 20, 44, "Print"],
+Cell[113337, 2868, 87, 1, 30, "Print"],
+Cell[113427, 2871, 198, 4, 30, "Print"],
+Cell[113628, 2877, 251, 5, 30, "Print"],
+Cell[113882, 2884, 107, 2, 30, "Print"],
+Cell[113992, 2888, 75, 1, 31, "Print"],
+Cell[114070, 2891, 72, 1, 30, "Print"],
+Cell[114145, 2894, 79, 1, 29, "Message"],
+Cell[114227, 2897, 55, 1, 29, "Message"],
+Cell[114285, 2900, 42, 1, 29, "Message"],
+Cell[114330, 2903, 87, 1, 30, "Print"],
+Cell[114420, 2906, 198, 4, 30, "Print"],
+Cell[114621, 2912, 251, 5, 30, "Print"],
+Cell[114875, 2919, 107, 2, 30, "Print"],
+Cell[114985, 2923, 75, 1, 31, "Print"],
+Cell[115063, 2926, 72, 1, 30, "Print"],
+Cell[115138, 2929, 160, 2, 30, "Print"],
+Cell[115301, 2933, 53, 1, 30, "Print"],
+Cell[115357, 2936, 99, 2, 30, "Print"],
+Cell[115459, 2940, 77, 1, 30, "Print"],
+Cell[115539, 2943, 99, 2, 30, "Print"],
+Cell[115641, 2947, 1349, 36, 30, "Print"],
+Cell[116993, 2985, 87, 1, 30, "Print"],
+Cell[117083, 2988, 182, 3, 30, "Print"],
+Cell[117268, 2993, 251, 5, 30, "Print"],
+Cell[117522, 3000, 92, 1, 30, "Print"],
+Cell[117617, 3003, 75, 1, 31, "Print"],
+Cell[117695, 3006, 61, 1, 30, "Print"],
+Cell[117759, 3009, 87, 1, 30, "Print"],
+Cell[117849, 3012, 182, 3, 30, "Print"],
+Cell[118034, 3017, 251, 5, 30, "Print"],
+Cell[118288, 3024, 92, 1, 30, "Print"],
+Cell[118383, 3027, 75, 1, 31, "Print"],
+Cell[118461, 3030, 832, 20, 44, "Print"],
+Cell[119296, 3052, 87, 1, 30, "Print"],
+Cell[119386, 3055, 182, 3, 30, "Print"],
+Cell[119571, 3060, 251, 5, 30, "Print"],
+Cell[119825, 3067, 107, 2, 30, "Print"],
+Cell[119935, 3071, 75, 1, 31, "Print"],
+Cell[120013, 3074, 72, 1, 30, "Print"],
+Cell[120088, 3077, 79, 1, 29, "Message"],
+Cell[120170, 3080, 50, 1, 29, "Message"],
+Cell[120223, 3083, 42, 1, 29, "Message"],
+Cell[120268, 3086, 87, 1, 30, "Print"],
+Cell[120358, 3089, 182, 3, 30, "Print"],
+Cell[120543, 3094, 251, 5, 30, "Print"],
+Cell[120797, 3101, 107, 2, 30, "Print"],
+Cell[120907, 3105, 75, 1, 31, "Print"],
+Cell[120985, 3108, 72, 1, 30, "Print"],
+Cell[121060, 3111, 98, 2, 30, "Print"],
+Cell[121161, 3115, 156, 2, 30, "Print"],
+Cell[121320, 3119, 325, 4, 72, "Print"],
+Cell[121648, 3125, 3200, 66, 131, "Print"],
+Cell[124851, 3193, 56, 1, 30, "Print"],
+Cell[124910, 3196, 98, 2, 30, "Print"],
+Cell[125011, 3200, 2019, 44, 136, "Output"]
+}, Open  ]]
+}
+]
+*)
+
+
+
+(*******************************************************************
+End of Mathematica Notebook file.
+*******************************************************************)
+

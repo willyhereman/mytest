@@ -1,0 +1,55 @@
+
+/* sp_daria.dat */
+
+/* Coupled system from	Bahman Darian, 412 Avadh Bhatia Physics Laboratory */
+/* University of Alberta, Edmonton, AB., Canada T6G 2J1 */
+
+/*  assignment of the variables 
+    b1 --> f[1]
+    b3 --> f[2]
+    s1 --> f[3]
+    s3 --> f[4]
+    al --> f[5]
+    ga --> f[6]
+    Pal --> f[7]
+    Pga --> f[8]
+    independent variable is x. 
+*/
+
+eq[1]: fx[1,1](x)-2*f[1]*f[3];          /* b1'=2*b1*s1 */
+
+eq[2]: fx[2,1](x)-2*f[2]*(f[3]-f[4]);   /* b3'=2*b3*(s1-s3) */
+
+eq[3]: fx[3,1](x)-2*f[4]*(f[3]-f[4]);   /* s1'=2*s3*(s1-s3) */
+
+eq[4]: fx[4,1](x)-( f[4]*(f[3]-(f[4])/2)+f[2]*(f[8]^2+f[5]^4)/4-
+       f[1]*(f[5]^2*f[6]^2+(f[7]^2)/4)/2 );
+
+/* s3'=s3*(s1-s3/2)+b3*(Pga^2+al^4)/4-b1*(al^2*ga^2+Pal^2/4)/2 */
+
+eq[5]: fx[5,1](x)+f[1]*f[7]/2;  /* al'=-b1*Pal/2 */
+
+eq[6]: fx[6,1](x)+f[2]*f[8]; /* ga'=-b3*Pga */
+
+eq[7]: fx[7,1](x)-2*f[5]*(f[6]^2*f[1]+f[5]^2*f[2]); 
+       /* Pal'=2*al*(ga^2*b1+al^2*b3) */
+
+eq[8]: fx[8,1](x)-2*f[5]^2*f[6]*f[1];
+       /* Pga'=2*al^2*ga*b1 */
+
+noeqs: 8$
+nofun: 8$
+
+/* For Kruskal Simplification the file needs following 2 lines */
+
+do_simplification: true$
+prefer_variable: x$
+
+debugfullinfo: false$
+
+/* betalist: [[alpha[1]=-2,alpha[2]=-1]]$ */
+
+betalist: []$ 
+
+/* sp_daria.dat */
+

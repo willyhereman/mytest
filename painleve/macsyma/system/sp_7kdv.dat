@@ -1,0 +1,69 @@
+
+/* sp_7kdv.dat */
+
+/* Lax Case */
+
+/* 
+
+aaa: 140$
+bbb: 70$
+ccc: 280$
+ddd: 70$
+eee: 70$
+fff: 42$
+ggg: 14$
+
+*/
+
+/* SK-Ito Case */
+
+/* 
+
+aaa: 252$
+bbb: 63$
+ccc: 378$
+ddd: 126$
+eee: 63$
+fff: 42$
+ggg: 21$
+
+*/
+
+/* Third Case */
+
+/* */
+
+aaa: 2016$
+bbb: 630$
+ccc: 2268$
+ddd: 504$
+eee: 252$
+fff: 147$
+ggg: 42$
+
+/* */
+
+
+/* The equation */
+
+eq[1]:
+ftx[1,1,0](t,x)+aaa*f[1]^3*ftx[1,0,1](t,x)+bbb*ftx[1,0,1](t,x)^3+
+ccc*f[1]*ftx[1,0,1](t,x)*ftx[1,0,2](t,x)+ddd*f[1]^2*ftx[1,0,3](t,x)+
+eee*ftx[1,0,2](t,x)*ftx[1,0,3](t,x)+fff*ftx[1,0,1](t,x)*ftx[1,0,4](t,x)+
+ggg*f[1]*ftx[1,0,5](t,x)+ftx[1,0,7](t,x)$
+
+
+
+noeqs: 1$
+nofun: 1$
+
+/* For Kruskal Simplification the file needs following 2 lines */
+
+do_simplification: false$
+prefer_variable: x$
+
+debugfullinfo: false$
+
+betalist: []$
+
+/* sp_7kdv.dat */

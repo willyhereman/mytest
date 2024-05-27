@@ -1,0 +1,378 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 10.4' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     13304,        370]
+NotebookOptionsPosition[     12159,        332]
+NotebookOutlinePosition[     12798,        355]
+CellTagsIndexPosition[     12755,        352]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[" Painlev\[EAcute] Test", "Title"],
+
+Cell[BoxData[
+ RowBox[{"IMPORTANT", " ", 
+  RowBox[{"MESSAGE", ":", " "}]}]], "Input"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+  "It", " ", "can", " ", "happen", " ", "that", " ", "our", " ", "software", 
+   " ", "for", " ", "the", " ", "PainleveTestV2", " ", "fails", " ", "to", "  ",
+    "find", " ", "all", " ", "possible", " ", "dominant", " ", 
+   RowBox[{"behaviors", ".", " ", "In"}], " ", "particular"}], ",", " ", 
+  RowBox[{
+  "this", " ", "can", " ", "happen", " ", "when", " ", "one", " ", "or", " ", 
+   "more", " ", "of", " ", "the", " ", "leading", " ", "order", " ", 
+   "exponents", " ", 
+   RowBox[{"(", "alphas", ")"}], "  ", "remain", " ", 
+   RowBox[{"undetermined", ".", "  ", "In"}], " ", "such", " ", 
+   "cases"}]}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{
+   "our", " ", "software", " ", "has", " ", "no", " ", "straightforward", " ",
+     "way", " ", "of", " ", "finding", " ", 
+    RowBox[{"(", 
+     RowBox[{"or", " ", "trying"}], ")"}], " ", "values", " ", "for", " ", 
+    "the", " ", "undetermined", " ", 
+    RowBox[{
+    "alphas", ".", "  ", "\[IndentingNewLine]", "\[IndentingNewLine]", 
+     "WHEN"}], " ", "IN", " ", "DOUBT"}], ",", " ", 
+   RowBox[{
+    RowBox[{
+    "the", " ", "software", " ", "should", " ", "be", " ", "run", " ", "with",
+      " ", "DominantBehaviorMin"}], " ", "->", 
+    RowBox[{
+     RowBox[{"integer1", "  ", 
+      RowBox[{"and", "/", "or"}], "  ", "DominantBehaviorMax"}], " ", 
+     "\[Rule]", " ", "integer2"}]}], ",", " ", 
+   RowBox[{
+   "where", "  ", "integer1", " ", "and", " ", "integer2", " ", "can", " ", 
+    "be", " ", "specified", "  ", "by", " ", "the", " ", 
+    RowBox[{"user", ".", " ", "For"}], " ", "example"}], ",", " ", 
+   RowBox[{"DominantBehaviorMin", " ", "\[Rule]", " ", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"-", "3"}], " ", 
+      RowBox[{"and", "/", "or"}], " ", "DominantBehaviorMax"}], " ", 
+     "\[Rule]", " ", "4"}]}]}], " "}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"were", " ", "choosen"}], ",", " ", 
+   RowBox[{
+   "the", " ", "the", " ", "code", " ", "will", " ", "consider", " ", "the", 
+    " ", "following", " ", "choices", " ", "for", " ", "the", " ", "free", 
+    " ", 
+    RowBox[{"alphas", ":", " ", 
+     RowBox[{"-", "3"}]}]}], ",", 
+   RowBox[{"-", "2"}], ",", 
+   RowBox[{"-", "1"}], ",", "0", ",", "1", ",", "2", ",", "3", ",", " ", 
+   RowBox[{"and", " ", "4."}]}], 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"Default", " ", 
+    RowBox[{"values", ":", "  ", 
+     RowBox[{
+      RowBox[{"DominantBehaviorMin", " ", "is", " ", "set", " ", "to"}], " ", 
+      "-", 
+      RowBox[{
+      "3", " ", "and", "  ", "DominantBehaviorMax", " ", "is", " ", "set", 
+       " ", "to"}], " ", "-", 
+      RowBox[{"1", " ", "by", " ", 
+       RowBox[{"default", ".", " ", "So"}]}]}]}]}], ",", " ", 
+   RowBox[{"if", " ", "not", " ", "values", " ", "are", " ", "selected"}], 
+   ",", " ", 
+   RowBox[{
+   "the", " ", "code", " ", "will", " ", "run", " ", "the", " ", "test", " ", 
+    "for", " ", "the", " ", "default", " ", "values", " ", "for", " ", "the", 
+    " ", "alphas", " ", "starting", "  ", "from", " ", "the", " ", "default", 
+    " ", "DominantBehaviorMin", " ", "to", " ", "the", " ", "default", " ", 
+    "DominantBehaviorMax", " ", 
+    RowBox[{"value", ".", " ", "Thus"}]}], ",", " ", 
+   RowBox[{"for", " ", "each", " ", "undetermined", " ", "alpha"}], ",", " ", 
+   RowBox[{
+    RowBox[{
+    "the", " ", "code", " ", "will", " ", "consider", " ", "the", " ", 
+     "values"}], " ", "-", "3"}], ",", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"-", "2"}], " ", "and"}], " ", "-", "1."}]}], " ", 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+  "Selecting", " ", "appropriate", " ", "values", " ", "for", " ", 
+   "DominantBehaviorMax", " ", "is", " ", "important", " ", "when", " ", 
+   "one", " ", "or", " ", "more", " ", "of", " ", "the", " ", "alphas", " ", 
+   "are", " ", "positive", " ", "and", " ", "the"}], 
+  " "}], "\[IndentingNewLine]", 
+ RowBox[{"other", " ", "alphas", " ", "remain", " ", 
+  RowBox[{"undetermined", ".", " ", "Examples"}], " ", "are", " ", "given", 
+  " ", "at", " ", "the", " ", "bottom", " ", "of", " ", "this", " ", 
+  RowBox[{
+  "notebook", ".", "\[IndentingNewLine]", "\[IndentingNewLine]", "Why"}], " ",
+   "did", " ", "we", " ", "not", " ", "design", " ", "more", " ", 
+  "sophisticated", " ", "code", " ", "that", " ", "would", " ", 
+  "automatically", " ", "compute", " ", "bounds", " ", "for", " ", "the", " ",
+   "undetermined", " ", 
+  RowBox[{"values", "?", "  ", "This"}], " ", "is", " ", "largely", " ", 
+  "due", " ", "to", " ", "the", " ", "lack", " ", "of", " ", "reliable", " ", 
+  "Mathematica", " ", "functions", " ", "that", " ", "handle", " ", 
+  RowBox[{"inequalities", "."}]}]}], "Input"],
+
+Cell["\<\
+To load the package, you must set the directory to where the file is located, \
+say c:\\myDirectory, and load the package as follows:\
+\>", "Text"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", " ", 
+   RowBox[{
+    RowBox[{"SetDirectory", "[", "\"\<c:\\\\myDirectory\>\"", "]"}], ";"}], 
+   " ", "*)"}], "\n", 
+  RowBox[{"(*", " ", 
+   RowBox[{
+    RowBox[{"For", " ", "example"}], ",", " ", 
+    RowBox[{"SetDirectory", "[", "\"\<d:\\\\demoPainlevetest\>\"", "]"}]}], 
+   " ", "*)"}]}]], "Input",
+ CellChangeTimes->{{3.7395026124601393`*^9, 3.7395026128501434`*^9}}],
+
+Cell[BoxData[
+ RowBox[{" ", 
+  RowBox[{
+  "SetDirectory", "[", "\"\<c:\\\\data\\\\demoPainleveTest\>\"", "]"}], 
+  " "}]], "Input",
+ CellChangeTimes->{{3.733540354419898*^9, 3.7335403546798983`*^9}, {
+  3.7391134854207687`*^9, 3.739113489291774*^9}}],
+
+Cell[BoxData[
+ RowBox[{"Get", "[", "\"\<PainleveTestV4-2018.m\>\"", "]"}]], "Input",
+ CellChangeTimes->{{3.7395024555225677`*^9, 3.739502459323606*^9}}],
+
+Cell[TextData[{
+ "The companion paper by Douglas Baldwin and Willy Hereman, entitled \
+``Symbolic Software for the Painleve Test of Nonlinear Ordinary and Partial\n\
+Differential Equations\" has been published in the Journal of Nonlinear \
+Mathematical Physics, vol. 13, number 1, February 2006,\npages 90-110. ",
+ StyleBox[" \n\n",
+  FontSlant->"Italic"],
+ "A short description of how to use the package can be obtained by entering:"
+}], "Text",
+ CellChangeTimes->{3.7399294279327307`*^9}],
+
+Cell[BoxData[
+ RowBox[{"??", "PainleveTest"}]], "Input"],
+
+Cell["\<\
+As a first example, we consider the equation due to Korteweg and de Vries \
+(abbreviated as the KdV equation) :\
+\>", "Text"],
+
+Cell[BoxData[
+ RowBox[{"PainleveTest", "[", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"D", "[", 
+       RowBox[{
+        RowBox[{"u", "[", 
+         RowBox[{"x", ",", "t"}], "]"}], ",", " ", "t"}], "]"}], "+", 
+      RowBox[{"6", "*", 
+       RowBox[{"u", "[", 
+        RowBox[{"x", ",", "t"}], "]"}], "*", 
+       RowBox[{"D", "[", 
+        RowBox[{
+         RowBox[{"u", "[", 
+          RowBox[{"x", ",", "t"}], "]"}], ",", " ", "x"}], "]"}]}], "+", 
+      RowBox[{"D", "[", 
+       RowBox[{
+        RowBox[{"u", "[", 
+         RowBox[{"x", ",", "t"}], "]"}], ",", " ", 
+        RowBox[{"{", 
+         RowBox[{"x", ",", "3"}], "}"}]}], "]"}]}], "\[Equal]", "0"}], "}"}], 
+   ",", " ", "\[IndentingNewLine]", 
+   RowBox[{"u", "[", 
+    RowBox[{"x", ",", "t"}], "]"}], ",", " ", 
+   RowBox[{"{", 
+    RowBox[{"x", ",", "t"}], "}"}], " ", ",", " ", 
+   RowBox[{"Verbose", " ", "\[Rule]", " ", "True"}]}], " ", "]"}]], "Input",
+ FontSize->10],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"As", " ", "a", " ", "second", " ", "example"}], ",", " ", 
+  RowBox[{
+  "run", " ", "the", " ", "Painleve", " ", "test", " ", "for", " ", "KdV", 
+   " ", "equation", " ", "but", " ", "this", " ", "time", " ", "using", " ", 
+   "the", " ", "Kruskal", " ", 
+   RowBox[{"simplication", ":"}]}]}]], "Input",
+ CellChangeTimes->{{3.7395028143271623`*^9, 3.7395028824148445`*^9}, 
+   3.7395029778698006`*^9}],
+
+Cell[BoxData[
+ RowBox[{"PainleveTest", "[", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"D", "[", 
+       RowBox[{
+        RowBox[{"u", "[", 
+         RowBox[{"x", ",", "t"}], "]"}], ",", " ", "t"}], "]"}], "+", 
+      RowBox[{"6", "*", 
+       RowBox[{"u", "[", 
+        RowBox[{"x", ",", "t"}], "]"}], "*", 
+       RowBox[{"D", "[", 
+        RowBox[{
+         RowBox[{"u", "[", 
+          RowBox[{"x", ",", "t"}], "]"}], ",", " ", "x"}], "]"}]}], "+", 
+      RowBox[{"D", "[", 
+       RowBox[{
+        RowBox[{"u", "[", 
+         RowBox[{"x", ",", "t"}], "]"}], ",", " ", 
+        RowBox[{"{", 
+         RowBox[{"x", ",", "3"}], "}"}]}], "]"}]}], "\[Equal]", "0"}], "}"}], 
+   ",", " ", "\[IndentingNewLine]", 
+   RowBox[{"u", "[", 
+    RowBox[{"x", ",", "t"}], "]"}], ",", " ", 
+   RowBox[{"{", 
+    RowBox[{"x", ",", "t"}], "}"}], " ", ",", " ", 
+   RowBox[{"KruskalSimplification", " ", "\[Rule]", " ", "x"}], ",", " ", 
+   RowBox[{"Verbose", " ", "\[Rule]", " ", "True"}]}], " ", "]"}]], "Input",
+ CellChangeTimes->{{3.739502889565916*^9, 3.7395029011780324`*^9}}],
+
+Cell[BoxData[
+ RowBox[{"(*", " ", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"Equation", " ", "of", " ", "Abdul"}], "-", 
+    RowBox[{"Majid", " ", "Wazwaz"}]}], ",", " ", 
+   RowBox[{"sent", " ", "on", " ", "June", " ", "27"}], ",", " ", "2018"}], 
+  " ", "*)"}]], "Input",
+ CellChangeTimes->{{3.733540398577985*^9, 3.733540409979001*^9}, {
+   3.733540695346402*^9, 3.7335406959564033`*^9}, {3.73911350948283*^9, 
+   3.73911351629484*^9}, 3.7395034838378716`*^9, {3.7399294410614815`*^9, 
+   3.7399294515810833`*^9}}],
+
+Cell[BoxData[
+ RowBox[{"WaveEquationWazwaz", "=", " ", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"D", "[", 
+     RowBox[{
+      RowBox[{"D", "[", 
+       RowBox[{
+        RowBox[{"u", "[", 
+         RowBox[{"x", ",", "t"}], "]"}], ",", 
+        RowBox[{"{", 
+         RowBox[{"x", ",", "3"}], "}"}]}], "]"}], ",", "t"}], "]"}], "+", 
+    RowBox[{"4", "*", 
+     RowBox[{"D", "[", 
+      RowBox[{
+       RowBox[{"u", "[", 
+        RowBox[{"x", ",", "t"}], "]"}], ",", "x"}], "]"}], "*", 
+     RowBox[{"D", "[", 
+      RowBox[{
+       RowBox[{"D", "[", 
+        RowBox[{
+         RowBox[{"u", "[", 
+          RowBox[{"x", ",", "t"}], "]"}], ",", "x"}], "]"}], ",", "t"}], 
+      "]"}]}], "+", 
+    RowBox[{"2", "*", 
+     RowBox[{"D", "[", 
+      RowBox[{
+       RowBox[{"u", "[", 
+        RowBox[{"x", ",", "t"}], "]"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"x", ",", "2"}], "}"}]}], "]"}], "*", 
+     RowBox[{"D", "[", 
+      RowBox[{
+       RowBox[{"u", "[", 
+        RowBox[{"x", ",", "t"}], "]"}], ",", "t"}], "]"}]}], "+", 
+    RowBox[{"D", "[", 
+     RowBox[{
+      RowBox[{"u", "[", 
+       RowBox[{"x", ",", "t"}], "]"}], ",", 
+      RowBox[{"{", 
+       RowBox[{"x", ",", "2"}], "}"}]}], "]"}]}], "==", "0"}]}]], "Input",
+ CellChangeTimes->{{3.739113388395632*^9, 3.739113444645711*^9}, 
+   3.739113524275851*^9}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"PainleveTest", "[", 
+   RowBox[{
+    RowBox[{"{", "WaveEquationWazwaz", "}"}], ",", " ", "\[IndentingNewLine]", 
+    RowBox[{"u", "[", 
+     RowBox[{"x", ",", "t"}], "]"}], ",", " ", 
+    RowBox[{"{", 
+     RowBox[{"x", ",", "t"}], "}"}], " ", ",", " ", 
+    RowBox[{"KruskalSimplification", " ", "\[Rule]", " ", "x"}], ",", 
+    RowBox[{"Verbose", " ", "\[Rule]", " ", "True"}]}], " ", "]"}], 
+  "\[IndentingNewLine]"}]], "Input",
+ CellChangeTimes->{{3.733540600665269*^9, 3.7335406096662817`*^9}, {
+  3.733541154109048*^9, 3.733541178942083*^9}, {3.7391134292836895`*^9, 
+  3.739113432023693*^9}}]
+}, Open  ]]
+},
+ScreenStyleEnvironment->"Working",
+WindowSize->{1366, 726},
+WindowMargins->{{-4, Automatic}, {Automatic, 20}},
+PrintingCopies->1,
+PrintingPageRange->{Automatic, Automatic},
+PrintingOptions->{"Magnification"->1.,
+"PaperOrientation"->"Portrait",
+"PaperSize"->{612, 792}},
+PrivateNotebookOptions->{"VersionedStylesheet"->{"Default.nb"[8.] -> True}},
+Magnification->1.5,
+FrontEndVersion->"11.0 for Microsoft Windows (64-bit) (September 21, 2016)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[580, 22, 39, 0, 123, "Title"],
+Cell[622, 24, 86, 2, 44, "Input"],
+Cell[711, 28, 4773, 105, 521, "Input"],
+Cell[5487, 135, 157, 3, 41, "Text"],
+Cell[5647, 140, 414, 11, 73, "Input"],
+Cell[6064, 153, 250, 6, 44, "Input"],
+Cell[6317, 161, 152, 2, 44, "Input"],
+Cell[6472, 165, 490, 9, 139, "Text"],
+Cell[6965, 176, 56, 1, 44, "Input"],
+Cell[7024, 179, 135, 3, 41, "Text"],
+Cell[7162, 184, 968, 29, 64, "Input"],
+Cell[8133, 215, 436, 9, 44, "Input"],
+Cell[8572, 226, 1096, 30, 73, "Input"],
+Cell[9671, 258, 511, 11, 44, "Input"],
+Cell[10185, 271, 1321, 42, 101, "Input"],
+Cell[11509, 315, 634, 14, 101, "Input"]
+}, Open  ]]
+}
+]
+*)
+

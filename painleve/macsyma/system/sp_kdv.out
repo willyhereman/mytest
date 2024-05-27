@@ -1,0 +1,115 @@
+(d23) 	     /home/ugoktas/macsyma/painleve/unal/system/sp_kdv.out
+
+(c24) batch("sp_exec.max");
+
+(c25) /* sp_exec.max */
+
+exec_painleve(eqlist,do_resonances,max_resonance,do_simplification)$
+ 
+YOU ARE USING THE SIMPLIFICATION SUGGESTED BY KRUSKAL.
+You selected G(T,X,...) = X - H(T,...).
+ 
+------------------------------------------------------------------------
+PAINLEVE ANALYSIS OF THE EQUATION(S),
+f       + f  f   + f    = 0
+ 1	   1  1	    1
+  x x x	       x     t
+ 
+------------------------------------------------------------------------
+		     alpha
+			  1
+SUBSTITUTE  u	    g	     FOR f
+	     1, [0]		  1
+ 
+ 
+IN THE ORIGINAL EQUATION(S).
+THE MINIMUM POWERS OF g IN EQUATION  1  ARE
+[alpha  - 3, 2 alpha  - 1, alpha  - 1]
+      1		    1	        1
+By balancing any two or more terms, we obtain the solution set:
+[[alpha  = - 2]]
+       1
+Now, we separate the cases above into different groups.
+Next, we check the remaining steps with this solution.
+THE POWER OF g is  - 5 IN EQUATION  1 .
+ 
+----> SOLVE FOR  u
+		  1, [0]
+------------------------------------------------------------------------
+				 1
+TERM  - 2 u	  (u	   + 12) --  IS DOMINANT
+	   1, [0]   1, [0]	  5
+				 g
+IN EQUATION  1 .
+------------------------------------------------------------------------
+WITH [u	      = - 12] ------> FIND RESONANCES
+       1, [0]
+ 
+		     alpha		 r + alpha
+			  1			  1
+SUBSTITUTE  u	    g	     +  u       g	     FOR  f  
+	     1, [0]		 1, [r]			   1
+
+							     IN THE EQUATION(S).
+ 
+THIS IS THE MATRIX FOR RESONANCES:
+ 
+[ (r - 6) (r - 4) (r + 1) ]
+ 
+THIS IS THE EQUATION FOR RESONANCES:
+(r - 6) (r - 4) (r + 1)  = 0
+ 
+THESE ARE THE RESONANCES:
+[r = - 1, r = 4, r = 6]
+ 
+WITH MAXIMUM RESONANCE =  6  ----> CHECK RESONANCES.
+ 
+			  6
+			 ====
+			 \	        k - 2
+SUBSTITUTE POWER SERIES   >    u       g       FOR f   IN THE EQUATION(S).
+			 /      1, [k]		    1
+			 ====
+			 k = 0
+ 
+------------------------------------------------------------------------
+* u	  = - 12
+   1, [0]
+------------------------------------------------------------------------
+* u	  = 0
+   1, [1]
+------------------------------------------------------------------------
+* u	  = h
+   1, [2]    t
+------------------------------------------------------------------------
+* u	  = 0
+   1, [3]
+------------------------------------------------------------------------
+* THE COEFFICIENT MATRIX FOR THE VECTOR
+  [u	  ]
+    1, [4]
+ 
+  HAS A DETERMINANT EQUAL TO ZERO.
+  THE COMPATIBILITY CONDITION IS SATISFIED !
+  THERE IS/ARE  1  FREE FUNCTION(S) !
+------------------------------------------------------------------------
+------------------------------------------------------------------------
+	    h
+	     t t
+* u	  = ----
+   1, [5]    6
+------------------------------------------------------------------------
+* THE COEFFICIENT MATRIX FOR THE VECTOR
+  [u	  ]
+    1, [6]
+ 
+  HAS A DETERMINANT EQUAL TO ZERO.
+  THE COMPATIBILITY CONDITION IS SATISFIED !
+  THERE IS/ARE  1  FREE FUNCTION(S) !
+------------------------------------------------------------------------
+------------------------------------------------------------------------
+
+(c26) /* sp_exec.max */
+(d26) 				      done
+
+(c27) closefile();

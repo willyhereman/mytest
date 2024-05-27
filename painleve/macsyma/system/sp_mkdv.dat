@@ -1,0 +1,20 @@
+
+/* sp_mkdv.dat */
+
+/* mKdV Equation */
+
+eq[1]: ftx[1,1,0](t,x)-3*(f[1]^2)*ftx[1,0,1](t,x)+2*(a^2)*ftx[1,0,3](t,x)$ 
+
+noeqs: 1$
+nofun: 1$
+
+debugfullinfo: false$
+
+/* For Kruskal Simplification the file needs following 2 lines */
+
+do_simplification: true$
+prefer_variable: x$
+
+betalist: []$ 
+
+/* sp_mkdv.dat */

@@ -1,0 +1,881 @@
+(************** Content-type: application/mathematica **************
+                     CreatedBy='Mathematica 5.0'
+
+                    Mathematica-Compatible Notebook
+
+This notebook can be used with any Mathematica-compatible
+application, such as Mathematica, MathReader or Publicon. The data
+for the notebook starts with the line containing stars above.
+
+To get the notebook into a Mathematica-compatible application, do
+one of the following:
+
+* Save the data starting with the line of stars above into a file
+  with a name ending in .nb, then open the file inside the
+  application;
+
+* Copy the data starting with the line of stars above to the
+  clipboard, then use the Paste menu command inside the application.
+
+Data for notebooks contains only printable 7-bit ASCII and can be
+sent directly in email or through ftp in text mode.  Newlines can be
+CR, LF or CRLF (Unix, Macintosh or MS-DOS style).
+
+NOTE: If you modify the data for this notebook not in a Mathematica-
+compatible application, you must delete the line below containing
+the word CacheID, otherwise Mathematica-compatible applications may
+try to use invalid cache data.
+
+For more information on notebooks and Mathematica-compatible 
+applications, contact Wolfram Research:
+  web: http://www.wolfram.com
+  email: info@wolfram.com
+  phone: +1-217-398-0700 (U.S.)
+
+Notebook reader applications are available free of charge from 
+Wolfram Research.
+*******************************************************************)
+
+(*CacheID: 232*)
+
+
+(*NotebookFileLineBreakTest
+NotebookFileLineBreakTest*)
+(*NotebookOptionsPosition[     24308,        692]*)
+(*NotebookOutlinePosition[     25072,        718]*)
+(*  CellTagsIndexPosition[     25028,        714]*)
+(*WindowFrame->Normal*)
+
+
+
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[" Painlev\[EAcute] Test", "Title"],
+
+Cell[BoxData[
+    \(IMPORTANT\ \(\(MESSAGE\)\(:\)\(\ \)\)\)], "Input"],
+
+Cell[BoxData[{
+    \(It\ can\ happen\ that\ our\ software\ for\ the\ PainleveTestV2\ fails\ \
+to\ \ find\ all\ possible\ dominant\ behaviors . \ In\ particular, \ 
+    this\ can\ happen\ when\ one\ or\ more\ of\ the\ leading\ order\ \
+exponents\ \((alphas)\)\ \ remain\ undetermined . \ \ In\ such\ cases\), "\
+\[IndentingNewLine]", 
+    \(our\ software\ has\ no\ straightforward\ way\ of\ finding\ \((or\ \
+trying)\)\ values\ for\ the\ undetermined\ alphas . \ \ \[IndentingNewLine]\
+\[IndentingNewLine]WHEN\ IN\ DOUBT, \ 
+    the\ software\ should\ be\ run\ with\ DominantBehaviorMin\  \[Rule] \ \
+\(integer1\ \ and/or\ \ DominantBehaviorMax\  \[Rule] \ integer2\), \ 
+    where\ \ integer1\ and\ integer2\ can\ be\ specified\ \ by\ the\ user . \ 
+        For\ example, \ \(\(DominantBehaviorMin\)\(\ \)\(\[Rule]\)\(\ \
+\)\(\(-3\)\ and/or\ DominantBehaviorMax\  \[Rule] \ 
+        4\)\(\ \)\)\), "\[IndentingNewLine]", 
+    \(\(\(were\ choosen, \ 
+    the\ the\ code\ will\ consider\ the\ following\ choices\ for\ the\ free\ \
+\(alphas : \ \(-3\)\), \(-2\), \(-1\), 0, 1, 2, 3, \ 
+    and\ 4. \)\(\[IndentingNewLine]\)
+    \)\), "\[IndentingNewLine]", 
+    \(\(\(Default\ \(values : 
+        DominantBehaviorMin\ is\ set\ to\  - 
+          3\ and\ \ DominantBehaviorMax\ is\ set\ to\  - 
+          1\ by\ default . \ So\), \ if\ not\ values\ are\ selected, \ 
+    the\ code\ will\ run\ the\ test\ for\ the\ default\ values\ for\ the\ \
+alphas\ starting\ \ from\ the\ default\ DominantBehaviorMin\ to\ the\ default\
+\ DominantBehaviorMax\ value . \ Thus, \ for\ each\ undetermined\ alpha, \ 
+    the\ code\ will\ consider\ the\ values\  - 3, \(-2\)\ and\  - 
+      1. \)\(\ \)\(\[IndentingNewLine]\)
+    \)\), "\[IndentingNewLine]", 
+    \(Selecting\ appropriate\ values\ for\ DominantBehaviorMax\ is\ important\
+\ when\ one\ or\ more\ of\ the\ alphas\ are\ positive\ and\ the\ \), "\
+\[IndentingNewLine]", 
+    \(other\ alphas\ remain\ undetermined . \ 
+        Examples\ are\ given\ at\ the\ bottom\ of\ this\ notebook . \
+\[IndentingNewLine]\[IndentingNewLine]Why\ did\ we\ not\ design\ more\ \
+sophisticated\ code\ that\ would\ automatically\ compute\ bounds\ for\ the\ \
+undetermined\ values?\ \ This\ is\ largely\ due\ to\ the\ lack\ of\ reliable\ \
+Mathematica\ functions\ that\ handle\ \(\(inequalities\)\(.\)\)\)}], "Input"],
+
+Cell["\<\
+To load the package, you must set the directory to where the file is located, \
+say c:\\myDirectory, and load the package as follows:\
+\>", "Text"],
+
+Cell[BoxData[
+    \(\(\( (*\ \(SetDirectory["\<c:\\myDirectory\>"];\)\ *) \)\(\n\)\( (*\ 
+      For\ example, \ 
+      SetDirectory["\<d:\\demopainlevetest\>"]\ *) \)\)\)], "Input"],
+
+Cell[BoxData[
+    \(\(\(\ \)\(SetDirectory["\<d:\\demopainlevetest\>"]\)\(\ \)\)\)], "Input"],
+
+Cell[BoxData[
+    \(Get["\<PainleveTestV2.m\>"]\)], "Input"],
+
+Cell[TextData[{
+  "The companion paper by Baldwin and Hereman, entitled ``Symbolic Software \
+for the Painleve Test of Nonlinear Ordinary and Partial\nDifferential \
+Equations\" has been published in the Journal of Nonlinear Mathematical \
+Physics, vol. 13, number 1, Februrary 2006,\npages 90-110. ",
+  StyleBox[" \n\n",
+    FontSlant->"Italic"],
+  "A short description of how to use the package can be obtained by \
+entering:"
+}], "Text"],
+
+Cell[BoxData[
+    \(?? PainleveTest\)], "Input"],
+
+Cell["\<\
+As a first example, we consider the equation due to Korteweg and de Vries \
+(the KdV equation) :\
+\>", "Text"],
+
+Cell[BoxData[
+    \(PainleveTest[{D[u[x, t], \ t] + 6*u[x, t]*D[u[x, t], \ x] + 
+            D[u[x, t], \ {x, 3}] \[Equal] 0}, \ \[IndentingNewLine]u[x, 
+        t], \ {x, t}\ , \ Verbose\  \[Rule] \ True\ ]\)], "Input",
+  FontSize->10],
+
+Cell["\<\
+The output of the Painleve Test is in the form {{Dominant Behavior, \
+Resonances, {Constants of Integration, Constraints}, ...}.  In this example, \
+the dominant behavior implies that the singularity manifold given by \
+\>", "Text"],
+
+Cell[BoxData[
+    \(\(\(g \((x, t)\) = 0\)\(,\)\)\)], "DisplayFormula"],
+
+Cell["\<\
+is a double pole and the solutions has a Laurent series expansion of the form\
+\
+\>", "Text"],
+
+Cell[BoxData[
+    \(\(\(u \((x, t)\)\  = \ \(g\^\(-2\)\) \((x, 
+          t)\)\ \ \(\[Sum]\+\(n = 0\)\%\[Infinity]\( u\_n\) \((x, 
+              t)\) \(g\^n\) \((x, t)\)\)\)\(,\)\)\)], "DisplayFormula"],
+
+Cell[TextData[{
+  "where ",
+  Cell[BoxData[
+      \(TraditionalForm\`\(u\_n\)(x, t)\)]],
+  " are analytic functions in the neighborhood of the singularity manifold ",
+  Cell[BoxData[
+      \(TraditionalForm\`g\  = \ 0. \)]],
+  "  The integer resonances ",
+  Cell[BoxData[
+      \(TraditionalForm\`r\  = \ \(-1\), 4, 6\)]],
+  " indicate that the solution lacks any algebraic branch-points in the \
+neighborhood of the singularity manifold.  Furthermore, since the \
+compatibility conditions were trivially satisfied, the solution lacks \
+logarithmic branch-points in the neighborhood of the singularity manifold. \
+Indeed, at resonance levels r = 4 and r = 6, there were arbitrary \
+coefficients  in the series and at all other levels the coefficients (also \
+called integration constants) were unambigiously and uniquely determined. \n\n\
+Detail can be seen for each of the three main steps of the algorithm by \
+setting DominantBehaviorVerbose, ResonancesVerbose, and \
+ConstantsOfIntegrationVerbose to a number between 1 and 3  (where larger \
+numbers give incrementally more detail). \nWe run the same example to see a \
+full trace of the computations. "
+}], "Text"],
+
+Cell[BoxData[
+    \(PainleveTest[{D[u[x, t], \ t] + 6*u[x, t]*D[u[x, t], \ x] + 
+            D[u[x, t], \ {x, 3}] \[Equal] 0}, \ \[IndentingNewLine]u[x, 
+        t], \ {x, t}, \ Verbose\  \[Rule] \ True, \ 
+      DominantBehaviorVerbose\  \[Rule] \ 3, \ 
+      ResonancesVerbose\  \[Rule] \ 
+        3, \ \[IndentingNewLine]ConstantsOfIntegrationVerbose\  \[Rule] \ 
+        3]\)], "Input"],
+
+Cell[TextData[{
+  "The Weiss-Kruskal simplified algorithm is also implemented and can be \
+activated with the KruskalSimplification -> x option. \nIf so, the code uses \
+the simplified Kruskal ansatz where ",
+  Cell[BoxData[
+      \(TraditionalForm\`g(x, t)\  \[Congruent] \ x\  - \ h(t)\)]],
+  " for the singularity manifold. The coefficients in the\nLaurent series are \
+functions of t only, which drastically simplifies the computations."
+}], "Text"],
+
+Cell[BoxData[
+    \(\(\(PainleveTest[{D[u[x, t], \ t] + 6*u[x, t]*D[u[x, t], \ x] + 
+            D[u[x, t], \ {x, 3}] \[Equal] 0}, \ \[IndentingNewLine]u[x, 
+        t], \ {x, t}, \ KruskalSimplification \[Rule] x, \ 
+      Verbose\  \[Rule] \ True, \ DominantBehaviorVerbose\  \[Rule] \ 3, \ 
+      ResonancesVerbose\  \[Rule] \ 3, \ 
+      ConstantsOfIntegrationVerbose\  \[Rule] \ 3]\)\(\ \)\)\)], "Input",
+  FontSize->10],
+
+Cell["\<\
+Let us now turn to our second example: a system of nonlinearly coupled \
+Korteweg-de Vries equations (due to Hirota and Satsuma). This example will \
+take a while.
+So, be patient!\
+\>", "Text"],
+
+Cell[BoxData[
+    \(\(\(PainleveTest[{\(-aa\)*D[u[x, t], \ {x, \ 3}] - 
+            6*aa*u[x, t]*D[u[x, t], \ x] + 6*v[x, t]*D[v[x, t], \ x] + 
+            D[u[x, t], \ t]\  \[Equal] \ 
+          0, \[IndentingNewLine]D[v[x, t], \ {x, \ 3}] + 
+            3*u[x, t]*D[v[x, t], \ x] + D[v[x, t], \ t]\  \[Equal] \ 
+          0}, \ \[IndentingNewLine]{u[x, t], 
+        v[x, t]}, \ \[IndentingNewLine]{x, t}]\)\(\ \)\)\)], "Input",
+  FontSize->10],
+
+Cell["\<\
+Here, we see that the system has a parameter, aa.  Note that (i) there are \
+two choices for the dominant behavior of the solution, and (ii) the \
+combatibility condition implies that aa = 1/2. 
+
+Below, the Verbose option is set to True in order for the user to see a \
+detailed trace of the computations.  A greater level of  detail can be see \
+for each of the three main steps of the algorithm by setting \
+DominantBehaviorVerbose, ResonancesVerbose, or ConstantsOfIntegrationVerbose \
+to a number between 1 and 3 (where larger numbers give incrementally more \
+detail).  \
+\>", "Text"],
+
+Cell[BoxData[
+    \(\(\(PainleveTest[{\(-aa\)*D[u[x, t], \ {x, \ 3}] - 
+            6*aa*u[x, t]*D[u[x, t], \ x] + 6*v[x, t]*D[v[x, t], \ x]\  + 
+            D[u[x, t], \ t]\  \[Equal] \ 
+          0, \[IndentingNewLine]D[v[x, t], \ {x, \ 3}] + 
+            3*u[x, t]*D[v[x, t], \ x] + D[v[x, t], \ t]\  \[Equal] \ 
+          0}, \ \[IndentingNewLine]{u[x, t], 
+        v[x, t]}, \ \[IndentingNewLine]{x, 
+        t}, \[IndentingNewLine]Verbose \[Rule] 
+        True, \[IndentingNewLine]KruskalSimplification \[Rule] 
+        x, \ \ DominantBehaviorVerbose\  \[Rule] \ 3, \ 
+      ResonancesVerbose\  \[Rule] \ 3, \ 
+      ConstantsOfIntegrationVerbose\  \[Rule] \ 3]\)\(\ \)\)\)], "Input"],
+
+Cell[CellGroupData[{
+
+Cell["ODEs", "Section"],
+
+Cell[CellGroupData[{
+
+Cell["PI - Painleve Equation I", "Subsection",
+  FontSize->12],
+
+Cell[BoxData[
+    \(PainleveTest[\(w''\)[z] \[Equal] 6*w[z]^2 + z, w[z], z]\)], "Input"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["PII - Painleve Equation II", "Subsection",
+  FontSize->12],
+
+Cell[BoxData[
+    \(PainleveTest[\(w''\)[z] \[Equal] 2*w[z]^3 + z*w[z] + \[Alpha], w[z], 
+      z]\)], "Input"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["\<\
+Chazy Equation:  The Chazy equation has only negative resonances.\
+\>", "Subsection",
+  FontSize->12],
+
+Cell[BoxData[
+    \(PainleveTest[\[IndentingNewLine]\(y'''\)[x] \[Equal] 
+        2*y[x]*\(y''\)[x] - 3*\(y'\)[x]^2, \[IndentingNewLine]y[x], x, 
+      Verbose \[Rule] True]\)], "Input"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["\<\
+Example of an ODE with one positive and one negative alpha (Ramani, \
+Grammaticos and Bountis).\
+\>", "Subsection",
+  FontSize->12],
+
+Cell[BoxData[
+    \(PainleveTest[{\[IndentingNewLine]D[x[t], \ t]\  \[Equal] \ 
+          x[t]*\((a - x[t] - y[t])\), \[IndentingNewLine]D[y[t], 
+            t]\  \[Equal] \ 
+          y[t]*\((x[t]\  - 
+                1\ )\)\[IndentingNewLine]}, \ \[IndentingNewLine]{x[t], 
+        y[t]}, \ \[IndentingNewLine]{t}, \[IndentingNewLine]Verbose \[Rule] 
+        True, \ \ \ DominantBehaviorMin\  \[Rule] \ \(-5\)\ \ , \
+\[IndentingNewLine]DominantBehaviorMax\  \[Rule] \ 
+        5\ \[IndentingNewLine]]\)], "Input"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[" F-XVIII (Cosgrove)", "Subsection",
+  FontSize->12],
+
+Cell[BoxData[
+    \(PainleveTest[\[IndentingNewLine]\(y''''\)[
+          x] \[Equal] \(-5\)*\(y'\)[x]*\(y''\)[x] + 5*y[x]^2*\(y''\)[x] + 
+          5*y[x]*\(y'\)[x]^2 - 
+          y[x]^5 + \((\[Lambda]*x + \[Alpha])\)*
+            y[x] + \[Gamma], \[IndentingNewLine]y[x], x]\)], "Input"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Single PDEs", "Section"],
+
+Cell[CellGroupData[{
+
+Cell["Fisher Equation", "Subsection",
+  FontSize->12],
+
+Cell[BoxData[
+    \(PainleveTest[{D[u[x, t], {x, 2}] + c*D[u[x, t], x] - u[x, t]^2 + 
+            u[x, t] \[Equal] 0}, u[x, t], {x, t}, 
+      KruskalSimplification \[Rule] x]\)], "Input"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Cylindrical KDV Equation", "Subsection",
+  FontSize->12],
+
+Cell[BoxData[
+    \(PainleveTest[{a[t]*D[u[x, t], \ x] + D[u[x, t], \ {x, \ 4}] + 
+          6*u[x, t]*D[u[x, t], \ {x, \ 2}] + 6*D[u[x, t], \ x]^2 + 
+          D[u[x, t], \ {x, \ 1}, \ {t, \ 1}]}, \ 
+      u[x, t], \ {x, t}]\)], "Input"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Burgers' Equations", "Subsection",
+  FontSize->12],
+
+Cell[BoxData[
+    \(PainleveTest[{D[u[x, t], \ t] + u[x, t]*D[u[x, t], \ x] - 
+          sigma*D[u[x, t], \ {x, 2}]}, \ u[x, t], \ {x, t}, \ 
+      Verbose \[Rule] True]\)], "Input"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Modified KdV", "Subsection",
+  FontSize->12],
+
+Cell[BoxData[
+    \(PainleveTest[{D[u[x, t], \ t] - 3*\ u[x, t]^2*D[u[x, t], \ x] + 
+          2*sigma^2*D[u[x, t], \ {x, 3}]}, u[x, t], \ {x, t}]\)], "Input"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Boussinesq Equation", "Subsection",
+  FontSize->12],
+
+Cell[BoxData[
+    \(PainleveTest[{D[u[x, t], \ {t, 2}] + 2*u[x, t]*D[u[x, t], \ {x, 2}] + 
+          2*D[u[x, t], \ x]^2 + \((1/3)\)*D[u[x, t], \ {x, 4}]}, \ 
+      u[x, t], \ {x, t}]\)], "Input"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Integrable Nonlinear Klein-Gordon Equations", "Subsection",
+  FontSize->12],
+
+Cell[CellGroupData[{
+
+Cell["Case I:  Sine-Gorden equation", "Subsubsection"],
+
+Cell[BoxData[
+    \(PainleveTest[{u[x, 
+              t]*\((D[u[x, t], \ {t, \ 2}] - D[u[x, t], \ {x, 2}])\) - 
+          D[u[x, t], \ t]^2 + 
+          D[u[x, t], \ x]^2\  - \ \((1/2)\)*u[x, t]^3 + \((1/2)\)*u[x, t]}, \ 
+      u[x, t], \ {x, t}]\)], "Input"],
+
+Cell[BoxData[
+    \(PainleveTest[{\(-2\)*D[u[x, t], \ t]*D[u[x, t], \ x] + 
+          2*u[x, t]*D[u[x, t], \ {x, \ 1}, \ {t, \ 1}] - u[x, t]^3 + 
+          u[x, t]}, u[x, t], \ {x, t}]\)], "Input"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Case II: Liouville equations", "Subsubsection"],
+
+Cell[BoxData[
+    \(PainleveTest[{u[x, 
+              t]*\((D[u[x, t], \ {t, \ 2}] - D[u[x, t], \ {x, 2}])\) - 
+          D[u[x, t], \ t]^2 + D[u[x, t], \ x]^2\  - \ u[x, t]^3}, \ 
+      u[x, t], \ {x, t}]\)], "Input"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["\<\
+Another example, page 180 in Steeb, where alpha[1]\[Rule] -1\
+\>", "Subsection",
+  FontSize->12],
+
+Cell[BoxData[
+    \(PainleveTest[{2*u[x, t]*D[u[x, t], \ t] + D[u[x, t], \ {x, \ 2}]}, 
+      u[x, t], \ {x, t}]\)], "Input"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Systems of PDEs", "Section"],
+
+Cell[CellGroupData[{
+
+Cell["One-Dimensional Nonlinear Schrodinger Equation", "Subsection",
+  FontSize->12],
+
+Cell[BoxData[
+    \(PainleveTest[{D[u[x, t], \ t] + D[v[x, t], \ {x, 2}] + 
+          a*v[x, t]*\((u[x, t]^2 + v[x, t]^2)\), \ 
+        D[v[x, t], \ t] - D[u[x, t], \ {x, 2}] - 
+          a*u[x, t]*\((u[x, t]^2 + v[x, t]^2)\)}, \ {u[x, t], \ 
+        v[x, t]}, \ {x, t}, \ KruskalSimplification \[Rule] x]\)], "Input"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Reduced Maxwell Bloch Equations", "Subsection",
+  FontSize->12],
+
+Cell[BoxData[
+    \(\(\(PainleveTest[{D[u[x, t], x] + mu*v[x, t], \ 
+        D[v[x, t], \ x] - e[x, t]*w[x, t] - mu*u[x, t], \ 
+        D[w[x, t], \ x] + e[x, t]*v[x, t], \ 
+        D[e[x, t], \ t] + v[x, t]}, \ {u[x, t], v[x, t], w[x, t], 
+        e[x, t]}, {x, t}, 
+      KruskalSimplification \[Rule] x]\)\(\ \)\)\)], "Input"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["\<\
+Lorenz Model of a Dissipative System with lim_{epsilon\[Rule]0}\
+\>", "Subsection",
+  FontSize->12],
+
+Cell[BoxData[
+    \(PainleveTest[{v[x, t] - D[u[x, t], \ t], \ 
+        u[x, t] - u[x, t]*w[x, t] - D[v[x, t], \ t], \ 
+        u[x, t]*v[x, t] - D[w[x, t], \ t]}, \ {u[x, t], \ v[x, t], 
+        w[x, t]}, \ {x, t}, KruskalSimplification \[Rule] x]\)], "Input"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Nonlinearly coupled interacting harmonic oscillators.", "Subsection",
+  FontSize->12],
+
+Cell[BoxData[
+    \(PainleveTest[{D[u[x, t], \ {t, \ 2}] + w1^2*u[x, t]\  + \ 
+          mu*v[x, t]*w[x, t], \ 
+        D[v[x, t], \ {t, \ 2}] + w1^2*v[x, t]\  + \ mu*u[x, t]*w[x, t], \ 
+        D[w[x, t], \ {t, \ 2}] + w1^2*w[x, t]\  + \ mu*u[x, t]*v[x, t]}, \ {u[
+          x, t], \ v[x, t], \ w[x, t]}, \ {x, t}]\)], "Input"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Two coupled PDEs", "Subsection",
+  FontSize->12],
+
+Cell[BoxData[
+    \(PainleveTest[{\(-D[u[x, t], \ 
+              t]\) + \((1/
+                3)\)*\((\(-D[u[x, t], \ {x, \ 2}]\) - \((7/2)\)*
+                  D[u[x, t], \ x]*v[x, t] + \((1/2)\)*u[x, t]*
+                  D[v[x, t], \ x] - u[x, t]^2*v[x, t])\), \ \(-D[
+              v[x, t], {t, \ 2}]\) + 
+          D[v[x, t], \ {x, \ 2}] - \((1/2)\)*D[u[x, t], \ x]*
+            v[x, t] + \((3/2)\)*u[x, t]*D[v[x, t], \ x]}, \ {u[x, t], \ 
+        v[x, t]}, \ {x, t}]\)], "Input"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["\<\
+Equation (2) in \"A note on the Painlev\.b4e property
+of coupled KdV equations by S.Yu.Sakovich.  arXiv:nlin.SI/0402004 v1 2 Feb \
+2004\
+\>", "Subsection",
+  FontSize->12],
+
+Cell[BoxData[
+    \(PainleveTest[{D[v[x, t], t]\  + \ 6*v[x, t]*D[v[x, t], \ x]\  + \ 
+              D[v[x, t], \ {x, \ 3}]\  \[Equal] \ 
+            0, \[IndentingNewLine]D[w[x, t], \ t]\  + \ 
+              6*a*v[x, t]*D[w[x, t], x\ ]\  + \ 
+              6*\((1 - a)\)*w[x, t]*D[v[x, t], \ x]\  + \ 
+              D[w[x, t], \ {x, 3}]\  \[Equal] \ 0} /. \ 
+        a\  \[Rule] \ 3/2, \[IndentingNewLine]{v[x, t], \ 
+        w[x, t]}, \[IndentingNewLine]{x, t}, \ Verbose \[Rule] True, \ 
+      KruskalSimplification \[Rule] x]\)], "Input"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Positive DominantBehaviorMax", "Section"],
+
+Cell[TextData[{
+  "Three interesting examples where one of the exponents in the dominant \
+behaviors is positive.  It is important that at least one of the values of ",
+  Cell[BoxData[
+      \(TraditionalForm\`\[Alpha]\_i\)]],
+  " is negative.  Furthermore, the branch with a positive \[Alpha] is called \
+the non-principal (or non-generic) branch."
+}], "Text"],
+
+Cell[BoxData[{
+    StyleBox[
+      RowBox[{\(Example\ 1\ is\ a\ coupled\ system\ of\ KdV - 
+          mKdV\ equations\ taken\ from\ \ Integrability\ of\ Kersten - 
+          Krasilshchik\), " "}],
+      "Text",
+      FontWeight->"Plain",
+      FontVariations->{"CompatibilityType"->0}], "\[IndentingNewLine]", 
+    StyleBox[\(coupled\ KdV - 
+        mKdV\ \(equations : \ 
+            singularity\ analysis\ and\ Lax\ pair\ \ by\ \ Kalkani\), \ 
+      Sakovich, \ \[IndentingNewLine]and\ Yurdusen . \ J . \ Math . \ 
+          Phys . \ 44 \((4)\)\ 2003, \ \(\(pp . \ 
+          1703\)\(-\)\(1708.\)\(\ \)\)\),
+      "Text",
+      FontWeight->"Plain",
+      FontVariations->{"CompatibilityType"->0}]}], "Input",
+  PageWidth->Infinity],
+
+Cell[BoxData[
+    StyleBox[\(We\ first\ run\ the\ test\ without\ specifiction\ of\ \
+DominantBehaviorMax\ \(\((which\ by\ default\ will\ be\  - 1)\)\(.\)\)\),
+      "Text",
+      FontWeight->"Plain",
+      FontVariations->{"CompatibilityType"->0}]], "Input"],
+
+Cell[BoxData[
+    \(\(\(PainleveTest[{D[u[x, t], \ t] \[Equal] \(-D[u[x, t], \ {x, 3}]\) + 
+            6*u[x, t]*D[u[x, t], \ x] - 3*w[x, t]*D[w[x, t], \ {x, 3}] - 
+            3*D[w[x, t], \ x]*D[w[x, t], \ {x, 2}] + 
+            3*D[u[x, t], \ x]*w[x, t]^2 + 
+            6*u[x, t]*w[x, t]*D[w[x, t], \ x], \ 
+        D[w[x, t], \ t] \[Equal] \(-D[w[x, t], \ {x, 3}]\) + 
+            3*w[x, t]^2*D[w[x, t], \ x] + 3*u[x, t]*D[w[x, t], \ x] + 
+            3*w[x, t]*D[u[x, t], \ x]}, \ {u[x, t], \ w[x, t]}, \ {x, t}, 
+      KruskalSimplification \[Rule] x]\)\(\[IndentingNewLine]\)
+    \)\)], "Input"],
+
+Cell[BoxData[
+    RowBox[{" ", 
+      RowBox[{
+        StyleBox[\(The\ software\ misses\ two\ non - 
+              generic\ \(branches : \ 
+                  alpha1\)\  = \ \(\(-2\)\ with\ alpha2\  = \ 2\), 
+          and\ alpha1 = \(\(-2\)\ with\ alpha2 = \ 3. \)\),
+          "Text"], 
+        StyleBox[" ",
+          "Text"], 
+        StyleBox["\[IndentingNewLine]",
+          "Text"], 
+        StyleBox[" ",
+          "Text"], 
+        RowBox[{
+          
+          StyleBox[\(By\ setting\ DemominantBehaviorMax\ sufficiently\ high\),
+            
+            "Text"], 
+          StyleBox[",",
+            "Text"], 
+          StyleBox[" ",
+            "Text"], 
+          StyleBox[\(in\ this\ case\ 3\ or\ larger\),
+            "Text"], 
+          StyleBox[",",
+            "Text"], 
+          StyleBox[" ",
+            "Text"], 
+          
+          StyleBox[\(these\ branches\ will\ be\ considered . \ \ \
+\[IndentingNewLine]Hence\),
+            "Text"], 
+          StyleBox[",",
+            "Text"], 
+          RowBox[{
+            StyleBox["run",
+              "Text"], 
+            StyleBox[" ",
+              "Text"], 
+            StyleBox["the",
+              "Text"], 
+            StyleBox[" ",
+              "Text"], 
+            StyleBox["test",
+              "Text"], 
+            StyleBox[" ",
+              "Text"], 
+            StyleBox["again",
+              "Text"], 
+            StyleBox[" ",
+              "Text"], 
+            StyleBox["with",
+              "Text"], 
+            StyleBox[" ",
+              "Text"], 
+            StyleBox["the",
+              "Text"], 
+            StyleBox[" ",
+              "Text"], 
+            StyleBox["following",
+              "Text"], 
+            StyleBox[" ",
+              "Text"], 
+            RowBox[{
+              StyleBox["settings",
+                "Text"], 
+              StyleBox[":",
+                "Text"], "\[IndentingNewLine]"}]}]}]}]}]], "Input",
+  PageWidth->Infinity],
+
+Cell[BoxData[
+    \(PainleveTest[{D[u[x, t], \ t] \[Equal] \(-D[u[x, t], \ {x, 3}]\) + 
+            6*u[x, t]*D[u[x, t], \ x] - 3*w[x, t]*D[w[x, t], \ {x, 3}] - 
+            3*D[w[x, t], \ x]*D[w[x, t], \ {x, 2}] + 
+            3*D[u[x, t], \ x]*w[x, t]^2 + 
+            6*u[x, t]*w[x, t]*D[w[x, t], \ x], \ 
+        D[w[x, t], \ t] \[Equal] \(-D[w[x, t], \ {x, 3}]\) + 
+            3*w[x, t]^2*D[w[x, t], \ x] + 3*u[x, t]*D[w[x, t], \ x] + 
+            3*w[x, t]*D[u[x, t], \ x]}, \ {u[x, t], \ w[x, t]}, \ {x, t}, 
+      KruskalSimplification \[Rule] x, \ 
+      DominantBehaviorMax \[Rule] 3]\)], "Input"],
+
+Cell[BoxData[
+    \(Example\ 2 : \ A\ coupled\ system\ of\ \(\(ODEs\)\(.\)\)\)], "Input"],
+
+Cell[BoxData[
+    \(PainleveTest[{\[IndentingNewLine]D[x[t], \ t]\  \[Equal] \ 
+          x[t]*\((a - x[t] - y[t])\), \[IndentingNewLine]D[y[t], 
+            t]\  \[Equal] \ 
+          y[t]*\((x[t]\  - 
+                1\ )\)\[IndentingNewLine]}, \ \[IndentingNewLine]{x[t], 
+        y[t]}, \ \[IndentingNewLine]{t}, \[IndentingNewLine]Verbose \[Rule] 
+        True, \[IndentingNewLine]DominantBehaviorMax\  \[Rule] \ 
+        2\[IndentingNewLine]]\)], "Input"],
+
+Cell[BoxData[
+    \(Example\ 3 : \ \(\(A\)\(\ \)\(coupled\)\(\ \)\(system\)\(\ \)\(of\)\(\ \
+\)\(PDEs\)\(\ \)\)\)], "Input"],
+
+Cell[BoxData[
+    \(PainleveTest[\[IndentingNewLine]{D[u[x, t], t]\  \[Equal] \ 
+          D[u[x, t], \ {x, \ 2}]\  - \ 2*u[x, t]^2\  + \ 
+            12*v[x, t], \[IndentingNewLine]D[v[x, t], t]\  \[Equal] \ 
+          D[v[x, t], \ {x, \ 2}]\  - \ 
+            2*u[x, t]*v[x, t]}, \[IndentingNewLine]{u[x, t], 
+        v[x, t]}, \[IndentingNewLine]{x, 
+        t}, \[IndentingNewLine]Verbose \[Rule] 
+        True, \[IndentingNewLine]DominantBehaviorMax\  \[Rule] \ 
+        3, \[IndentingNewLine]KruskalSimplification \[Rule] 
+        x\[IndentingNewLine]]\)], "Input"]
+}, Open  ]]
+}, Open  ]]
+},
+FrontEndVersion->"5.0 for Microsoft Windows",
+ScreenRectangle->{{0, 1280}, {0, 941}},
+ScreenStyleEnvironment->"Working",
+WindowSize->{1147, 854},
+WindowMargins->{{Automatic, 53}, {Automatic, 16}},
+PrintingCopies->1,
+PrintingPageRange->{Automatic, Automatic},
+Magnification->1.25
+]
+
+(*******************************************************************
+Cached data follows.  If you edit this Notebook file directly, not
+using Mathematica, you must remove the line containing CacheID at
+the top of  the file.  The cache data will then be recreated when
+you save this file from within Mathematica.
+*******************************************************************)
+
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+
+(*NotebookFileOutline
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[1776, 53, 39, 0, 117, "Title"],
+Cell[1818, 55, 70, 1, 35, "Input"],
+Cell[1891, 58, 2334, 38, 455, "Input"],
+Cell[4228, 98, 157, 3, 38, "Text"],
+Cell[4388, 103, 181, 3, 56, "Input"],
+Cell[4572, 108, 93, 1, 35, "Input"],
+Cell[4668, 111, 60, 1, 35, "Input"],
+Cell[4731, 114, 440, 9, 122, "Text"],
+Cell[5174, 125, 48, 1, 35, "Input"],
+Cell[5225, 128, 120, 3, 38, "Text"],
+Cell[5348, 133, 236, 4, 54, "Input"],
+Cell[5587, 139, 242, 4, 59, "Text"],
+Cell[5832, 145, 71, 1, 30, "DisplayFormula"],
+Cell[5906, 148, 103, 3, 38, "Text"],
+Cell[6012, 153, 202, 3, 57, "DisplayFormula"],
+Cell[6217, 158, 1169, 22, 185, "Text"],
+Cell[7389, 182, 390, 7, 77, "Input"],
+Cell[7782, 191, 453, 8, 80, "Text"],
+Cell[8238, 201, 425, 7, 74, "Input"],
+Cell[8666, 210, 203, 5, 59, "Text"],
+Cell[8872, 217, 445, 8, 94, "Input"],
+Cell[9320, 227, 599, 11, 143, "Text"],
+Cell[9922, 240, 690, 12, 161, "Input"],
+
+Cell[CellGroupData[{
+Cell[10637, 256, 23, 0, 92, "Section"],
+
+Cell[CellGroupData[{
+Cell[10685, 260, 62, 1, 45, "Subsection"],
+Cell[10750, 263, 88, 1, 35, "Input"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[10875, 269, 64, 1, 45, "Subsection"],
+Cell[10942, 272, 111, 2, 35, "Input"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[11090, 279, 111, 3, 45, "Subsection"],
+Cell[11204, 284, 186, 3, 77, "Input"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[11427, 292, 141, 4, 45, "Subsection"],
+Cell[11571, 298, 515, 9, 203, "Input"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[12123, 312, 57, 1, 45, "Subsection"],
+Cell[12183, 315, 288, 5, 77, "Input"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[12520, 326, 30, 0, 92, "Section"],
+
+Cell[CellGroupData[{
+Cell[12575, 330, 53, 1, 45, "Subsection"],
+Cell[12631, 333, 188, 3, 56, "Input"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[12856, 341, 62, 1, 45, "Subsection"],
+Cell[12921, 344, 238, 4, 77, "Input"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[13196, 353, 56, 1, 45, "Subsection"],
+Cell[13255, 356, 182, 3, 56, "Input"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[13474, 364, 50, 1, 45, "Subsection"],
+Cell[13527, 367, 159, 2, 56, "Input"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[13723, 374, 57, 1, 45, "Subsection"],
+Cell[13783, 377, 196, 3, 56, "Input"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[14016, 385, 81, 1, 45, "Subsection"],
+
+Cell[CellGroupData[{
+Cell[14122, 390, 54, 0, 34, "Subsubsection"],
+Cell[14179, 392, 259, 5, 77, "Input"],
+Cell[14441, 399, 197, 3, 56, "Input"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[14675, 407, 53, 0, 34, "Subsubsection"],
+Cell[14731, 409, 218, 4, 56, "Input"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[14998, 419, 106, 3, 45, "Subsection"],
+Cell[15107, 424, 125, 2, 35, "Input"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[15281, 432, 34, 0, 92, "Section"],
+
+Cell[CellGroupData[{
+Cell[15340, 436, 84, 1, 45, "Subsection"],
+Cell[15427, 439, 318, 5, 77, "Input"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[15782, 449, 69, 1, 45, "Subsection"],
+Cell[15854, 452, 329, 6, 77, "Input"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[16220, 463, 109, 3, 45, "Subsection"],
+Cell[16332, 468, 261, 4, 56, "Input"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[16630, 477, 91, 1, 45, "Subsection"],
+Cell[16724, 480, 328, 5, 77, "Input"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[17089, 490, 54, 1, 45, "Subsection"],
+Cell[17146, 493, 485, 9, 119, "Input"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[17668, 507, 181, 5, 65, "Subsection"],
+Cell[17852, 514, 542, 9, 119, "Input"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+Cell[18443, 529, 47, 0, 92, "Section"],
+Cell[18493, 531, 361, 7, 59, "Text"],
+Cell[18857, 540, 733, 17, 77, "Input"],
+Cell[19593, 559, 258, 5, 35, "Input"],
+Cell[19854, 566, 604, 10, 140, "Input"],
+Cell[20461, 578, 1951, 69, 98, "Input"],
+Cell[22415, 649, 608, 10, 119, "Input"],
+Cell[23026, 661, 89, 1, 35, "Input"],
+Cell[23118, 664, 461, 8, 203, "Input"],
+Cell[23582, 674, 124, 2, 35, "Input"],
+Cell[23709, 678, 571, 10, 203, "Input"]
+}, Open  ]]
+}, Open  ]]
+}
+]
+*)
+
+
+
+(*******************************************************************
+End of Mathematica Notebook file.
+*******************************************************************)
+

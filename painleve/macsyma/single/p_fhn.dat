@@ -1,0 +1,26 @@
+
+
+/* ************************************************************************* */
+/*                         Batch file P_FHN.DAT                              */
+/* ************************************************************************* */
+
+/* Comment: 
+To use the simplification suggested by Kruskal the file needs to 
+contain the following two lines:  */
+
+/*
+do_simplification: true;
+prefer_variable:x;
+*/
+
+/* The FITZHUGH-NAGUMO equation in travelling frame of reference:  */
+/* Replace u_t by -(c/sqrt(2))*f_x , so the velocity is c/sqrt(2) */
+/* Also replace u by sqrt(2)*f, for easy factorization later on */
+/* Then clear all the denominators */
+
+eq: c*fx[1](x)+sqrt(2)*fx[2](x)-sqrt(2)*f*(1-sqrt(2)*f)*(a-sqrt(2)*f); 
+
+/* where a and c are arbitrary real constants */
+
+/* *************************** END of P_FHN.DAT ************************** */
+

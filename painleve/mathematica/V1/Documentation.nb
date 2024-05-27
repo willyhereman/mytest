@@ -1,0 +1,305 @@
+(***********************************************************************
+
+                    Mathematica-Compatible Notebook
+
+This notebook can be used on any computer system with Mathematica 4.0,
+MathReader 4.0, or any compatible application. The data for the notebook 
+starts with the line containing stars above.
+
+To get the notebook into a Mathematica-compatible application, do one of 
+the following:
+
+* Save the data starting with the line of stars above into a file
+  with a name ending in .nb, then open the file inside the application;
+
+* Copy the data starting with the line of stars above to the
+  clipboard, then use the Paste menu command inside the application.
+
+Data for notebooks contains only printable 7-bit ASCII and can be
+sent directly in email or through ftp in text mode.  Newlines can be
+CR, LF or CRLF (Unix, Macintosh or MS-DOS style).
+
+NOTE: If you modify the data for this notebook not in a Mathematica-
+compatible application, you must delete the line below containing the 
+word CacheID, otherwise Mathematica-compatible applications may try to 
+use invalid cache data.
+
+For more information on notebooks and Mathematica-compatible 
+applications, contact Wolfram Research:
+  web: http://www.wolfram.com
+  email: info@wolfram.com
+  phone: +1-217-398-0700 (U.S.)
+
+Notebook reader applications are available free of charge from 
+Wolfram Research.
+***********************************************************************)
+
+(*CacheID: 232*)
+
+
+(*NotebookFileLineBreakTest
+NotebookFileLineBreakTest*)
+(*NotebookOptionsPosition[      7649,        226]*)
+(*NotebookOutlinePosition[      8365,        251]*)
+(*  CellTagsIndexPosition[      8321,        247]*)
+(*WindowFrame->Normal*)
+
+
+
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["\<\
+Welcome to the Painleve Test Package for Mathematica 4.0:
+By Douglas Baldwin and Willy Hereman
+\[Copyright] 2000, Colorado School of Mines, Golden CO, 80401\
+\>", "Subtitle"],
+
+Cell[BoxData[
+    \(SetDirectory["\<c:\\painleve\\9-09-00\\painleve\>"]\)], "Input"],
+
+Cell[BoxData[
+    \(<< painleve.m\)], "Input"],
+
+Cell[BoxData[
+    \(\(?PainleveTest\)\)], "Input"],
+
+Cell[BoxData[
+    \( (*\ Single\ \(\(Equation\)\(:\)\)\ *) \)], "Input"],
+
+Cell[BoxData[
+    \( (*\ Fisher\ Equation\ *) \)], "Input"],
+
+Cell[BoxData[
+    \(PainleveTest[{D[u[x, t], {x, 2}] + c*D[u[x, t], x] - u[x, t]^2 + 
+            u[x, t] \[Equal] 0}, u[x, t], {x, t}, 
+      Kruskal \[Rule] x]\)], "Input"],
+
+Cell[BoxData[
+    \( (*\ Cylindrical\ KDV\ Equation\ *) \)], "Input"],
+
+Cell[BoxData[
+    \(PainleveTest[{a[t]*D[u[x, t], \ x] + D[u[x, t], \ {x, \ 4}] + 
+          6*u[x, t]*D[u[x, t], \ {x, \ 2}] + 6*D[u[x, t], \ x]^2 + 
+          D[u[x, t], \ {x, \ 1}, \ {t, \ 1}]}, \ 
+      u[x, t], \ {x, t}]\)], "Input"],
+
+Cell[BoxData[
+    \( (*\ Burgers'\ Equations\ *) \)], "Input"],
+
+Cell[BoxData[
+    \(PainleveTest[{D[u[x, t], \ t] + u[x, t]*D[u[x, t], \ x] - 
+          sigma*D[u[x, t], \ {x, 2}]}, \ u[x, t], \ {x, t}]\)], "Input"],
+
+Cell[BoxData[
+    \( (*\ KdV\ *) \)], "Input"],
+
+Cell[BoxData[
+    \(PainleveTest[{D[u[x, t], \ t] + \ 6*u[x, t]*D[u[x, t], \ x] + 
+          D[u[x, t], \ {x, 3}]}, \ u[x, t], \ {x, t}, \ 
+      Kruskal \[Rule] x]\)], "Input"],
+
+Cell[BoxData[
+    \( (*\ Modified\ KdV\ *) \)], "Input"],
+
+Cell[BoxData[
+    \(PainleveTest[{D[u[x, t], \ t] - 3*\ u[x, t]^2*D[u[x, t], \ x] + 
+          2*sigma^2*D[u[x, t], \ {x, 3}]}, u[x, t], \ {x, t}]\)], "Input"],
+
+Cell[BoxData[
+    \( (*\ Boussinesq\ Equation\ *) \)], "Input"],
+
+Cell[BoxData[
+    \(PainleveTest[{D[u[x, t], \ {t, 2}] + 2*u[x, t]*D[u[x, t], \ {x, 2}] + 
+          2*D[u[x, t], \ x]^2 + \((1/3)\)*D[u[x, t], \ {x, 4}]}, \ 
+      u[x, t], \ {x, t}]\)], "Input"],
+
+Cell[BoxData[
+    \( (*\ Integrable\ Nonlinear\ Klein - Gordon\ Equations\ *) \)], "Input"],
+
+Cell[BoxData[
+    \( (*\ Case\ \(I : \ \ Sine - Gorden\ equation\)\ *) \)], "Input"],
+
+Cell[BoxData[
+    \(PainleveTest[{u[x, 
+              t]*\((D[u[x, t], \ {t, \ 2}] - D[u[x, t], \ {x, 2}])\) - 
+          D[u[x, t], \ t]^2 + 
+          D[u[x, t], \ x]^2\  - \ \((1/2)\)*u[x, t]^3 + \((1/2)\)*u[x, t]}, \ 
+      u[x, t], \ {x, t}]\)], "Input"],
+
+Cell[BoxData[
+    \(PainleveTest[{\(-2\)*D[u[x, t], \ t]*D[u[x, t], \ x] + 
+          2*u[x, t]*D[u[x, t], \ {x, \ 1}, \ {t, \ 1}] - u[x, t]^3 + 
+          u[x, t]}, u[x, t], \ {x, t}]\)], "Input"],
+
+Cell[BoxData[
+    \( (*\ Case\ \(II : \ Liouville\ equations\)\ *) \)], "Input"],
+
+Cell[BoxData[
+    \(PainleveTest[{u[x, 
+              t]*\((D[u[x, t], \ {t, \ 2}] - D[u[x, t], \ {x, 2}])\) - 
+          D[u[x, t], \ t]^2 + D[u[x, t], \ x]^2\  - \ u[x, t]^3}, \ 
+      u[x, t], \ {x, t}]\)], "Input"],
+
+Cell[BoxData[
+    \( (*\ Another\ example, \ page\ 180\ in\ Steeb, \ 
+      where\ alpha[1] \[Rule] \ \(-1\)\ *) \)], "Input"],
+
+Cell[BoxData[
+    \(PainleveTest[{2*u[x, t]*D[u[x, t], \ t] + D[u[x, t], \ {x, \ 2}]}, 
+      u[x, t], \ {x, t}]\)], "Input"],
+
+Cell[BoxData[""], "Input"],
+
+Cell[BoxData[
+    \( (*\ Systems\ of\ \(\(Equations\)\(:\)\)\ *) \)], "Input"],
+
+Cell[BoxData[
+    \( (*\ One - 
+          Dimensional\ Nonlinear\ Schrodinger\ Equation\ alpha1\  = \ \
+\(alpha2\  = \ \(-1\)\)\ *) \)], "Input"],
+
+Cell[BoxData[
+    \(PainleveTest[{D[u[x, t], \ t] + D[v[x, t], \ {x, 2}] + 
+          a*v[x, t]*\((u[x, t]^2 + v[x, t]^2)\), \ 
+        D[v[x, t], \ t] - D[u[x, t], \ {x, 2}] - 
+          a*u[x, t]*\((u[x, t]^2 + v[x, t]^2)\)}, \ {u[x, t], \ 
+        v[x, t]}, \ {x, t}, \ Kruskal \[Rule] x]\)], "Input"],
+
+Cell[BoxData[
+    \( (*\ Reduced\ Maxwell\ Bloch\ Equations\ *) \)], "Input"],
+
+Cell[BoxData[
+    \(\(\(PainleveTest[{D[u[x, t], x] + mu*v[x, t], \ 
+        D[v[x, t], \ x] - e[x, t]*w[x, t] - mu*u[x, t], \ 
+        D[w[x, t], \ x] + e[x, t]*v[x, t], \ 
+        D[e[x, t], \ t] + v[x, t]}, \ {u[x, t], v[x, t], w[x, t], 
+        e[x, t]}, {x, t}, Kruskal \[Rule] x]\)\(\ \)\)\)], "Input"],
+
+Cell[BoxData[
+    \( (*\ 
+      Lorenz\ Model\ of\ a\ Dissipative\ System\ with\ lim_ {epsilon \[Rule] 
+            0}\ *) \)], "Input"],
+
+Cell[BoxData[
+    \(PainleveTest[{v[x, t] - D[u[x, t], \ t], \ 
+        u[x, t] - u[x, t]*w[x, t] - D[v[x, t], \ t], \ 
+        u[x, t]*v[x, t] - D[w[x, t], \ t]}, \ {u[x, t], \ v[x, t], 
+        w[x, t]}, \ {x, t}, Kruskal \[Rule] x]\)], "Input"],
+
+Cell[BoxData[
+    \( (*\ 
+      Nonlinearly\ coupled\ interacting\ harmonic\ \(\(oscillators\)\(.\)\)\ *) \
+\)], "Input"],
+
+Cell[BoxData[
+    \(PainleveTest[{D[u[x, t], \ {t, \ 2}] + w1^2*u[x, t]\  + \ 
+          mu*v[x, t]*w[x, t], \ 
+        D[v[x, t], \ {t, \ 2}] + w1^2*v[x, t]\  + \ mu*u[x, t]*w[x, t], \ 
+        D[w[x, t], \ {t, \ 2}] + w1^2*w[x, t]\  + \ mu*u[x, t]*v[x, t]}, \ {u[
+          x, t], \ v[x, t], \ w[x, t]}, \ {x, t}]\)], "Input"],
+
+Cell[BoxData[
+    \( (*\ Two\ coupled\ PDEs\ *) \)], "Input"],
+
+Cell[BoxData[
+    \(PainleveTest[{\(-D[u[x, t], \ 
+              t]\) + \((1/
+                3)\)*\((\(-D[u[x, t], \ {x, \ 2}]\) - \((7/2)\)*
+                  D[u[x, t], \ x]*v[x, t] + \((1/2)\)*u[x, t]*
+                  D[v[x, t], \ x] - u[x, t]^2*v[x, t])\), \ \(-D[
+              v[x, t], {t, \ 2}]\) + 
+          D[v[x, t], \ {x, \ 2}] - \((1/2)\)*D[u[x, t], \ x]*
+            v[x, t] + \((3/2)\)*u[x, t]*D[v[x, t], \ x]}, \ {u[x, t], \ 
+        v[x, t]}, \ {x, t}]\)], "Input"],
+
+Cell[BoxData[
+    \( (*\ Hirota\ Satsuma\ *) \)], "Input"],
+
+Cell[BoxData[
+    \(PainleveTest[{\(-aa\)*D[u[x, t], \ {x, \ 3}] - 
+          6*aa*u[x, t]*D[u[x, t], \ x] + 6*v[x, t]*D[v[x, t], \ x] + 
+          D[u[x, t], \ t], \[IndentingNewLine]D[v[x, t], \ {x, \ 3}] + 
+          3*u[x, t]*D[v[x, t], \ x] + D[v[x, t], \ t]}, \ {u[x, t], 
+        v[x, t]}, \ {x, t}, \ Kruskal \[Rule] x]\)], "Input"]
+}, Open  ]]
+},
+FrontEndVersion->"4.0 for Microsoft Windows",
+ScreenRectangle->{{0, 1118}, {0, 791}},
+WindowSize->{1110, 764},
+WindowMargins->{{0, Automatic}, {Automatic, 0}},
+PrintingCopies->1,
+PrintingPageRange->{Automatic, Automatic}
+]
+
+
+(***********************************************************************
+Cached data follows.  If you edit this Notebook file directly, not using
+Mathematica, you must remove the line containing CacheID at the top of 
+the file.  The cache data will then be recreated when you save this file 
+from within Mathematica.
+***********************************************************************)
+
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+
+(*NotebookFileOutline
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[1739, 51, 184, 4, 122, "Subtitle"],
+Cell[1926, 57, 84, 1, 30, "Input"],
+Cell[2013, 60, 46, 1, 30, "Input"],
+Cell[2062, 63, 50, 1, 30, "Input"],
+Cell[2115, 66, 72, 1, 30, "Input"],
+Cell[2190, 69, 59, 1, 30, "Input"],
+Cell[2252, 72, 174, 3, 30, "Input"],
+Cell[2429, 77, 69, 1, 30, "Input"],
+Cell[2501, 80, 238, 4, 50, "Input"],
+Cell[2742, 86, 62, 1, 30, "Input"],
+Cell[2807, 89, 151, 2, 30, "Input"],
+Cell[2961, 93, 46, 1, 30, "Input"],
+Cell[3010, 96, 177, 3, 30, "Input"],
+Cell[3190, 101, 56, 1, 30, "Input"],
+Cell[3249, 104, 159, 2, 30, "Input"],
+Cell[3411, 108, 63, 1, 30, "Input"],
+Cell[3477, 111, 196, 3, 30, "Input"],
+Cell[3676, 116, 91, 1, 30, "Input"],
+Cell[3770, 119, 84, 1, 30, "Input"],
+Cell[3857, 122, 259, 5, 50, "Input"],
+Cell[4119, 129, 197, 3, 30, "Input"],
+Cell[4319, 134, 80, 1, 30, "Input"],
+Cell[4402, 137, 218, 4, 30, "Input"],
+Cell[4623, 143, 126, 2, 30, "Input"],
+Cell[4752, 147, 125, 2, 30, "Input"],
+Cell[4880, 151, 26, 0, 30, "Input"],
+Cell[4909, 153, 78, 1, 30, "Input"],
+Cell[4990, 156, 145, 3, 30, "Input"],
+Cell[5138, 161, 304, 5, 50, "Input"],
+Cell[5445, 168, 77, 1, 30, "Input"],
+Cell[5525, 171, 308, 5, 50, "Input"],
+Cell[5836, 178, 136, 3, 30, "Input"],
+Cell[5975, 183, 247, 4, 50, "Input"],
+Cell[6225, 189, 121, 3, 30, "Input"],
+Cell[6349, 194, 328, 5, 50, "Input"],
+Cell[6680, 201, 61, 1, 30, "Input"],
+Cell[6744, 204, 485, 9, 70, "Input"],
+Cell[7232, 215, 58, 1, 30, "Input"],
+Cell[7293, 218, 340, 5, 50, "Input"]
+}, Open  ]]
+}
+]
+*)
+
+
+
+
+(***********************************************************************
+End of Mathematica Notebook file.
+***********************************************************************)
+

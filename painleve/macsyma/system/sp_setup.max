@@ -1,0 +1,18 @@
+
+/* sp_setup.max */
+
+kill(all)$
+loadprint: false$
+/* loadfile(painl412,lsp)$ */
+batchload("painsys.max")$ 
+/* This was the old name of the code */
+/* batchload("sp_sys.max")$ */
+derivabbrev: true$
+
+depends([f,eq],[t,x,y,z])$
+fx[i,k](x):= diff(f[i],x,k)$
+ftx[i,k,l](t,x):= diff(diff(f[i],t,k),x,l)$
+ftxy[i,k,l,m](t,x,y):= diff(diff(diff(f[i],t,k),x,l),y,m)$
+ftxyz[i,k,l,m,n](t,x,y,z):= diff(diff(diff(diff(f[i],t,k),x,l),y,m),z,n)$
+
+/* sp_setup.max */

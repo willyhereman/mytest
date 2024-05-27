@@ -1,0 +1,20 @@
+
+/* ************************************************************************* */
+/*                           Batch file NP_SETUP.MAX                         */
+/* ************************************************************************* */
+
+  kill (all)$
+  loadprint : false$
+/* loadfile (np_sing,lsp)$ */
+/* this was the old name of the code */
+/*  batchload("np_sing.max")$ */
+  batchload("painsing.max")$ 
+  derivabbrev : true$
+  depends([f,eq],[t,x,y,z])$
+  fx[k](x):=diff(f,x,k)$
+  ftx[k,l](t,x):=diff(diff(f,t,k),x,l)$
+  ftxy[k,l,m](t,x,y):=diff(diff(diff(f,t,k),x,l),y,m)$
+  ftxyz[k,l,m,n](t,x,y,z):=diff(diff(diff(diff(f,t,k),x,l),y,m),z,n)$
+
+/* ************************ END of NP_SETUP.MAX ************************** */
+

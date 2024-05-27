@@ -1,0 +1,210 @@
+
+(D17)       CSM$USERS:[WHEREMAN.PROGRAMS.NPAINLEVE.SINGLE]P_KS.OUT;1
+
+
+(C18) batch("np_exec.max")$
+
+
+(C19) /* ************************************************************************* */
+/*                           Batch file NP_EXEC.MAX                          */
+/* ************************************************************************* */
+
+exec_painleve (eq, alpha, do_resonances, max_resonance, do_simplification)$
+
+You are using the simplification suggested by KRUSKAL
+
+You selected G(T,X,...) = X - H(T,...)
+
+----------------------------------------------------------------
+
+PAINLEVE ANALYSIS OF EQUATION,  F        + F    + F F  + F   = 0
+                                 X X X X    X X      X    T
+
+----------------------------------------------------------------
+
+                  ALPHA
+  SUBSTITUTE  U  G       FOR f IN ORIGINAL EQUATION.
+               0
+
+  MINIMUM POWERS OF g ARE  [2 ALPHA - 1, ALPHA - 4]
+
+                       2 ALPHA - 1       2
+    * COEFFICIENT OF  G             IS  U  ALPHA
+                                         0
+
+     NOTE : THIS TERM VANISHES FOR  ALPHA = 0 ,
+
+     VERIFY IF  ALPHA = 0  LEADS TO DOMINANT BEHAVIOR,
+
+     IF IT DOES THEN RUN THE PROGRAM AGAIN WITH THIS USER 
+
+     SUPPLIED VALUE OF ALPHA.
+
+     HENCE, PUT BETA =  0 .
+
+                       ALPHA - 4
+    * COEFFICIENT OF  G           IS  U  (ALPHA - 3) (ALPHA - 2) (ALPHA - 1)
+                                       0
+
+                                                                           ALPHA
+
+    NOTE : THIS TERM VANISHES FOR   [ALPHA = 0, ALPHA = 1, ALPHA = 2, ALPHA = 3]
+
+                                                                               ,
+
+    VERIFY IF ANY OF THESE VALUES FOR ALPHA LEADS TO DOMINANT
+
+    BEHAVIOR,
+
+    IF IT DOES THEN RUN THE PROGRAM AGAIN WITH THIS VALUE
+
+    AS USER SUPPLIED ALPHA, CALLED BETA.
+
+----------------------------------------------------------------
+
+  FOR EXPONENTS ( 2 ALPHA - 1 ) AND ( ALPHA - 4 ) OF g,
+
+    WITH alpha =  - 3 , POWER OF g is  - 7  ----> SOLVE FOR  U
+                                                              0
+
+                               1
+       TERM  - 3 (U  - 120) U  --  IS DOMINANT
+                   0         0  7
+                               G
+
+       IN EQUATION.
+
+----------------------------------------------------------------
+
+1 )  WITH  U  = 120  ----> FIND RESONANCES
+            0
+
+                    ALPHA         R + ALPHA
+    SUBSTITUTE  U  G       +  U  G           FOR f IN EQUATION
+                 0             R
+
+                                2                    R - 7
+       TERM ( (R - 6) (R + 1) (R  - 13 R + 60) ) U  G       IS DOMINANT
+                                                  R
+
+       IN EQUATION.
+
+       THE ONLY NON-NEGATIVE INTEGRAL ROOT IS  [R = 6]
+
+ 
+
+    WITH MAXIMUM RESONANCE =  6  ----> CHECK RESONANCES.
+
+                              6
+                             ====
+                             \      K - 3
+    SUBSTITUTE POWER SERIES   >    G      U   FOR f IN EQUATION.
+                             /             K
+                             ====
+                             K = 0
+
+    WITH U  = 120
+          0
+
+                         1
+        * COEFFICIENT OF -- IS  - 480 U
+                          6            1
+                         G
+
+        U  = 0
+         1
+
+                         1
+        * COEFFICIENT OF -- IS  - 24 (19 U  - 60)
+                          5               2
+                         G
+
+             60
+        U  = --
+         2   19
+
+                         1
+        * COEFFICIENT OF -- IS  360 (H  - U )
+                          4           T    3
+                         G
+
+        U  = H
+         3    T
+
+                                  120 (722 U  + 11)
+                         1                  4
+        * COEFFICIENT OF -- IS  - -----------------
+                          3              361
+                         G
+
+               11
+        U  = - ---
+         4     722
+
+                         1
+        * COEFFICIENT OF -- IS  - 120 U
+                          2            5
+                         G
+
+        U  = 0
+         5
+
+                         1
+        * COEFFICIENT OF - IS  0
+                         G
+
+        U  IS ARBITRARY !
+         6
+
+       COMPATIBILITY CONDITION IS SATISFIED !
+
+----------------------------------------------------------------
+
+
+(C20) output()$
+
+----------------------------------------------------------------
+
+AT THE END OF THE COMPUTATIONS THE FOLLOWING ARE AVAILABLE:
+
+* U VALUE(S)
+
+  (type uval[j,k,l] where 1 <= j <=  1 and 0 <= k <=  [6]
+
+  and 1 <= l <=  [1] )
+
+  j stands for j_th alpha,k stands for u[k],l stands for
+
+  l_th solution set for u[0] 
+
+* ALPHA VALUE(S)
+
+  (type alpha[j] where 1 <= j <=  1 )
+
+  j stands for j_th alpha
+
+* COMPATIBILITY CONDITION(S)
+
+  (type compcond[j,k] where 1 <= j <=  1 and 1 <= k <=  [1] )
+
+  j stands for j_th alpha,k stands for k_th solution set for u[0]
+
+* RESONANCE(S)
+
+  (type res[j,k] where 1 <= j <=  1 and 1 <= k <=  [1] )
+
+  j stands for j_th alpha,k stands for k_th solution set for u[0]
+
+----------------------------------------------------------------
+
+TO SEE THIS MENU AGAIN JUST TYPE < output() >
+
+----------------------------------------------------------------
+
+
+
+(C21) /* ************************** END of NP_EXEC.MAX ************************** */
+
+
+
+(C22) closefile()$

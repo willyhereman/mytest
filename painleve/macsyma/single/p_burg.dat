@@ -1,0 +1,40 @@
+
+/* ************************************************************************* */
+/*                         Batch file P_BURG.DAT                             */
+/* ************************************************************************* */
+
+debug1 : true; 
+debug2 : true;
+
+/* To use the simplification suggested by Kruskal the file needs to 
+   contain the following two lines: */ 
+
+do_simplification: true ;
+prefer_variable: x;
+
+/* To use user-supplied alpha (called beta) the file needs to contain
+   the following line: */
+
+/* beta : -1; */ 
+
+/* To give uzero from outside the flag giving_uzero must be set to true
+   on the next line: */
+
+giving_uzero : false;
+depends(g,x) ;
+supplied_uzero : -2*a*diff(g,x); 
+
+/* Sometimes solutions to u[0] can be very messy,for those cases if you still
+   want to solve for u[0] explicitly set the flag solving_uzero to true
+   on the next line */
+
+solving_uzero : false ;
+
+/* The BURGERS equation :  */
+
+eq: ftx[1,0](t,x)+f*ftx[0,1](t,x)-a*ftx[0,2](t,x); 
+
+/* where a is an arbitrary real constant */
+
+/* **************************** END of P_BUR.DAT ************************ */
+

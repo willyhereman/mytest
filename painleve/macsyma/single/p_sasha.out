@@ -1,0 +1,228 @@
+
+(D15)     CSM$USERS:[WHEREMAN.PROGRAMS.NPAINLEVE.SINGLE]P_SASHA.OUT;2
+
+
+(C16) batch("np_exec.max")$
+
+
+(C17) /* ************************************************************************* */
+/*                           Batch file NP_EXEC.MAX                          */
+/* ************************************************************************* */
+
+exec_painleve (eq, alpha, do_resonances, max_resonance, do_simplification)$
+
+You are using the simplification suggested by KRUSKAL
+
+You selected G(T,X,...) = X - H(T,...)
+
+----------------------------------------------------------------
+
+PAINLEVE ANALYSIS OF EQUATION,  F      + 2 F      F  + F          + 4 F  F
+                                 Y Y Y      X X X  Y    X X X X Y      X  X X Y
+
+                                                   + 6 F    F    - 2 F       = 0
+                                                        X Y  X X      T X X
+
+----------------------------------------------------------------
+
+                  ALPHA
+  SUBSTITUTE  U  G       FOR f IN ORIGINAL EQUATION.
+               0
+
+  MINIMUM POWERS OF g ARE  [2 ALPHA - 4, ALPHA - 5]
+
+                       2 ALPHA - 4
+    * COEFFICIENT OF  G             IS  
+
+                                           2                  2
+                                      - 6 U  (ALPHA - 1) ALPHA  (2 ALPHA - 3) H
+                                           0                                   Y
+
+                                             3
+    NOTE : THIS TERM VANISHES FOR   [ALPHA = -, ALPHA = 0, ALPHA = 1] ,
+                                             2
+
+    VERIFY IF ANY OF THESE VALUES FOR ALPHA LEADS TO DOMINANT
+
+    BEHAVIOR,
+
+    IF IT DOES THEN RUN THE PROGRAM AGAIN WITH THIS VALUE
+
+    AS USER SUPPLIED ALPHA, CALLED BETA.
+
+                       ALPHA - 5
+    * COEFFICIENT OF  G           IS  - U  (ALPHA - 4) (ALPHA - 3) (ALPHA - 2)
+                                         0
+
+                                                            (ALPHA - 1) ALPHA H
+                                                                               Y
+
+    NOTE : THIS TERM VANISHES FOR   [ALPHA = 0, ALPHA = 1, ALPHA = 2, 
+
+                                                         ALPHA = 3, ALPHA = 4] ,
+
+    VERIFY IF ANY OF THESE VALUES FOR ALPHA LEADS TO DOMINANT
+
+    BEHAVIOR,
+
+    IF IT DOES THEN RUN THE PROGRAM AGAIN WITH THIS VALUE
+
+    AS USER SUPPLIED ALPHA, CALLED BETA.
+
+----------------------------------------------------------------
+
+  FOR EXPONENTS ( 2 ALPHA - 4 ) AND ( ALPHA - 5 ) OF g,
+
+    WITH alpha =  - 1 , POWER OF g is  - 6  ----> SOLVE FOR  U
+                                                              0
+
+                                 1
+       TERM  - 60 (U  - 2) U  H  --  IS DOMINANT
+                    0       0  Y  6
+                                 G
+
+       IN EQUATION.
+
+----------------------------------------------------------------
+
+1 )  WITH  U  = 2  ----> FIND RESONANCES
+            0
+
+                    ALPHA         R + ALPHA
+    SUBSTITUTE  U  G       +  U  G           FOR f IN EQUATION
+                 0             R
+
+                                                                 R - 6
+       TERM ( - H  (R - 6) (R - 5) (R - 4) (R - 1) (R + 1) ) U  G      
+                 Y                                            R
+
+                                                                     IS DOMINANT
+
+       IN EQUATION.
+
+       THE 4 NON-NEGATIVE INTEGRAL ROOTS ARE  [R = 1, R = 4, R = 5, R = 6]
+
+ 
+
+    WITH MAXIMUM RESONANCE =  6  ----> CHECK RESONANCES.
+
+                              6
+                             ====
+                             \      K - 1
+    SUBSTITUTE POWER SERIES   >    G      U   FOR f IN EQUATION.
+                             /             K
+                             ====
+                             K = 0
+
+    WITH U  = 2
+          0
+
+                         1
+        * COEFFICIENT OF -- IS  0
+                          5
+                         G
+
+        U  IS ARBITRARY !
+         1
+
+       COMPATIBILITY CONDITION IS SATISFIED !
+
+                         1              3
+        * COEFFICIENT OF -- IS  12 ((H )  + 6 U  H  - 2 H  - 2 U  )
+                          4           Y        2  Y      T      1
+                         G                                       Y
+
+                   3
+               (H )  - 2 H  - 2 U
+                 Y        T      1
+                                  Y
+        U  = - --------------------
+         2             6 H
+                          Y
+
+                         1
+        * COEFFICIENT OF -- IS  12 H  (H    + 4 U )
+                          3         Y   Y Y      3
+                         G
+
+               H
+                Y Y
+        U  = - ----
+         3      4
+
+                         1
+        * COEFFICIENT OF -- IS  0
+                          2
+                         G
+
+        U  IS ARBITRARY !
+         4
+
+       COMPATIBILITY CONDITION IS SATISFIED !
+
+                         1
+        * COEFFICIENT OF - IS  0
+                         G
+
+        U  IS ARBITRARY !
+         5
+
+       COMPATIBILITY CONDITION IS SATISFIED !
+
+        * COEFFICIENT OF 1 IS  0
+
+        U  IS ARBITRARY !
+         6
+
+       COMPATIBILITY CONDITION IS SATISFIED !
+
+----------------------------------------------------------------
+
+
+(C18) output()$
+
+----------------------------------------------------------------
+
+AT THE END OF THE COMPUTATIONS THE FOLLOWING ARE AVAILABLE:
+
+* U VALUE(S)
+
+  (type uval[j,k,l] where 1 <= j <=  1 and 0 <= k <=  [6]
+
+  and 1 <= l <=  [1] )
+
+  j stands for j_th alpha,k stands for u[k],l stands for
+
+  l_th solution set for u[0] 
+
+* ALPHA VALUE(S)
+
+  (type alpha[j] where 1 <= j <=  1 )
+
+  j stands for j_th alpha
+
+* COMPATIBILITY CONDITION(S)
+
+  (type compcond[j,k] where 1 <= j <=  1 and 1 <= k <=  [1] )
+
+  j stands for j_th alpha,k stands for k_th solution set for u[0]
+
+* RESONANCE(S)
+
+  (type res[j,k] where 1 <= j <=  1 and 1 <= k <=  [1] )
+
+  j stands for j_th alpha,k stands for k_th solution set for u[0]
+
+----------------------------------------------------------------
+
+TO SEE THIS MENU AGAIN JUST TYPE < output() >
+
+----------------------------------------------------------------
+
+
+
+(C19) /* ************************** END of NP_EXEC.MAX ************************** */
+
+
+
+(C20) closefile();

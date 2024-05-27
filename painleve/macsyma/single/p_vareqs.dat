@@ -1,0 +1,540 @@
+
+/* ********************************************************************** */
+/*                   Batch file P_VAREQS.DAT                              */
+/* ********************************************************************** */
+/*                                                                        */
+/*          VARIOUS INPUT EXAMPLES for the PAINLEVE PROGRAM               */
+/*                  classified in PDEs and ODEs                           */
+/*                                                                        */
+/*                   Updated : March 15, 1989                             */
+/*                                                                        */
+/* ********************************************************************** */
+/*                                                                        */ 
+/****************************** PDES ************************************ */
+
+/* The KORTEWEG-DE VRIES equation : */
+/* eq : ftx[1,0](t,x)+f*ftx[0,1](t,x)+b*ftx[0,3](t,x); */
+/* where b is an arbitrary real constant */
+
+/* The KINIMATIC equation : */
+/* eq : ftx[1,0](t,x)+f*ftx[0,1](t,x); */
+
+/* The MODIFIED KORTEWEG-DE VRIES equation : */
+/* eq : ftx[1,0](t,x)-3*(f^2)*ftx[0,1](t,x)+2*(a^2)*ftx[0,3](t,x); */
+/* where a is an arbitrary real constant */
+
+/* The BURGERS equation : */
+/* eq : ftx[1,0](t,x)+f*ftx[0,1](t,x) - a*ftx[0,2](t,x); */
+/* where a is an arbitrary constant */
+
+/* The HARRY DYM equation : */
+/* eq : ftx[1,0](t,x)+(1-f)^3*ftx[0,3](t,x); */
+
+/* The SINE GORDON equation, in light cone coordinates : */
+/* eq : 2*f*ftx[1,1](t,x)-2*ftx[1,0](t,x)*ftx[0,1](t,x)-f^3+f; */
+
+/* The SINE GORDON equation, in laboratory coordinates : */
+/* eq : 2*f*ftx[2,0](t,x)-2*(ftx[1,0](t,x))^2 */
+/*      -2*f*ftx[0,2](t,x)+2*(ftx[0,1](t,x))^2 */
+/*      -f^3+f; */
+
+/* The SIGN ALTERED SINE GORDON equation, in laboratory coordinates : */
+/* eq : 2*f*ftx[2,0](t,x)-2*(ftx[1,0](t,x))^2 */
+/*      +2*f*ftx[0,2](t,x)-2*(ftx[0,1](t,x))^2 */
+/*      -f^3+f; */
+
+/* The DOUBLE SINE GORDON equation : */
+/* eq : f*ftx[0,2](t,x)-ftx[0,1](t,x)*ftx[0,1](t,x)-a*((f^3)-f)-(f^4)+1; */
+/* where a is an arbitrary parameter */
+
+/* The PARAMETRICAL SINE GORDON equation, in light cone coordinates : */
+/* eq : f*ftx[1,1](t,x)-ftx[1,0](t,x)*ftx[0,1](t,x) */
+/*      -(b(t)/2)*((f^3)-f) */
+/*      +a(t)*(f*ftx[0,1](t,x)+x*f*ftx[0,2](t,x)-x*(ftx[0,1](t,x)^2)); */
+/* where a(t) and b(t) are arbitrary functions of t */
+
+/* The PARAMETRICAL SINE GORDON equation in laboratory coordinates : */
+/* eq : 2*f*ftx[2,0](t,x)-2*a(x,t)*f*ftx[0,2](t,x)-2*(ftx[1,0](t,x))^2 */
+/*      +2*a(x,t)*(ftx[0,1](t,x))^2+b(x,t)*(f^3-f); */
+/* where a(x,t) and b(x,t) are arbitrary functions of x and t */
+
+/* The LIOUVILLE equation  : */
+/* eq : f*(ftx[2,0](t,x)-ftx[0,2](t,x))+(ftx[0,1](t,x))^2-(ftx[1,0](t,x))^2 */
+/*      +a*f^3; */
+/* where a is an arbitrary constant */
+
+/* The LIOUVILLE equation in light cone coordinates : */
+/* eq : f*ftx[1,1](t,x)-(ftx[1,0](t,x))*(ftx[0,1](t,x))-f^3; */
+
+/* The MODIFIED LIOUVILLE equation : */
+/* eq : f*(ftx[2,0](t,x)-ftx[0,2](t,x))+(ftx[0,1](t,x))^2-(ftx[1,0](t,x))^2 */
+/*      -a*(f^3)-b; */
+/* where a and b are arbitrary constants */
+
+/* The DOUBLE LIOUVILLE equation : */
+/* eq : f*(ftx[2,0](t,x)-ftx[0,2](t,x))+(ftx[0,1](t,x))^2-(ftx[1,0](t,x))^2 */
+/*      -a*(f^3)-b; */
+/* where a and b are arbitrary constants */
+
+/* The Korteweg-de Vries equation with fifth order dispersive term : */
+/* eq : ftx[1,0](t,x)+b*ftx[0,1](t,x)*ftx[0,2](t,x)+ftx[0,5](t,x); */
+
+/* The fifth order equation from paper Hereman et al : */
+/* eq : ftx[1,0](t,x)+a*f*ftx[0,1](t,x)+b*ftx[0,3](t,x) + ftx[0,5](t,x); */
+/* where a and b are arbitrary constants */
+
+/* The CAUDREY-DODD-GIBBON equation : */
+/* eq : ftx[1,0](t,x)+30*f*ftx[0,3](t,x)+ftx[0,5](t,x) */
+/*      + 30*ftx[0,1](t,x)*ftx[0,2](t,x)+180*f^2*ftx[0,1](t,x); */
+
+/* The HIGHER ORDER KORTEWEG-DE VRIES equation : */
+/* eq : ftx[1,0](t,x)-(5/2)*f*ftx[0,3](t,x)-(1/4)*ftx[0,5](t,x) */
+/*      -5*ftx[0,1](t,x)*ftx[0,2](t,x)-(15/2)*f^2*ftx[0,1](t,x); */
+
+/* The DIFFUSION equation : */
+/* eq : ftx[1,0](t,x)+2*(f^(-3))*((ftx[0,1](t,x))^2) */
+/*      -(f^(-2))*ftx[0,2](t,x); */
+
+/* The MODIFIED DIFFUSION equation : */
+/* eq : (f^3)*(ftx[1,0](t,x))+2*((ftx[0,1](t,x))^2)-(f)*ftx[0,2](t,x); */
+
+/* The BULLOUGH-DODD equation : */
+/* eq : f*ftx[1,1](t,x)-ftx[1,0](t,x)*ftx[0,1](t,x)-b*f^4+a*f; */
+/* where a and b are arbitrary constants */
+
+/* The KADOMTSEV PETVIASHVILI equation : */
+/* eq : ftxy[1,1,0](t,x,y)+(ftxy[0,1,0](t,x,y))^2   */     
+/*      +f*ftxy[0,2,0](t,x,y)+ftxy[0,4,0](t,x,y)+ftxy[0,0,2](t,x,y); */
+
+/* The HASAGEWA MIMA equation : */
+/* eq : ftxy[1,2,0](t,x,y)+ftxy[1,0,2](t,x,y)   */     
+/*      -a*ftxy[1,0,0](t,x,y)+b*ftxy[0,1,0](t,x,y) */
+/*      +ftxy[0,1,0](t,x,y)*(ftxy[0,2,1](t,x,y)+ftxy[0,0,3](t,x,y)) */
+/*      -ftxy[0,0,1](t,x,y)*(ftxy[0,3,0](t,x,y)+ftxy[0,1,2](t,x,y)); */
+
+/* The PARAMETRIC KADOMTSEV PETVIASHVILI equation : */
+/* eq : b(t)*ftxy[0,0,2](t,x,y)+a(t)*ftxy[0,1,0](t,x,y)+ftxy[0,4,0](t,x,y) */
+/*      +f*ftxy[0,2,0](t,x,y)+ (ftxy[0,1,0](t,x,y))^2+ftxy[1,1,0](t,x,y); */
+/* where a(t) and b(t) are arbitrary functions of t */
+
+/* The SINH GORDON equation in 2D :  */
+/*  eq : f*ftx[2,0](t,x) + f*ftx[0,2](t,x) -(ftx[1,0](t,x))^2 */
+/*       -(ftx[0,1](t,x))^2  */
+/*       +(b/2)*(f^3-f); */
+/* where b is an arbitrary positive constant */
+
+/* The SINH GORDON equation in 3D :  */
+/* eq : f*ftxy[0,2,0](t,x,y) + f*ftxy[0,0,2](t,x,y) -f*ftxy[2,0,0](t,x,y) */
+/*      +(ftxy[1,0,0](t,x,y))^2-(ftxy[0,1,0](t,x,y))^2 */
+/*      -(ftxy[0,0,1](t,x,y))^2+(b/2)*(f^3-f); */
+/* where b is an arbitrary positive constant */
+
+/* TWO DIMENSIONAL equation from paper by STEEB : ,*/
+/* eq : f*(ftxy[2,0,0](t,x,y)-ftxy[0,2,0](t,x,y)   */
+/*      -ftxy[0,0,2](t,x,y))-(ftxy[1,0,0](t,x,y))^2+(ftxy[0,1,0](t,x,y))^2 */
+/*      +(ftxy[0,0,1](t,x,y))^2-f^3 ; */
+
+/* The STEEB equation (7a) :  */
+/* eq : ftx[1,0](t,x)+f^2; */
+
+/* The STEEB equation (7b) :  */
+/* eq : ftx[2,0](t,x)+3*f*ftx[1,0](t,x)+f^3; */
+
+/* The STEEB equation (7c) :  */
+/* eq : ftx[3,0](t,x)+4*f*ftx[2,0](t,x)+3*(ftx[1,0](t,x))^2+ */
+/* 6*(f^2)*ftx[1,0](t,x)+f^4;  */
+
+/* The STEEB equation (7d) :  */
+/* eq : ftx[4,0](t,x)+5*f*ftx[3,0](t,x)+10*ftx[1,0](t,x)*ftx[2,0](t,x) */
+/* +15*f*(ftx[1,0](t,x))^2+10*(f^2)*ftx[2,0](t,x)            */
+/* +10*(f^3)*ftx[1,0](t,x)+f^5; */
+
+/* The FISHER equation for n=2 : */
+/* eq : ftx[1,0](t,x)+(f^2)-f-ftx[0,2](t,x); */
+
+/* The FISHER equation for n=3 : */
+/* eq : ftx[1,0](t,x)+(f^3)-f-ftx[0,2](t,x); */
+
+/* The CALOGERO equation : */
+/* eq : (-3)*((f^2)*ftx[0,2](t,x)+3*f*(ftx[0,1](t,x))^2 */
+/*      +(f^4)*ftx[0,1](t,x))+ftx[1,0](t,x)-ftx[0,3](t,x); */
+
+/* the FITZHUGH or NAGUMO equation : */
+/* eq : ftx[1,0](t,x)+ftx[0,2](t,x)-f*(1-f)*(f-a); */
+/* where a is an arbitrary constant */
+
+/* The CLARKSON equation  :  */
+/* eq : (ftx[1,0](t,x))^2-2*f*(ftx[0,1](t,x))^2+(1+f^2)*ftx[0,2](t,x); */
+
+/* Another CLARKSON equation  :  */
+/* eq : 2*f*ftx[1,0](t,x)+ftx[0,2](t,x); */
+
+/* Equation suggested by FOKAS : */
+/* eq : ftx[1,0](t,x)-f^3*ftx[0,1](t,x)-ftx[0,3](t,x); */
+
+/* Two WAVE equations from paper STEEB : */
+/* eq : ftx[2,0](t,x)-ftx[0,2](t,x)+ a*f + b*f^3; */
+/* eq : ftx[2,0](t,x)-ftx[0,2](t,x) + a*f + b*f^2; */
+/* where a and b are parameters */
+
+/* Example of a PDE : */
+/* eq:f*ftx[0,2](t,x) - (5/2)*(ftx[0,1](t,x))^2; */
+
+/* The PDE from paper STEEB : */
+/* eq : ftx[1,0](t,x) - x*f*ftx[0,1](t,x) - (x^2)*ftx[0,2](t,x); */
+
+/* ************************************* ODES **************************** */
+
+/* the FITZHUGH-NAGUMO ODE : */
+/* eq : c*fx[1](x)+fx[2](x)+f*(1-f)*(f-a); */
+/* where c is the wave velocity and a is an arbitrary constant */
+
+/* the FISHER ODE with power k = 2 : */
+/* eq : -c*fx[1](x)+fx[2](x)+f*(1-f)^2; */
+/* where c is the wave velocity  */
+
+/* the FISHER ODE with power k = 3 : */
+/* eq : -c*fx[1](x)+fx[2](x)+f*(1-f)^3; */
+/* where c is the wave velocity  */
+
+/* the FISHER ODE with power k = 4 : */
+/* eq : -c*fx[1](x)+fx[2](x)+f*(1-f)^4; */
+/* where c is the wave velocity  */
+
+/* Example of an ODE : */
+/* eq : ftx[0,1](t,x) +a*(f^3) + b*(f^2); */
+
+/* ODE equation : */
+/* eq : (f^2)*ftx[0,3](t,x)-3*(ftx[0,1](t,x))^3; */
+
+/* This is an example of Hereman  */
+/ * eq : fx[2](x)-6*f^2-f; */
+
+/* The ODEs from paper STEEB : */
+/* eq : (2*f-1)*(ftx[0,1](t,x))^2-ftx[0,2](t,x)*(f^2+1); */
+/* eq : ftx[0,2](t,x)+a*(x^-1)*ftx[0,1](t,x)+b*(f^5); */
+/* where a and b are arbitrary constants */
+
+/* ODE related to the EMDEN equation : */
+/* eq : ftx[0,2](t,x)+3*f*ftx[0,1](t,x)+(f^3); */
+
+/* The INCE equation  : */ 
+/* eq : ftx[0,2](t,x)+f*ftx[0,1](t,x)-f; */
+
+/* The PAINLEVE II equation : */
+/* eq : ftx[0,2](t,x)-a-x*f-2*(f^3); */
+
+/* The ODEs tested in the TEST RUN 1 in paper by Rand and Winternitz : */
+/* =================================================================== */
+
+/* Equation (5.1) : */
+/* eq : ftx[0,2](t,x)+a*(x^-1)*ftx[0,1](t,x)+b*(f^3); */
+
+/* Equation (5.2) : */
+/* eq : ftx[0,2](t,x)+a*(x^-1)*ftx[0,1](t,x)+b*(f^5); */
+
+/* Equation (5.3) : */
+/* eq : (ftx[0,2](t,x) */
+/*      +a*f*ftx[0,1](t,x))^2 */
+/*      +(b+c*x)*(ftx[0,1](t,x))^2 */
+/*      +((d+e*x)*f); */ 
+
+/* Equation (5.4) : */
+/* eq : f*ftx[0,2](t,x)*ftx[0,3](t,x) */
+/*      +f*ftx[0,1](t,x)*ftx[0,2](t,x)*(ftx[0,1](t,x)-f^2) */
+/*      +a*f*(ftx[0,2](t,x))^2 */
+/*      +b*(ftx[0,1](t,x))^3; */
+
+/* Equation (5.5) : */
+/* eq : f^4*(ftx[0,2](t,x))^2 */
+/*      +a*f^3*(ftx[0,1](t,x))^2*ftx[0,2](t,x) */
+/*      +b*(ftx[0,1](t,x))^5 */
+/*      +c*f*(ftx[0,1](t,x))^4 */
+/*      +d*f^2*(ftx[0,1](t,x))^3; */
+/* where a, b, c and d are arbitrary constants */
+
+/* Equation (5.6) : */
+/* eq : f^2*ftx[0,3](t,x) */
+/*      -3*(ftx[0,1](t,x))^3; */
+
+/* Equation (5.7) : */
+/* eq : 4*(a^2-1)*ftx[0,2](t,x) */
+/*      +2*ftx[0,1](t,x) */
+/*      +a*f^5*%e^(x/(a-1)); */
+/* where a is a constant */
+
+/* Equation (5.7) in modified form : */
+/* eq : 4*(a^2-1)*ftx[0,2](t,x) */
+/*      +2*ftx[0,1](t,x) */
+/*      +a*f^5; */
+/* where a is a constant */
+
+/* ODEs used in TEST RUN 2 in paper by Rand and Winternitz : */
+/* ========================================================  */
+
+/* Equation (5.5) with  a = -10/3 :  */
+/* eq : f^4*(ftx[0,2](t,x))^2 */
+/*      -(10/3)*f^3*(ftx[0,1](t,x))^2*ftx[0,2](t,x) */
+/*      +b*(ftx[0,1](t,x))^5 */
+/*      +c*f*(ftx[0,1](t,x))^4 */
+/*      +d*f^2*(ftx[0,1](t,x))^3; */
+/* where a, b, c and d are arbitrary constants */
+
+/* Equation (5.6) : */
+/* eq : f^2*ftx[0,3](t,x) */
+/*      -3*(ftx[0,1](t,x))^3; */
+/* together with the following value of beta  : */
+/* beta : -2; */
+
+/* Equation (5.7) in modified form : */
+/* eq : 4*(a^2-1)*ftx[0,2](t,x) */
+/*      +2*ftx[0,1](t,x) */
+/*      +a*(f^5)*(exp(x0/(a-1))) */
+/*      *(1+(g)/(a-1)+(g^2)/(2*(a-1)^2)+(g^3)/((6*(a-1)^3))); */
+/* where a is an arbitrary constant */
+
+/* ================================================================== */
+
+/* The FISHER ODE equation :  */
+/* eq : -c*fx[1](x)-f+f^2-fx[2](x);  */
+/* where c is the wave velocity (later to be chosen to as c^2 = 25/6)  */
+
+/* The FIFTH ORDER KDV ODE : */
+/* eq : -c*fx[1](x)+a*f*fx[1](x)+b*fx[3](x) + fx[5](x); */
+/* where c is the wave velocity and a and b are arbitrary constants */
+
+/* The FIFTH ORDER ODE  from paper Hereman et al : */
+/* eq : -c*fx[1](x)+b*fx[1](x)*fx[2](x) + fx[5](x); */
+
+/* The KLEIN GORDON ODE equation : */
+/* eq : -c^2*fx[2](x)-fx[2](x)+b*f^3+a*f; */
+
+/* The THOMAS ODE equation : */
+/* eq : -c*fx[2](x) +a*fx[1](x)-b*c*fx[1](x)-c*(fx[1](x))^2; */
+/* where c is the wave velocity and a and b are arbitrary constants */
+
+/* The KURAMOTO-SIVASHINSKY ODE equation : */
+/* eq : -c*fx[1](x)+f*fx[1](x)+a*fx[2](x)+b*fx[4](x); */
+/* where c is the wave velocity and a and b are arbitrary constants */
+
+/* The WEISS ODE equation : */
+/* eq : -c*fx[1](x)-(fx[1](x))^2-2*f*fx[1](x)+fx[4](x); */
+
+/* The HARRY DYM ODE equation : */
+/* eq : -c*fx[1](x)-f^3*fx[3](x); */
+
+/* ODE from paper Ablowitz et al :  */
+/* eq : 2*f*(fx[1](x))^2+(1-f^2)*fx[2](x); */
+
+/* ODE suggested by Rand : */
+/* eq : fx[2](x) + fx[1](x) -(a+b*f+c*f^3+d*f^5); */
+/* where a, b, c and d are constants */
+
+/* The CLARKSON ODE : */
+/* eq : c^2* (fx[1](x))^2-2*f*(fx[1](x))^2+(1+f^2)*fx[2](x); */
+/* where c is the wave velocity */
+
+/* ********************************************************************** */
+/*                          Batch file Winternitz.DAT                     */
+/* ********************************************************************** */
+
+/* contains examples taken from the papers of Winternitz */
+
+/* This is the  Winternitz Eq (3.5) in CRM Report 1 (Lie Symm.)  p 15 */
+/* This is the  Winternitz Eq (2.2f) in CRM Report 1 (Lie Symm.)  p 7 */
+/* eq : 2*fx[1](x)*fx[3](x)-(fx[2](x))^2+(1/4)*(x^2+8*a)*(fx[1](x))^2 */
+/* -(1/4)*f^2-4*b*(fx[1](x))^3; */
+/* where a and b are arbitrary parameters */
+
+/* This is the  Winternitz Eq (4.1) in CRM Report 2 (Exact Sols.) p 22 */
+/* eq : -2*f*fx[2](x)+(fx[1](x))^2-(2/x)*f*fx[1](x)+(((2*a)/x)*f)^2 */
+/* +((2*h)/x)^2+4*(c-b)*f^2+4*d*f^3+4*e*f^4; */
+/* where a, b, c, d, e, and h are free parameters to be bounded by (2.20) */
+
+/* This is the  Winternitz Eq (11) in CRM Report 3 (Exact Sols quintic) p 5 */
+/* eq : (x^2)*(2*f*fx[2](x)-(fx[1](x))^2)+2*x*f*fx[1](x) */
+/* -4*(a^2)*f^2-4*(x^2)*(c-b)*f^2-4*(x^2)*d*f^3-4*(x^2)*e*(f^4)-4*(h^2); */
+/* where a, b, c, d, e, and h are free parameters  */
+
+/* This is the  Winternitz Eq (2.10) in CRM Report 1 (Lie Symm.)  p 11 */
+/* eq : 2*fx[1](x)*fx[3](x)-(fx[2](x))^2+b*(fx[1](x))^2+d*(fx[1](x))^3; */
+/* where a, b, c and d are arbitrary parameters */
+
+/* This is the  Winternitz Eq (2.11) in CRM Report 1 (Lie Symm.)  p 11 */
+/* eq : 2*fx[1](x)*fx[3](x)-(fx[2](x))^2+a*(fx[1](x))^2+c*(fx[1](x))^4 */
+/* +b*f^2; */
+/* beta : 0; */
+/* where a, b and c are arbitrary parameters */
+
+/* This is the  Winternitz Eq (2.11) in CRM Report 1 (Lie Symm.)  p 11 */
+/* eq : 2*fx[1](x)*fx[3](x)-(fx[2](x))^2+b*(fx[1](x))^2+d*(fx[1](x))^4 */
+/* +a*fx[1](x)*fx[2](x)+c*f^2; */
+/* beta : 0; */
+/* where a, b, c and d are arbitrary parameters */
+
+/* This is BUREAU's Eq (4.6) in Winternitz CRM Report 1 (Lie Symm.)  p 17 */
+/* eq : (fx[2](x))^2-4*(f-x*fx[1](x))+2*(fx[1](x))^3 */
+/* +(16/3)*(2*a^2-3*c*b)*fx[1](x)-(16/27)*(1/(k^2))*(4*a^3-9*c*a*b); */
+/* where a, b and c are arbitrary constants */
+
+/* This is the dispersionless KP or the ZABOLOTSKAYA-KHOKHLOV  Eq (9) */
+/* in Winternitz Phys. Lett. A 129 (3) p 163; also Eq (43) in : */
+/* CRM Report 4 (Kac-Moody-Virasoro symm) p 16 */
+/* eq : ftxy[1,1,0](t,x,y)+(3/2)*diff(f*ftxy[0,1,0](t,x,y),x) */
+/* +(3/4)*a*ftxy[0,0,2](t,x,y); */
+/* beta : 0; */
+/* where a is an arbitrary parameter */
+
+/* This is PAINLEVE IV Eq (4.10) in Winternitz CRM Report 1 (Lie Symm.) p 17 */
+/* eq : -2*f*fx[2](x)+(fx[1](x))^2+3*f^4+8*x*y^3+4*(x^2-a)*y^2+2*b; */
+/* where a and b are arbitrary constants */
+
+/* This is the winternitz  Eq (5.31) CRM Report 5 (Group Theor.) p 25 */
+/* eq : -4*f*fx[2](x)+5*(fx[1](x))^2+16*(2-(c^2))*f^3+4*(b^2)*f^2; */
+/* where b and c are arbitrary constants */
+
+/* This is the winternitz  Eq (5.34) CRM Report 5 (Group Theor.) p 25 */
+/* eq : 4*(f^3)*fx[2](x)+(b^2)*(f^4)+4*(2-(c^2)); */
+/* where b and c are arbitrary constants */
+
+/* This is the winternitz  Eq (6.19b) CRM Report 5 (Group Theor.) p 33 */
+/* eq : -f*fx[2](x)+(b^2)*(f^2)+b*(f^3)+2*(fx[1](x))^2-2*c*(f^5); */
+/* where b and c are arbitrary constants */
+
+/* This is the winternitz  Eq (6.18b) CRM Report 5 (Group Theor.) p 33 */
+/* eq : fx[2](x)+5*f*fx[1](x)+3*(f^3)+3*(c^2)*f; */
+/* where c is arbitrary constant */
+
+/* This is the equation considered by CALOGERO and DEGASPERIS in */
+/* Winternitz (Eq (4.22)), J. Math. Phys. 27 (5) p 1236 */
+/* eq : ftx[1,0](t,x)-6*f*ftx[0,1](t,x)-4*x*ftx[0,1](t,x)+ftx[0,3](t,x)-2*f; */
+
+/* This is the  Winternitz Eq (5.1) in J. Math. Phys. 27 (5) p 1236 */
+/* Also :  MODIFIED KP, Winternitz Eq (21) in CRM Report on Macsyma p 21 */
+/* eq : diff(-4*ftxy[1,0,0](t,x,y)-2*(ftxy[0,1,0](t,x,y))^3 */
+/* +ftxy[0,3,0](t,x,y),x)-6*ftxy[0,2,0](t,x,y)*ftxy[0,0,1](t,x,y) */
+/* +3*ftxy[0,0,2](t,x,y); */
+/* beta : 0; */
+
+/* This is the cylindrical KdV Eq (9b) in Phys. Lett. A 129 (3) p 167 */
+/* eq : diff(ftx[1,0](t,x)+6*f*ftx[0,1](t,x)+ftx[0,3](t,x)+(1/2)*(1/t)*f,x); */
+
+/* This is the  Winternitz Eq (10) in Phys. Lett. A 129 (3) p 163   */
+/* eq : diff(ftxy[1,0,0](t,x,y)+(3/2)*f*ftxy[0,1,0](t,x,y),x) */
+/* +(3/4)*b*ftxy[0,0,2](t,x,y)+a/(y^3); */
+/* beta : 0; */
+/* where a and b are arbitrary parameters */
+
+/* This is the  Winternitz Eq (11) in Phys. Lett. A 129 (3) p 163   */
+/* eq : diff(ftxy[1,0,0](t,x,y)+(3/2)*f*ftxy[0,1,0](t,x,y),x)
+/* +(3/4)*b*ftxy[0,0,2](t,x,y) */
+/* +a*(y*ftxy[0,0,1](t,x,y)-2*f+2*x*ftxy[0,1,0](t,x,y))/(y^2); */
+/* beta : 0; */
+/* where a and b are arbitrary parameters */ 
+
+/* This is the  Winternitz Eq (3.5) in CRM Report on Macsyma p 15 */
+/* eq : 2*fx[1](x)*fx[2](x)-(fx[2](x))^2+(1/4)*(x^2+8*a)*(fx[1](x))^2 */
+/* -(1/4)*f^2-4*b*(fx[1](x))^3; */
+/* where a and b are arbitrary parameters */
+
+/* This is the  Winternitz Eq (1) Phys. Lett. A 129 (3) p 165 */
+/* Also Eq (34) in Winternitz CRM Report 4 (Kac-Moody-Virasoro symm) p 12 */
+/* eq : diff(ftxy[1,0,0](t,x,y)+6*f*ftxy[0,1,0](t,x,y)+ftxy[0,3,0](t,x,y)
+/* +(1/(2*t))*f + (c(t)+y*b(t))*ftxy[0,1,0](t,x,y) */
+/* +a(t)*ftxy[0,0,1](t,x,y),x)+(d/(4*t*t))*ftxy[0,0,2](t,x,y); */
+/* where a(t), b(t) and c(t) are arbitrary functions of t and d is constant */ 
+
+/* This is the  Winternitz Eq (20) in CRM Report 1 on Macsyma p 19  */
+/* eq : ftx[1,0](t,x)+a(t,x)*f*ftx[0,1](t,x)+b(x,t)*ftx[0,3](t,x); */
+/* where a(x,t) and b(x,t) are arbitary functions */
+
+/* ************************ END of winternitz.DAT *********************** */
+
+/* ********************************************************************** */
+/*                          Batch file hajee.DAT                          */
+/* ************************************************************************/
+
+/* contains examples taken from the thesis of HAJEE */
+
+/* This is the  Hajee Eq (2.2.3)  */
+/* eq : fx[3](x)+f*fx[2](x)-2*f^3+a*f^2+b*f; */
+/* where a and b are arbitrary parameters */ 
+
+/* This is the  Hajee Eq (2.2.8)   */
+/* eq : fx[3](x)+a*f*fx[2](x)+b*(fx[1](x))^2+c*f^4+d*f*fx[1](x)+e*f^3 */
+/* +p*f^2+q*f; */
+/* where a, b, c, d, e, p and q are arbitrary parameters */ 
+
+/* This is the  Hajee Eq (2.3.2)   */
+/* eq : fx[2](x)+4*f*fx[1](x)+2*f^3; */
+
+/* This is the  Hajee Eq (2.5.1) for p = 1  */
+/* eq : fx[2](x)-x*f-2*f^3; */
+
+/* This is the  Hajee Eq (2.5.1) for p = 0 */
+/* eq : fx[2](x)-f-2*f^3; */
+
+/* This is the  Hajee Eq (2.5.3)  */
+/* eq : ftx[1,0](t,x)+6*(f^3)*ftx[0,1](t,x)+ftx[0,3](t,x); */
+
+/* This is the  Hajee Eq (2.5.5)  */
+/* eq : 2*f*fx[1](x)+2*x*(fx[2](x)-(fx[1](x))^2)-f^3+f+a*(1-f^4); */
+/* where a is an arbitrary parameter */ 
+
+/* This is the  Hajee Eq (2.5.6) however with a not necessarily equals 1 */
+/* eq : fx[2](x)+c*fx[1](x)-f-f^2; */
+/* where c is a constant */ 
+
+/* This is the  Hajee Eq (3.3.14)  */
+/* eq : fx[3](x)-6*(f^2)*fx[1](x)-x*fx[1](x)-f; */
+/* beta : 0; */
+
+/* This is the  Hajee Eq (3.3.14bis)  */
+/* eq : fx[3](x)-6*(f^2)*fx[1](x)-x*fx[1](x)-f; */
+/* beta : 0; */
+
+/* This is the  Hajee Eq (4.1.3)  */
+/* eq : fx[2](x)-6*f^2-x; */
+
+/* This is the  Hajee Eq (8.1)  */
+/* eq : (fx[1](x))^2+3*f^4+8*x*f^3+4*(x^2-a)*f^2+2*b*c; */
+/* where a, b and c are a arbitrary constants */ 
+
+/* This is the  Hajee Eq (8.1)  */
+/* however with the opposite sign in the term of (fx[1](x))^2 */
+/* eq : -(fx[1](x))^2+3*f^4+8*x*f^3+4*(x^2-a)*f^2+2*b*c; */
+/* where a, b and c are a arbitrary constants */ 
+
+/* This is the  Hajee Eq (8.2)  */
+/* eq : ftx[1,0](t,x)-f*(1-f)*(f-a)-ftx[0,2](t,x); */
+/* where a is an arbitrary constant */ 
+
+/* This is the  Hajee Eq (8.2bis)  */
+/* eq : fx[2](x)+c*fx[1](x)+f^2-f^3+a*f^2-a*f; */
+/* where a and c are arbitrary constants */ 
+
+/* This is the  hajee eq (8.4)  */
+/* eq : 8*f*fx[3](x)+f*fx[1](x)*(8*c*f-24*fx[2](x)-4*%i*b*(f^2-1)) */
+/* +15*(fx[3](x))^3; */
+/* where a, b and c are a arbitrary constants, and %i is the imaginary unity */ 
+
+/* This is the  Hajee Eq (8.4) for a=1 */
+/* eq : 8*(f^2)*fx[3](x)+f*fx[1](x)*(8*c*f-24*fx[2](x)-4*%i*b*(f^2-1)) */ 
+/* +15*f^3; */
+/* where a, b and c are a arbitrary constants, and %i=imaginary unity */ 
+
+/* This is the  Hajee Eq (8.5)  */
+/* eq : fx[3](x)-fx[1](x)*(x+6*f)-2*f; */
+/* where a, b and c are a arbitrary constants */ 
+
+/* This is the  Hajee Eq (2.2.6)   */
+/* eq : (f^2)*fx[2](x)-fx[2](x)-2*f*(fx[1](x))^2; */
+/* beta : -1; */
+
+/* This is the  Hajee Eq (3.2.10)  */
+/* eq : fx[2](x)-6*f^2-x; */
+
+/* *************************** END of hajee.DAT ************************* */
+
+/* ********************* END of P_VAREQS.DAT **************************** */
+

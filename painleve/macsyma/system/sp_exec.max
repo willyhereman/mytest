@@ -1,0 +1,6 @@
+
+/* sp_exec.max */
+
+exec_painleve(eqlist,do_resonances,max_resonance,do_simplification)$
+
+/* sp_exec.max */

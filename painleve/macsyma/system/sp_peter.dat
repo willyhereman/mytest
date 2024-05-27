@@ -1,0 +1,24 @@
+
+/* sp_peter.dat */
+
+/* The equations from Clarkson */
+
+eq[1]: fx[1,1](x)-f[2]*f[3]+f[1]*(f[2]+f[3])-f[4]^2$
+eq[2]: fx[2,1](x)-f[1]*f[3]+f[2]*(f[1]+f[3])-f[5]^2$
+eq[3]: fx[3,1](x)-f[1]*f[2]+f[3]*(f[1]+f[2])+f[4]*f[5]$
+eq[4]: fx[4,1](x)-f[1]*(f[5]-f[4])+f[3]*(f[4]+f[5])$
+eq[5]: fx[5,1](x)+f[2]*(f[5]-f[4])+f[3]*(f[5]+f[4])$ 
+
+noeqs: 5$
+nofun: 5$
+
+/* For Kruskal Simplification the file needs following 2 lines */
+
+do_simplification: true$
+prefer_variable: x$
+
+debugfullinfo: false$
+
+betalist: []$
+
+/* sp_peter.dat */

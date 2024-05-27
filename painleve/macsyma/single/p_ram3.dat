@@ -1,0 +1,21 @@
+
+/* ************************************************************************* */
+/*                           Batch file p_ram3.dat                           */
+/* ************************************************************************* */
+
+/* Comment: FIX BRACKETS */
+
+/*
+To use the simplification suggested by Kruskal the file needs to 
+contain the following two lines: 
+
+do_simplification: true;
+prefer_variable:x;
+*/
+
+/* The Ramani (3.68) equation :  */
+
+eq : fx[1](x)+f^2;
+
+/* **************************** END of P_RAM3.DAT ************************* */
+

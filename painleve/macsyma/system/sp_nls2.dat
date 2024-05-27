@@ -1,0 +1,28 @@
+
+/* sp_nls2.dat */
+
+debugfullinfo: false;
+
+/*
+To use the simplification suggested by Kruskal the file needs to 
+contain the following two lines */ 
+
+do_simplification: true;
+prefer_variable: x;
+
+/* To use user-suplied alphalist (called betalist) the file needs the contain
+   the following line */
+
+betalist: [];   
+
+/* The equation(s) */
+
+eq[1]: -ftx[2,1,0](t,x)+ftx[1,0,2](t,x)+(f[2]^2+f[1]^2)*f[1]+f[3]; 
+eq[2]: ftx[1,1,0](t,x)+ftx[2,0,2](t,x)+(f[2]^2+f[1]^2)*f[2]+f[4]; 
+eq[3]: -ftx[4,1,0](t,x)+ftx[3,0,2](t,x)+(f[4]^2+f[3]^2)*f[3]+f[1]; 
+eq[4]: ftx[3,1,0](t,x)+ftx[4,0,2](t,x)+(f[4]^2+f[3]^2)*f[4]+f[2]; 
+
+noeqs: 4$
+nofun: 4$
+
+/* sp_nls2.dat */

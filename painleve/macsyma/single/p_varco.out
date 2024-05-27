@@ -1,0 +1,374 @@
+
+(D13)     CSM$USERS:[WHEREMAN.PROGRAMS.NPAINLEVE.SINGLE]P_VARCO.OUT;1
+
+
+(C14) batch("np_exec.max");
+
+
+(C15) /* ************************************************************************* */
+/*                           Batch file NP_EXEC.MAX                          */
+/* ************************************************************************* */
+
+exec_painleve (eq, alpha, do_resonances, max_resonance, do_simplification)$
+
+  SUBSTITUTE  X ----> G + X0
+
+----------------------------------------------------------------
+
+                                     2                3
+PAINLEVE ANALYSIS OF EQUATION,  - 4 F  A(G + X0) - 8 F  (G + X0) + 2 F F
+                                                                        G G
+
+                                                             2      4
+                                                       - (F )  - 3 F  - 2 B  = 0
+                                                           G
+
+----------------------------------------------------------------
+
+                  ALPHA
+  SUBSTITUTE  U  G       FOR f IN ORIGINAL EQUATION.
+               0
+
+  MINIMUM POWERS OF g ARE  [2 ALPHA - 2, 4 ALPHA, 3 ALPHA, 0]
+
+                       2 ALPHA - 2       2
+    * COEFFICIENT OF  G             IS  U  (ALPHA - 2) ALPHA
+                                         0
+
+    NOTE : THIS TERM VANISHES FOR   [ALPHA = 0, ALPHA = 2] ,
+
+    VERIFY IF ANY OF THESE VALUES FOR ALPHA LEADS TO DOMINANT
+
+    BEHAVIOR,
+
+    IF IT DOES THEN RUN THE PROGRAM AGAIN WITH THIS VALUE
+
+    AS USER SUPPLIED ALPHA, CALLED BETA.
+
+                       4 ALPHA           4
+    * COEFFICIENT OF  G         IS  - 3 U
+                                         0
+
+                       3 ALPHA           3
+    * COEFFICIENT OF  G         IS  - 8 U  X0
+                                         0
+
+    * COEFFICIENT OF  1  IS  - 2 B
+
+----------------------------------------------------------------
+
+  FOR EXPONENTS ( 2 ALPHA - 2 ) AND ( 4 ALPHA ) OF g,
+
+    WITH alpha =  - 1 , POWER OF g is  - 4  ----> SOLVE FOR  U
+                                                              0
+
+                           2          1
+       TERM  - 3 (U  - 1) U  (U  + 1) --  IS DOMINANT
+                   0       0   0       4
+                                      G
+
+       IN EQUATION.
+
+----------------------------------------------------------------
+
+1 ) WITH  U  = 1  ---> FIND RESONANCES
+           0
+
+                    ALPHA         R + ALPHA
+    SUBSTITUTE  U  G       +  U  G           FOR f IN EQUATION
+                 0             R
+
+                                      R - 4
+       TERM ( 2 (R - 3) (R + 1) ) U  G       IS DOMINANT
+                                   R
+
+       IN EQUATION.
+
+       THE ONLY NON-NEGATIVE INTEGRAL ROOT IS  [R = 3]
+
+ 
+
+    WITH MAXIMUM RESONANCE =  3  ----> CHECK RESONANCES.
+
+                              3
+                             ====
+                             \         K - 1
+    SUBSTITUTE POWER SERIES   >    U  G       FOR f IN EQUATION.
+                             /      K
+                             ====
+                             K = 0
+
+    WITH U  = 1
+          0
+
+                         1
+        * COEFFICIENT OF -- IS  - 8 (X0 + U )
+                          3                1
+                         G
+
+        U  = - X0
+         1
+
+                         1                             2
+        * COEFFICIENT OF -- IS  - 2 (2 A(G + X0) - 3 X0  + 3 U  + 4)
+                          2                                   2
+                         G
+
+                                 2
+               2 A(G + X0) - 3 X0  + 4
+        U  = - -----------------------
+         2                3
+
+                         1
+        * COEFFICIENT OF - IS  8 X0
+                         G
+
+        U   IS ARBITRARY ?
+         3
+
+        COMPATIBILITY CONDITION:  8 X0  = 0,
+
+   *** CONDITION IS NOT SATISFIED. ***
+
+   *** CHECK FOR FREE PARAMETERS OR PRESENCE OF U  . ***
+                                                 0
+
+                                           3
+      * COEFFICIENT OF X0 IN NUMERATOR IS 2
+
+----------------------------------------------------------------
+
+2 ) WITH  U  = - 1  ---> FIND RESONANCES
+           0
+
+                    ALPHA         R + ALPHA
+    SUBSTITUTE  U  G       +  U  G           FOR f IN EQUATION
+                 0             R
+
+                                        R - 4
+       TERM ( - 2 (R - 3) (R + 1) ) U  G       IS DOMINANT
+                                     R
+
+       IN EQUATION.
+
+       THE ONLY NON-NEGATIVE INTEGRAL ROOT IS  [R = 3]
+
+ 
+
+    WITH MAXIMUM RESONANCE =  3  ----> CHECK RESONANCES.
+
+                              3
+                             ====
+                             \         K - 1
+    SUBSTITUTE POWER SERIES   >    U  G       FOR f IN EQUATION.
+                             /      K
+                             ====
+                             K = 0
+
+    WITH U  = - 1
+          0
+
+                         1
+        * COEFFICIENT OF -- IS  8 (X0 + U )
+                          3              1
+                         G
+
+        U  = - X0
+         1
+
+                         1                             2
+        * COEFFICIENT OF -- IS  - 2 (2 A(G + X0) - 3 X0  - 3 U  - 4)
+                          2                                   2
+                         G
+
+                               2
+             2 A(G + X0) - 3 X0  - 4
+        U  = -----------------------
+         2              3
+
+                         1
+        * COEFFICIENT OF - IS  8 X0
+                         G
+
+        U   IS ARBITRARY ?
+         3
+
+        COMPATIBILITY CONDITION:  8 X0  = 0,
+
+   *** CONDITION IS NOT SATISFIED. ***
+
+   *** CHECK FOR FREE PARAMETERS OR PRESENCE OF U  . ***
+                                                 0
+
+                                           3
+      * COEFFICIENT OF X0 IN NUMERATOR IS 2
+
+----------------------------------------------------------------
+
+  FOR EXPONENTS ( 2 ALPHA - 2 ) AND ( 3 ALPHA ) OF g,
+
+    POWER OF g IS NOT MINIMAL 
+						-- SKIP THIS VALUE OF ALPHA.
+
+----------------------------------------------------------------
+
+  FOR EXPONENTS ( 2 ALPHA - 2 ) AND ( 0 ) OF g,
+
+    WITH alpha =  1 , POWER OF g is  0  ----> SOLVE FOR  U
+                                                          0
+
+                       2
+       TERM  - (2 B + U ) 1  IS DOMINANT
+                       0
+
+       IN EQUATION.
+
+----------------------------------------------------------------
+
+1 )  WITH  U  = - SQRT(2) SQRT(- B)  ----> FIND RESONANCES
+            0
+
+                    ALPHA         R + ALPHA
+    SUBSTITUTE  U  G       +  U  G           FOR f IN EQUATION
+                 0             R
+
+                                                          R
+       TERM ( - 2 SQRT(2) SQRT(- B) (R - 1) (R + 1) ) U  G   IS DOMINANT
+                                                       R
+
+       IN EQUATION.
+
+       THE ONLY NON-NEGATIVE INTEGRAL ROOT IS  [R = 1]
+
+ 
+
+    WITH MAXIMUM RESONANCE =  1  ----> CHECK RESONANCES.
+
+                              1
+                             ====
+                             \         K + 1
+    SUBSTITUTE POWER SERIES   >    U  G       FOR f IN EQUATION.
+                             /      K
+                             ====
+                             K = 0
+
+    WITH U  = - SQRT(2) SQRT(- B)
+          0
+
+        * COEFFICIENT OF G IS  0
+
+        U  IS ARBITRARY !
+         1
+
+       COMPATIBILITY CONDITION IS SATISFIED !
+
+----------------------------------------------------------------
+
+2 )  WITH  U  = SQRT(2) SQRT(- B)  ----> FIND RESONANCES
+            0
+
+                    ALPHA         R + ALPHA
+    SUBSTITUTE  U  G       +  U  G           FOR f IN EQUATION
+                 0             R
+
+                                                        R
+       TERM ( 2 SQRT(2) SQRT(- B) (R - 1) (R + 1) ) U  G   IS DOMINANT
+                                                     R
+
+       IN EQUATION.
+
+       THE ONLY NON-NEGATIVE INTEGRAL ROOT IS  [R = 1]
+
+ 
+
+    WITH MAXIMUM RESONANCE =  1  ----> CHECK RESONANCES.
+
+                              1
+                             ====
+                             \         K + 1
+    SUBSTITUTE POWER SERIES   >    U  G       FOR f IN EQUATION.
+                             /      K
+                             ====
+                             K = 0
+
+    WITH U  = SQRT(2) SQRT(- B)
+          0
+
+        * COEFFICIENT OF G IS  0
+
+        U  IS ARBITRARY !
+         1
+
+       COMPATIBILITY CONDITION IS SATISFIED !
+
+----------------------------------------------------------------
+
+  FOR EXPONENTS ( 4 ALPHA ) AND ( 3 ALPHA ) OF g,
+
+    POWER OF g IS NOT MINIMAL 
+						-- SKIP THIS VALUE OF ALPHA.
+
+----------------------------------------------------------------
+
+  FOR EXPONENTS ( 4 ALPHA ) AND ( 0 ) OF g,
+
+ alpha =  0 ALREADY DONE!
+
+----------------------------------------------------------------
+
+  FOR EXPONENTS ( 3 ALPHA ) AND ( 0 ) OF g,
+
+ alpha =  0 ALREADY DONE!
+
+----------------------------------------------------------------
+
+
+(C16) output()$
+
+----------------------------------------------------------------
+
+AT THE END OF THE COMPUTATIONS THE FOLLOWING ARE AVAILABLE:
+
+* U VALUE(S)
+
+  (type uval[j,k,l] where 1 <= j <=  2 and 0 <= k <=  [3, 1]
+
+  and 1 <= l <=  [2, 2] )
+
+  j stands for j_th alpha,k stands for u[k],l stands for
+
+  l_th solution set for u[0] 
+
+* ALPHA VALUE(S)
+
+  (type alpha[j] where 1 <= j <=  2 )
+
+  j stands for j_th alpha
+
+* COMPATIBILITY CONDITION(S)
+
+  (type compcond[j,k] where 1 <= j <=  2 and 1 <= k <=  [2, 2] )
+
+  j stands for j_th alpha,k stands for k_th solution set for u[0]
+
+* RESONANCE(S)
+
+  (type res[j,k] where 1 <= j <=  2 and 1 <= k <=  [2, 2] )
+
+  j stands for j_th alpha,k stands for k_th solution set for u[0]
+
+----------------------------------------------------------------
+
+TO SEE THIS MENU AGAIN JUST TYPE < output() >
+
+----------------------------------------------------------------
+
+
+
+(C17) /* ************************** END of NP_EXEC.MAX ************************** */
+
+
+(D17)                                 DONE
+
+
+(C18) closefile();

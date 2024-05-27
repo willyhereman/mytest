@@ -1,0 +1,130 @@
+
+(D13)      CSM$USERS:[WHEREMAN.PROGRAMS.NPAINLEVE.SINGLE]P_RAM3.OUT;1
+
+
+(C14) batch("np_exec.max");
+
+
+(C15) /* ************************************************************************* */
+/*                           Batch file NP_EXEC.MAX                          */
+/* ************************************************************************* */
+
+exec_painleve (eq, alpha, do_resonances, max_resonance, do_simplification)$
+
+  SUBSTITUTE  X ----> G + X0
+
+----------------------------------------------------------------
+
+                                      2
+PAINLEVE ANALYSIS OF EQUATION,  F  + F   = 0
+                                 G
+
+----------------------------------------------------------------
+
+                  ALPHA
+  SUBSTITUTE  U  G       FOR f IN ORIGINAL EQUATION.
+               0
+
+  MINIMUM POWERS OF g ARE  [2 ALPHA, ALPHA - 1]
+
+                       2 ALPHA       2
+    * COEFFICIENT OF  G         IS  U
+                                     0
+
+                       ALPHA - 1
+    * COEFFICIENT OF  G           IS  U  ALPHA
+                                       0
+
+     NOTE : THIS TERM VANISHES FOR  ALPHA = 0 ,
+
+     VERIFY IF  ALPHA = 0  LEADS TO DOMINANT BEHAVIOR,
+
+     IF IT DOES THEN RUN THE PROGRAM AGAIN WITH THIS USER 
+
+     SUPPLIED VALUE OF ALPHA.
+
+     HENCE, PUT BETA =  0 .
+
+----------------------------------------------------------------
+
+  FOR EXPONENTS ( 2 ALPHA ) AND ( ALPHA - 1 ) OF g,
+
+    WITH alpha =  - 1 , POWER OF g is  - 2  ----> SOLVE FOR  U
+                                                              0
+
+                         1
+       TERM  (U  - 1) U  --  IS DOMINANT
+               0       0  2
+                         G
+
+       IN EQUATION.
+
+----------------------------------------------------------------
+
+1 )  WITH  U  = 1  ----> FIND RESONANCES
+            0
+
+                    ALPHA         R + ALPHA
+    SUBSTITUTE  U  G       +  U  G           FOR f IN EQUATION
+                 0             R
+
+                          R - 2
+       TERM ( R + 1 ) U  G       IS DOMINANT
+                       R
+
+       IN EQUATION.
+
+       THERE ARE NO NON-NEGATIVE INTEGRAL ROOTS FOR r.
+
+----------------------------------------------------------------
+
+
+(C16) output()$
+
+----------------------------------------------------------------
+
+AT THE END OF THE COMPUTATIONS THE FOLLOWING ARE AVAILABLE:
+
+* U VALUE(S)
+
+  (type uval[j,k,l] where 1 <= j <=  1 and 0 <= k <=  [0]
+
+  and 1 <= l <=  [1] )
+
+  j stands for j_th alpha,k stands for u[k],l stands for
+
+  l_th solution set for u[0] 
+
+* ALPHA VALUE(S)
+
+  (type alpha[j] where 1 <= j <=  1 )
+
+  j stands for j_th alpha
+
+* COMPATIBILITY CONDITION(S)
+
+  (type compcond[j,k] where 1 <= j <=  1 and 1 <= k <=  [1] )
+
+  j stands for j_th alpha,k stands for k_th solution set for u[0]
+
+* RESONANCE(S)
+
+  (type res[j,k] where 1 <= j <=  1 and 1 <= k <=  [1] )
+
+  j stands for j_th alpha,k stands for k_th solution set for u[0]
+
+----------------------------------------------------------------
+
+TO SEE THIS MENU AGAIN JUST TYPE < output() >
+
+----------------------------------------------------------------
+
+
+
+(C17) /* ************************** END of NP_EXEC.MAX ************************** */
+
+
+(D17)                                 DONE
+
+
+(C18) closefile();
